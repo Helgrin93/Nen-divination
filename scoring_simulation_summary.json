@@ -1,0 +1,33 @@
+{
+  "uniform_trials": 100000,
+  "uniform_win_percent": {
+    "enhancement": 17.73,
+    "emission": 13.58,
+    "transmutation": 19.34,
+    "conjuration": 21.37,
+    "manipulation": 14.61,
+    "specialization": 13.38
+  },
+  "bonus_initial_percent": 52.12,
+  "threshold_centered_points": 1.5,
+  "primary_count_by_type": {
+    "enhancement": 16,
+    "conjuration": 25,
+    "transmutation": 21,
+    "manipulation": 14,
+    "emission": 10,
+    "specialization": 10
+  },
+  "weight_sum_by_type": {
+    "enhancement": 90,
+    "emission": 81,
+    "transmutation": 90,
+    "conjuration": 114,
+    "manipulation": 119,
+    "specialization": 82
+  },
+  "synthetic_profiles": 6000,
+  "synthetic_congruence_percent": 94.47,
+  "synthetic_repeatability_percent": 90.12,
+  "limitations": "Synthetic tests use artificial response models; they do not establish true psychological accuracy. Weights and thresholds are provisional and reproducible."
+}

@@ -1,0 +1,32 @@
+{
+  "method": "question mean centering, per-type null SD calibration, then small bias correction from seeded 160k uniform responses",
+  "seed": 20261026,
+  "N": 160000,
+  "sd": {
+    "enhancement": 3.010188,
+    "emission": 2.627689,
+    "transmutation": 3.02099,
+    "conjuration": 3.285003,
+    "manipulation": 2.814902,
+    "specialization": 2.596852
+  },
+  "offset": {
+    "enhancement": 0.020458,
+    "emission": 0.020503,
+    "transmutation": -0.018908,
+    "conjuration": -0.048419,
+    "manipulation": 0.014878,
+    "specialization": 0.011487
+  },
+  "uniform_winner_percent": {
+    "enhancement": 16.676,
+    "emission": 16.646,
+    "transmutation": 16.626,
+    "conjuration": 16.647,
+    "manipulation": 16.684,
+    "specialization": 16.721
+  },
+  "bonus_threshold": 0.35,
+  "bonus_rate_percent": 35.943,
+  "note": "These calibration constants require re-running the reference simulation after any edit to answer weights, question bank or balanced selection. No measured validity on real persons."
+}

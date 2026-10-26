@@ -1,0 +1,1485 @@
+{
+  "version": "1.0.0-provisional",
+  "types": [
+    "enhancement",
+    "emission",
+    "transmutation",
+    "conjuration",
+    "manipulation",
+    "specialization"
+  ],
+  "dimensions": [
+    "decisioni",
+    "emozioni",
+    "relazioni",
+    "imprevisti",
+    "ambizioni",
+    "conflitti"
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "number": 1,
+      "dimension": "decisioni",
+      "it": "Durante l’Esame Hunter arrivi a un bivio. Un percorso è breve ma sconosciuto, l’altro è più lungo e apparentemente sicuro. Cosa scegli?",
+      "en": "During the Hunter Exam, you reach a fork. One route is short but unknown; the other is longer and seems safer. Which do you choose?",
+      "options": [
+        {
+          "id": "q01_1",
+          "it": "Scelgo quello breve. Preferisco affrontare subito ciò che mi aspetta.",
+          "en": "I take the short route. I would rather face whatever lies ahead.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q01_2",
+          "it": "Osservo i due percorsi e cerco indizi prima di scegliere.",
+          "en": "I inspect both routes and look for clues before deciding.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q01_3",
+          "it": "Prendo la strada più interessante, anche se non è la più conveniente.",
+          "en": "I take the more intriguing route, even if it is less practical.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q01_4",
+          "it": "Cerco di capire quale percorso sceglierebbero gli altri candidati.",
+          "en": "I try to figure out which route the other candidates would choose.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 3,
+            "specialization": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q02",
+      "number": 2,
+      "dimension": "decisioni",
+      "it": "Durante una missione trovi uno scrigno apparentemente incustodito. Potrebbe contenere ciò che cerchi, ma qualcosa ti insospettisce. Come procedi?",
+      "en": "During a mission, you find a seemingly unguarded chest. It might contain what you need, but something feels wrong. What do you do?",
+      "options": [
+        {
+          "id": "q02_1",
+          "it": "Cerco di capire se ci siano trappole prima di toccarlo.",
+          "en": "I check for traps before touching it.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q02_2",
+          "it": "Lo apro. Non sono arrivato fin qui per tirarmi indietro.",
+          "en": "I open it. I did not come this far to back down.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q02_3",
+          "it": "Provo a scoprire cosa contiene senza aprirlo direttamente.",
+          "en": "I try to find out what is inside without opening it directly.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 2,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q02_4",
+          "it": "Valuto se posso raggiungere il mio obiettivo anche ignorandolo.",
+          "en": "I assess whether I can reach my goal without opening it.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 3,
+            "specialization": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q03",
+      "number": 3,
+      "dimension": "decisioni",
+      "it": "Stai per affrontare un avversario sconosciuto alla Heavens Arena. Come imposti il combattimento?",
+      "en": "You are about to face an unknown opponent at Heavens Arena. How do you approach the fight?",
+      "options": [
+        {
+          "id": "q03_1",
+          "it": "Cerco di provocarlo per scoprire come reagisce.",
+          "en": "I provoke them to see how they react.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 2,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q03_2",
+          "it": "Studio la sua postura e aspetto di capire il suo stile.",
+          "en": "I study their stance and wait to understand their style.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q03_3",
+          "it": "Prendo l’iniziativa e metto subito alla prova la sua forza.",
+          "en": "I take the initiative and test their strength right away.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q03_4",
+          "it": "Cambio ritmo e movimenti per impedirgli di leggermi.",
+          "en": "I vary my pace and movements so they cannot read me.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q04",
+      "number": 4,
+      "dimension": "decisioni",
+      "it": "Il tuo maestro di Nen ti concede un’ora per imparare una tecnica che non hai mai provato. Come sfrutti il tempo?",
+      "en": "Your Nen master gives you one hour to learn a technique you have never attempted. How do you use the time?",
+      "options": [
+        {
+          "id": "q04_1",
+          "it": "La ripeto finché non riesco a eseguirla correttamente.",
+          "en": "I repeat it until I can perform it correctly.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q04_2",
+          "it": "Cerco un metodo personale, anche diverso da quello insegnato.",
+          "en": "I look for my own method, even if it differs from what I was taught.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 2,
+            "specialization": 3
+          }
+        },
+        {
+          "id": "q04_3",
+          "it": "Scompongo la tecnica e ne studio ogni passaggio.",
+          "en": "I break the technique down and study every step.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q04_4",
+          "it": "Faccio diversi tentativi per scoprire un approccio più efficace.",
+          "en": "I experiment with different approaches to find one that works better.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 1,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q05",
+      "number": 5,
+      "dimension": "emozioni",
+      "it": "Un candidato all’Esame Hunter comincia a prendere in giro un tuo compagno davanti a tutti. Come reagisci?",
+      "en": "A Hunter Exam candidate starts mocking one of your teammates in front of everyone. How do you react?",
+      "options": [
+        {
+          "id": "q05_1",
+          "it": "Intervengo immediatamente e gli dico di smetterla.",
+          "en": "I step in immediately and tell them to stop.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q05_2",
+          "it": "Rispondo con una provocazione ancora più pungente.",
+          "en": "I respond with an even sharper provocation.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 2,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q05_3",
+          "it": "Cerco di evitare che la situazione degeneri.",
+          "en": "I try to prevent the situation from escalating.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q05_4",
+          "it": "Aspetto il momento giusto per affrontarlo lontano dagli altri.",
+          "en": "I wait for the right moment to confront them away from the others.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 3,
+            "specialization": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q06",
+      "number": 6,
+      "dimension": "emozioni",
+      "it": "Fallisci una prova dell’Esame Hunter per pochissimo. Qual è la tua reazione?",
+      "en": "You narrowly fail one of the Hunter Exam trials. How do you react?",
+      "options": [
+        {
+          "id": "q06_1",
+          "it": "Mi arrabbio, ma la delusione mi spinge a riprovarci.",
+          "en": "I get angry, but the disappointment drives me to try again.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q06_2",
+          "it": "Ripenso agli errori e cerco di capire dove ho sbagliato.",
+          "en": "I reflect on my mistakes and try to understand what went wrong.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q06_3",
+          "it": "Accetto il risultato: alla prossima occasione sarò più forte.",
+          "en": "I accept the result. Next time, I will be stronger.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q06_4",
+          "it": "Cambio completamente approccio. Forse stavo seguendo la strada sbagliata.",
+          "en": "I change my approach entirely. Maybe I was on the wrong path.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q07",
+      "number": 7,
+      "dimension": "emozioni",
+      "it": "Durante un allenamento, il tuo maestro di Nen ti dice che non sei ancora pronto per affrontare un vero combattimento. Come reagisci?",
+      "en": "During training, your Nen master says you are not ready for a real fight yet. How do you react?",
+      "options": [
+        {
+          "id": "q07_1",
+          "it": "Voglio dimostrargli il prima possibile che si sbaglia.",
+          "en": "I want to prove them wrong as soon as possible.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q07_2",
+          "it": "Gli chiedo quali siano precisamente le mie debolezze.",
+          "en": "I ask them to identify my weaknesses precisely.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q07_3",
+          "it": "Non condivido necessariamente il suo giudizio e voglio discuterne.",
+          "en": "I do not necessarily agree, and I want to discuss their judgment.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 3,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q07_4",
+          "it": "Non mostro la delusione e continuo ad allenarmi per conto mio.",
+          "en": "I hide my disappointment and continue training on my own.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 2,
+            "specialization": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "q08",
+      "number": 8,
+      "dimension": "emozioni",
+      "it": "Durante una prova nella foresta senti qualcosa di pericoloso avvicinarsi. Anche gli altri candidati cominciano ad agitarsi. Come ti comporti?",
+      "en": "During a trial in the forest, you hear something dangerous approaching. The other candidates are starting to panic. What do you do?",
+      "options": [
+        {
+          "id": "q08_1",
+          "it": "Ammetto di avere paura, ma continuo ad avanzare.",
+          "en": "I admit I am scared, but I keep moving forward.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q08_2",
+          "it": "Cerco di capire da dove provenga il pericolo.",
+          "en": "I try to work out where the danger is coming from.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q08_3",
+          "it": "Faccio una battuta per alleggerire la tensione.",
+          "en": "I crack a joke to ease the tension.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 2,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q08_4",
+          "it": "Prendo l’iniziativa per impedire che il gruppo perda il controllo.",
+          "en": "I take charge to keep the group from losing control.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 3,
+            "specialization": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q09",
+      "number": 9,
+      "dimension": "relazioni",
+      "it": "Un candidato che non conosci ti propone di collaborare durante la prossima prova dell’Esame Hunter. Come reagisci?",
+      "en": "An unfamiliar candidate suggests teaming up for the next Hunter Exam trial. How do you respond?",
+      "options": [
+        {
+          "id": "q09_1",
+          "it": "Accetto volentieri. Insieme potremmo avere più possibilità.",
+          "en": "I gladly accept. We might have a better chance together.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q09_2",
+          "it": "Gli faccio qualche domanda prima di decidere se fidarmi.",
+          "en": "I ask a few questions before deciding whether to trust them.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q09_3",
+          "it": "Propongo un’alleanza limitata alla prossima prova.",
+          "en": "I suggest an alliance limited to the next trial.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 3,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q09_4",
+          "it": "Accetto, ma preferisco non rivelare subito le mie intenzioni.",
+          "en": "I agree, but I would rather not reveal my intentions yet.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 2,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "number": 10,
+      "dimension": "relazioni",
+      "it": "Un tuo compagno di missione ti confida un segreto che potrebbe complicare il lavoro della squadra. Cosa fai?",
+      "en": "A teammate shares a secret that could complicate your team’s mission. What do you do?",
+      "options": [
+        {
+          "id": "q10_1",
+          "it": "Mantengo la parola data: si è fidato di me.",
+          "en": "I keep my word. They trusted me.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q10_2",
+          "it": "Cerco di capire perché abbia deciso di raccontarmelo.",
+          "en": "I try to understand why they chose to tell me.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 3,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q10_3",
+          "it": "Gli spiego che dobbiamo trovare un modo per tutelare anche la squadra.",
+          "en": "I explain that we must also find a way to protect the team.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 3,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q10_4",
+          "it": "Tengo il segreto, ma valuto con maggiore attenzione le sue azioni.",
+          "en": "I keep the secret, but pay closer attention to their actions.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 2,
+            "specialization": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "number": 11,
+      "dimension": "relazioni",
+      "it": "Durante una missione Hunter il gruppo deve scegliere un leader. Quale ruolo preferisci?",
+      "en": "On a Hunter mission, the group must choose a leader. What role would you prefer?",
+      "options": [
+        {
+          "id": "q11_1",
+          "it": "Mi offro di guidare il gruppo, se penso di esserne capace.",
+          "en": "I offer to lead if I think I can do the job.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 3,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q11_2",
+          "it": "Preferisco che guidi la persona più preparata.",
+          "en": "I prefer the most capable person to lead.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q11_3",
+          "it": "Non mi interessa comandare: voglio essere libero di agire a modo mio.",
+          "en": "I do not care about being in charge. I want the freedom to act my way.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 2,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 3
+          }
+        },
+        {
+          "id": "q11_4",
+          "it": "Cerco di definire un piano comune prima ancora di scegliere chi comanda.",
+          "en": "I try to establish a common plan before choosing a leader.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "number": 12,
+      "dimension": "relazioni",
+      "it": "Un rivale che hai sempre considerato arrogante ti salva da una situazione pericolosa. Come reagisci?",
+      "en": "A rival you have always considered arrogant saves you from danger. How do you react?",
+      "options": [
+        {
+          "id": "q12_1",
+          "it": "Lo ringrazio sinceramente. Quando potrò, ricambierò.",
+          "en": "I thank them sincerely. I will return the favor when I can.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q12_2",
+          "it": "Gli chiedo perché abbia deciso di aiutarmi.",
+          "en": "I ask why they decided to help me.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q12_3",
+          "it": "Gli faccio una battuta: non voglio mostrarmi troppo riconoscente.",
+          "en": "I make a joke. I do not want to seem too grateful.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 2,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q12_4",
+          "it": "Accetto il suo aiuto, ma questo non significa che ora mi fidi di lui.",
+          "en": "I accept their help, but that does not mean I trust them now.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 2,
+            "specialization": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "q13",
+      "number": 13,
+      "dimension": "imprevisti",
+      "it": "Gli esaminatori cambiano improvvisamente le regole di una prova Hunter pochi minuti prima dell’inizio. Cosa fai?",
+      "en": "The examiners suddenly change the rules of a Hunter trial minutes before it begins. What do you do?",
+      "options": [
+        {
+          "id": "q13_1",
+          "it": "Mi irrito, ma mi preparo ad affrontare la nuova sfida.",
+          "en": "I get irritated, but prepare to face the new challenge.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q13_2",
+          "it": "Rivedo il mio piano alla luce delle nuove regole.",
+          "en": "I review my plan in light of the new rules.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q13_3",
+          "it": "Sono incuriosito: la prova potrebbe essere più divertente del previsto.",
+          "en": "I am intrigued. The trial might be more fun than expected.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 1,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q13_4",
+          "it": "Cerco di capire se il cambiamento nasconda qualche opportunità.",
+          "en": "I try to see whether the change presents an opportunity.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 3,
+            "specialization": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q14",
+      "number": 14,
+      "dimension": "imprevisti",
+      "it": "Durante un combattimento Nen, il tuo avversario mostra un’abilità completamente diversa da quella che ti aspettavi. Come reagisci?",
+      "en": "During a Nen battle, your opponent reveals an ability completely different from what you expected. How do you react?",
+      "options": [
+        {
+          "id": "q14_1",
+          "it": "Mantengo la distanza finché non ne comprendo il funzionamento.",
+          "en": "I keep my distance until I understand how it works.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q14_2",
+          "it": "Cerco di colpirlo prima che possa utilizzare nuovamente la tecnica.",
+          "en": "I try to strike before they can use the technique again.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q14_3",
+          "it": "Fingo di aver capito la sua abilità per osservare la sua reazione.",
+          "en": "I pretend to have figured it out to see how they react.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q14_4",
+          "it": "Abbandono il piano iniziale e provo qualcosa di inaspettato.",
+          "en": "I abandon my original plan and try something unexpected.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 2,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q15",
+      "number": 15,
+      "dimension": "imprevisti",
+      "it": "Uno strumento indispensabile alla tua missione si rompe nel momento peggiore. Cosa fai?",
+      "en": "A tool that is vital to your mission breaks at the worst possible moment. What do you do?",
+      "options": [
+        {
+          "id": "q15_1",
+          "it": "Cerco di sostituirlo con ciò che ho a disposizione.",
+          "en": "I find a substitute using whatever I have at hand.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q15_2",
+          "it": "Controllo il guasto per capire se posso ripararlo.",
+          "en": "I inspect the damage to see whether I can fix it.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q15_3",
+          "it": "Riorganizzo la missione eliminando le parti che richiedono quello strumento.",
+          "en": "I reorganize the mission to avoid relying on that tool.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 3,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q15_4",
+          "it": "Chiedo aiuto a un compagno: non devo risolvere tutto da solo.",
+          "en": "I ask a teammate for help. I do not have to solve everything alone.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q16",
+      "number": 16,
+      "dimension": "imprevisti",
+      "it": "Una tempesta cancella le tracce che stavi seguendo nella foresta dell’Esame Hunter. Come ritrovi la strada?",
+      "en": "A storm washes away the trail you were following in the Hunter Exam forest. How do you find your way?",
+      "options": [
+        {
+          "id": "q16_1",
+          "it": "Mi affido al mio orientamento e continuo ad avanzare.",
+          "en": "I trust my sense of direction and keep going.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q16_2",
+          "it": "Cerco punti di riferimento e ricostruisco il percorso.",
+          "en": "I look for landmarks and reconstruct the route.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q16_3",
+          "it": "Esploro una direzione alternativa che prima avevo escluso.",
+          "en": "I explore an alternative direction I had ruled out earlier.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q16_4",
+          "it": "Mi fermo e organizzo le risorse prima di decidere come muovermi.",
+          "en": "I stop, organize supplies, and then decide how to proceed.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 3,
+            "specialization": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q17",
+      "number": 17,
+      "dimension": "ambizioni",
+      "it": "Hai finalmente ottenuto la licenza Hunter. Quale sarebbe la tua prima grande impresa?",
+      "en": "You have finally earned your Hunter License. What would be your first big undertaking?",
+      "options": [
+        {
+          "id": "q17_1",
+          "it": "Mettere alla prova le mie capacità affrontando una sfida impegnativa.",
+          "en": "Test my abilities by tackling a demanding challenge.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q17_2",
+          "it": "Esplorare un luogo misterioso che nessuno conosce davvero.",
+          "en": "Explore a mysterious place no one truly understands.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q17_3",
+          "it": "Indagare su qualcosa che da tempo suscita la mia curiosità.",
+          "en": "Investigate something that has intrigued me for a long time.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q17_4",
+          "it": "Inseguire un obiettivo personale che non ho mai raccontato a nessuno.",
+          "en": "Pursue a private goal I have never shared with anyone.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 2,
+            "specialization": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "q18",
+      "number": 18,
+      "dimension": "ambizioni",
+      "it": "Puoi trascorrere un intero mese ad allenare il tuo Nen senza interruzioni. Come organizzi l’allenamento?",
+      "en": "You can spend an entire uninterrupted month training your Nen. How do you structure it?",
+      "options": [
+        {
+          "id": "q18_1",
+          "it": "Mi concentro su una tecnica e lavoro per perfezionarla.",
+          "en": "I focus on one technique and work to perfect it.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q18_2",
+          "it": "Sperimento continuamente nuovi esercizi e possibilità.",
+          "en": "I keep experimenting with new exercises and possibilities.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 2,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q18_3",
+          "it": "Tengo traccia dei progressi e correggo ogni debolezza.",
+          "en": "I track my progress and address each weakness.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q18_4",
+          "it": "Stabilisco un metodo tutto mio e seguo i miei ritmi.",
+          "en": "I create my own routine and train at my own pace.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 2,
+            "specialization": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "q19",
+      "number": 19,
+      "dimension": "ambizioni",
+      "it": "L’Associazione Hunter ti offre quattro missioni. Quale sceglieresti?",
+      "en": "The Hunter Association offers you four missions. Which one do you choose?",
+      "options": [
+        {
+          "id": "q19_1",
+          "it": "Proteggere una persona importante durante un viaggio pericoloso.",
+          "en": "Protect an important person during a dangerous journey.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 2,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q19_2",
+          "it": "Indagare su misteriose sparizioni in una città isolata.",
+          "en": "Investigate mysterious disappearances in an isolated city.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 3,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q19_3",
+          "it": "Infiltrarti in un’organizzazione criminale senza farti scoprire.",
+          "en": "Infiltrate a criminal organization without being detected.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 2,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q19_4",
+          "it": "Recuperare un antico manufatto custodito in un luogo pieno di trappole.",
+          "en": "Recover an ancient artifact hidden in a place full of traps.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q20",
+      "number": 20,
+      "dimension": "ambizioni",
+      "it": "Scopri di possedere un talento molto raro, che pochi altri Hunter hanno dimostrato. Come lo sfrutti?",
+      "en": "You discover you have a rare talent that very few Hunters have shown. How do you use it?",
+      "options": [
+        {
+          "id": "q20_1",
+          "it": "Mi alleno per portarlo al massimo delle sue possibilità.",
+          "en": "I train to push it to its fullest potential.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q20_2",
+          "it": "Cerco modi insoliti per utilizzarlo, anche diversi da quelli previsti.",
+          "en": "I look for unusual uses, including ones nobody intended.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q20_3",
+          "it": "Lo studio attentamente per comprenderne i limiti.",
+          "en": "I study it closely to understand its limits.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q20_4",
+          "it": "Preferisco non rivelarlo finché non ne avrò davvero bisogno.",
+          "en": "I would rather keep it secret until I truly need it.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 2,
+            "specialization": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "q21",
+      "number": 21,
+      "dimension": "conflitti",
+      "it": "Dopo un combattimento alla Heavens Arena, il tuo avversario sostiene che hai vinto soltanto per fortuna. Come rispondi?",
+      "en": "After a fight at Heavens Arena, your opponent claims you only won by luck. How do you respond?",
+      "options": [
+        {
+          "id": "q21_1",
+          "it": "Gli propongo una rivincita: voglio dimostrare quanto valgo.",
+          "en": "I offer a rematch. I want to prove what I can do.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q21_2",
+          "it": "Sorrido. Non ho bisogno di convincerlo.",
+          "en": "I smile. I do not need to convince them.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 0,
+            "specialization": 3
+          }
+        },
+        {
+          "id": "q21_3",
+          "it": "Gli spiego cosa ha sbagliato durante il combattimento.",
+          "en": "I explain what they did wrong during the fight.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q21_4",
+          "it": "Lo stuzzico un po’: voglio vedere quanto riesco a farlo innervosire.",
+          "en": "I tease them a little to see how much I can rile them up.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 2,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q22",
+      "number": 22,
+      "dimension": "conflitti",
+      "it": "Durante una missione, un compagno ignora il piano concordato e agisce per conto proprio. Cosa fai?",
+      "en": "During a mission, a teammate ignores the agreed plan and acts on their own. What do you do?",
+      "options": [
+        {
+          "id": "q22_1",
+          "it": "Gli chiedo spiegazioni: forse ha notato qualcosa che mi sfugge.",
+          "en": "I ask for an explanation. Maybe they noticed something I missed.",
+          "weights": {
+            "enhancement": 1,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 3,
+            "manipulation": 2,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q22_2",
+          "it": "Mi arrabbio e gli ricordo che avevamo preso un accordo.",
+          "en": "I get angry and remind them that we had an agreement.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 0,
+            "conjuration": 0,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q22_3",
+          "it": "Adatto rapidamente il mio piano alla nuova situazione.",
+          "en": "I quickly adapt my plan to the new situation.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 2,
+            "conjuration": 1,
+            "manipulation": 3,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q22_4",
+          "it": "Se la sua idea funziona, non ho problemi a seguirla.",
+          "en": "If their idea works, I have no problem going along with it.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 0,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q23",
+      "number": 23,
+      "dimension": "conflitti",
+      "it": "Un avversario molto più forte di te blocca l’unica uscita. Non sembra intenzionato a lasciarti passare. Cosa tenti?",
+      "en": "A much stronger opponent blocks the only exit and does not intend to let you through. What do you try?",
+      "options": [
+        {
+          "id": "q23_1",
+          "it": "Cerco di distrarlo e sfruttare un’occasione per passare.",
+          "en": "I try to distract them and seize an opportunity to slip past.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 0,
+            "manipulation": 2,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q23_2",
+          "it": "Lo affronto comunque: voglio scoprire se posso batterlo.",
+          "en": "I fight them anyway. I want to find out whether I can win.",
+          "weights": {
+            "enhancement": 2,
+            "emission": 3,
+            "transmutation": 1,
+            "conjuration": 0,
+            "manipulation": 0,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q23_3",
+          "it": "Gli parlo per capire cosa desidera realmente.",
+          "en": "I talk to them to understand what they actually want.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 3,
+            "specialization": 1
+          }
+        },
+        {
+          "id": "q23_4",
+          "it": "Osservo l’ambiente per trovare un vantaggio che possa ribaltare la situazione.",
+          "en": "I study my surroundings for an advantage that could turn things around.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 2,
+            "conjuration": 3,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q24",
+      "number": 24,
+      "dimension": "conflitti",
+      "it": "Durante uno scontro, un avversario ti propone improvvisamente una tregua. Come reagisci?",
+      "en": "In the middle of a fight, your opponent suddenly offers a truce. How do you react?",
+      "options": [
+        {
+          "id": "q24_1",
+          "it": "Accetto se penso che possa evitare uno scontro inutile.",
+          "en": "I accept if it can prevent an unnecessary fight.",
+          "weights": {
+            "enhancement": 3,
+            "emission": 0,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 1,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q24_2",
+          "it": "Pretendo di conoscere le sue condizioni prima di decidere.",
+          "en": "I demand to know their terms before deciding.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 1,
+            "transmutation": 0,
+            "conjuration": 2,
+            "manipulation": 3,
+            "specialization": 0
+          }
+        },
+        {
+          "id": "q24_3",
+          "it": "Mi mostro disponibile, ma cerco di capire cosa stia nascondendo.",
+          "en": "I seem open to it, but try to find out what they are hiding.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 0,
+            "transmutation": 3,
+            "conjuration": 1,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        },
+        {
+          "id": "q24_4",
+          "it": "Rifiuto: non mi fido di chi cambia intenzioni nel mezzo di uno scontro.",
+          "en": "I refuse. I do not trust someone who changes their mind mid-fight.",
+          "weights": {
+            "enhancement": 0,
+            "emission": 3,
+            "transmutation": 0,
+            "conjuration": 1,
+            "manipulation": 0,
+            "specialization": 2
+          }
+        }
+      ]
+    }
+  ]
+}
