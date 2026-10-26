@@ -39,15 +39,15 @@ Durante la prova tieni premuto sul pulsante vicino alle mani con il mouse sinist
 
 ## Pubblicazione su GitHub Pages
 
-Il progetto contiene già il workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). Pubblica esclusivamente `dist/`: il video e le immagini in `reference/` restano fuori dal sito.
+Il progetto contiene già il workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). Pubblica esclusivamente `dist/`: il video e le immagini in `reference/` restano fuori dal sito.
 
 1. Crea un repository GitHub, per esempio `nen-divination`.
-2. Carica i file del progetto nel ramo **main**, inclusi `package-lock.json` e `.github/workflows/deploy.yml`. Escludi `node_modules`, `dist`, `.verification`, `test-results` e `playwright-report`, già indicati in `.gitignore`. Puoi escludere anche `reference/` dal repository pubblico se non hai diritto di ridistribuire i riferimenti; non serve all’app.
+2. Carica i file del progetto nel ramo **main**, inclusi `package-lock.json` e `.github/workflows/deploy-pages.yml`. Escludi `node_modules`, `dist`, `.verification`, `test-results` e `playwright-report`, già indicati in `.gitignore`. Puoi escludere anche `reference/` dal repository pubblico se non hai diritto di ridistribuire i riferimenti; non serve all’app.
 3. Nel repository apri **Settings → Pages → Build and deployment → Source → GitHub Actions**.
 4. Apri **Actions → Deploy Nen Divination to GitHub Pages**. Il workflow parte a ogni push su `main`; puoi avviarlo anche con **Run workflow**.
 5. Al completamento, apri l’URL restituito dal deployment, normalmente `https://TUO-USERNAME.github.io/nen-divination/`.
 
-Il workflow installa con `npm ci`, esegue i test unitari e la simulazione, compila e pubblica `dist`. Il progetto usa `base: './'` e nessun routing lato client: gli asset funzionano anche sotto il nome del repository senza modificare la configurazione.
+Il workflow usa Node.js 22, installa con `npm ci`, compila e pubblica `dist`. In produzione Vite usa `base: '/nen-divination/'`; durante lo sviluppo locale usa `/`.
 
 Se preferisci Git da terminale, dopo aver creato un repository remoto **vuoto**:
 
