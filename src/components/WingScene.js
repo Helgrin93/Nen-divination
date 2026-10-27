@@ -5,7 +5,6 @@ const fragments = [[-16,337],[-2,341],[12,334],[25,331],[-26,346],[3,328],[32,33
 
 export function wingScene() {
   return `<section class="scene" data-phase="intro" data-effect="none" aria-label="Water divination">
-    <div class="room-caption" data-i18n="room"></div>
     <svg class="scene-art" viewBox="0 0 1200 560" fill="none" aria-hidden="true">
       <defs>
         <radialGradient id="room-light"><stop stop-color="#61513b"/><stop offset=".55" stop-color="#262d2c"/><stop offset="1" stop-color="#0a1219"/></radialGradient>
@@ -24,11 +23,6 @@ export function wingScene() {
       <g stroke="#9d8a68" stroke-opacity=".11"><path d="M170 0v285M1030 0v285M170 63h860M170 218h860M340 63v155M860 63v155M0 285h1200"/><path d="M185 0v285M1015 0v285" stroke-opacity=".08"/></g>
       <path d="M218 0h24v285h-24M958 0h24v285h-24" fill="#080e15" opacity=".35"/>
       <g id="mentor-fallback" class="mentor">
-        <path d="M433 302 445 226q5-24 48-37l61-24h92l61 24q43 13 48 37l12 76Z" fill="url(#mentor)" stroke="#c0c3b5" stroke-opacity=".25"/>
-        <path d="m554 165 46 49 46-49M600 214v88m-46-137-20 52 48-17m64-35 20 52-48-17" stroke="#d0cfc2" stroke-opacity=".3"/>
-        <rect x="550" y="61" width="100" height="117" rx="46" fill="#1b2528" stroke="#b7b8a7" stroke-opacity=".45"/>
-        <text x="600" y="138" text-anchor="middle" fill="#c9c4b1" font-family="Georgia,serif" font-size="52" opacity=".8">W</text>
-        <path class="mentor-gesture" d="M463 286q50-36 88-18M737 286q-50-36-88-18" stroke="#bdc2b8" stroke-opacity=".3"/>
       </g>
       <image id="mentor-portrait" x="416" y="35" width="368" height="285" preserveAspectRatio="xMidYMax meet" style="display:none"/>
       <rect y="292" width="1200" height="268" fill="url(#table)"/>
@@ -71,7 +65,8 @@ export function setupMentor(scene) {
   });
   return expression => {
     scene.dataset.expression = expression;
-    const src = wing.permissionStatus === 'authorized' && (wing.poses[expression] || wing.poses.neutral);
+    const localPreview = (import.meta.env.DEV || import.meta.env.MODE === 'local-review') && wing.permissionStatus === 'local-preview';
+    const src = (wing.permissionStatus === 'authorized' || localPreview) && (wing.poses[expression] || wing.poses.neutral);
     if (!src) return;
     image.setAttribute('href', import.meta.env.BASE_URL + src.replace(/^\//, ''));
     image.style.display = ''; fallback.style.display = 'none';

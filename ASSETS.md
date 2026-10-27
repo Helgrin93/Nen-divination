@@ -1,40 +1,26 @@
-# Origini e gestione degli asset
+# Provenienza degli asset
 
-## Asset inclusi nel sito
+Stato aggiornato: [ASSET_STATUS.md](ASSET_STATUS.md). La V2 è in revisione locale, non pronta per la pubblicazione.
 
-| Asset | Origine | Stato |
+| Materiale | Provenienza | Stato |
 | --- | --- | --- |
-| Stanza, tavolo, bicchiere, foglia, mani | SVG originale in `src/components/WingScene.js` e CSS in `src/styles/scene.css` | Creati per il prototipo, nessun fotogramma copiato |
-| Segnaposto Wing | Sagoma neutra con monogramma W nello stesso SVG | Fallback esplicito; non è un ritratto anime o una ricostruzione del personaggio |
-| Ritratti dei 18 personaggi | Fallback tipografico, monogramma e simbolo dell’app | Immagini autentiche mancanti; `permissionStatus: 'missing'` |
-| Simbolo, favicon e icone UI | SVG originali in `src/components/icons.js` e `public/favicon.svg` | Creati per il prototipo |
-| Radar | SVG generato dai punteggi; canvas nella card PNG | Grafica originale |
-| Font | Georgia / Times New Roman e Arial / Helvetica di sistema | Nessun font scaricato o ridistribuito |
-| Testi delle domande e calibrazione | File JSON originali del pacchetto dell’utente | Importati senza modifiche |
-| Schede personaggio | Nomi, categorie e descrizioni della specifica dell’utente | Il database delle immagini non decide il Nen |
+| Quattro espressioni Wing | PNG trasparenti preesistenti in `public/assets/scene-v3/wing-*.png` | Fonte e permessi non registrati; solo anteprima locale, nessun volto creato in questa revisione |
+| Muro con tappeto e crepe | `public/assets/scene-v3/wall-rug.png`, imagegen integrato, 27 ottobre 2026; riferimento allegato dall'utente | Generato su richiesta esplicita; solo fondale senza persone. Prompt: `assets/scene/wall-rug.prompt.md` |
+| Tavolo, mani e calice | `reference/ANIME_HANDS_GLASS_REFERENCE.png` fornito dall'utente | Usato nell'anteprima privata; permessi di redistribuzione non verificati |
+| Montaggio scenico | Muro raster e Wing separati; tavolo/mani/calice preesistenti | Ritaglio responsive del muro; mani non isolate in livelli separati |
+| 18 ritratti | MyAnimeList via [Tenrai](https://api.tenrai.org/v1/anime/11061/characters) | 18 identità/ID/URL reali recuperati; zero immagini pubblicate, permessi non verificati |
+| Acqua/foglia animate | Maschere canvas sul riferimento anime | Foglia estratta; acqua nascosta interpolata da pixel adiacenti; artefatti possibili |
+| Mockup risultato | reference/RESULT_TARGET_EXACT.png e duplicato V1 | Solo composizione; ritratti non estratti |
+| Scena/effetti V1 | SVG e CSS preesistenti | Storici, non montati nel flusso corrente |
+| Radar e icone | SVG/canvas locali | Nessun asset personaggio |
+| Font | Georgia/Times New Roman e Arial/Helvetica di sistema | Nessun download |
 
-Non sono state usate immagini generate con IA, immagini remote, scraping o API di ritratti. I dialoghi sono testi per l’app e non citazioni dell’opera.
+I ritagli storici sono riproducibili con `npm.cmd run assets:scene` e restano in `.verification/v2/scene`. Lo script usa il file Wing opzionale solo se già presente; altrimenti ritaglia il reel. Lo script non genera immagini né ricostruisce volti/mani. Il flusso attuale usa invece i quattro PNG di Wing e il muro generato sopra elencati; conserva l'immagine mani/calice in `.verification/v2/scene`. Server locale e build `local-review` espongono questi asset; la build normale esclude anche `assets/scene-v3/`.
 
-## Materiale di riferimento, escluso dalla build
+`npm.cmd run assets:characters` interroga Tenrai e aggiorna soltanto i metadati. Il 27 ottobre 2026 l'importazione è riuscita: 205 record ricevuti, 18 abbinati. `src/data/characterImages.json` registra nomi, URL effettivi, ID MAL, credito, data e `permissionStatus: unverified`. Nessuna chiamata API viene eseguita durante il quiz. Il fallback AniList richiesto non è stato necessario.
 
-- `reference/reel-composition-reference.png`: fornito dall’utente; riferimento per la scena frontale. Nessun elemento dell’interfaccia Instagram viene riprodotto.
-- `reference/reel-original.mp4`: fornito dall’utente; visionati fotogrammi della sequenza completa, inclusi mani e disgregazione della foglia. Non viene incorporato nel sito.
-- `reference/result-design-reference.png`: fornito dall’utente; usato per palette, composizione e gerarchia. I ritratti non sono stati estratti.
-- `.verification/`: screenshot, PNG e fotogrammi usati soltanto per QA locale, esclusi da Git e dalla build.
+I [termini Tenrai §§3 e 6](https://tenrai.org/terms) permettono la cache delle risposte ma non concedono diritti sulle immagini di terzi. Non essendo stati verificati permessi specifici, nessun file è stato copiato in `public/assets/characters/`. Un URL restituito dall'API non diventa automaticamente `portraitSrc`. Il download opzionale esplicito `--download-preview` resta limitato a `.verification/v2/characters`, senza attribuire permessi.
 
-La presenza di un riferimento nel progetto non concede diritti di ridistribuzione. Prima di caricare un repository pubblico, escludere i riferimenti se il permesso non è verificato. La pubblicazione Pages carica soltanto `dist`, che non li contiene.
+Per un futuro ritratto autorizzato, salvarlo in `public/assets/characters/<slug>.webp` e compilare `portraitSrc`, `sourceUrl`, `credit`, `permissionStatus: 'authorized'` nel catalogo, registrando il permesso qui. Le associazioni Nen restano curate localmente.
 
-## Come aggiungere ritratti autorizzati
-
-1. Procurare immagini autentiche dell’anime/manga con diritto d’uso verificato. Non estrarle dal mockup; non sostituirle con personaggi generati. AniList/Jikan possono aiutare nella ricerca ma non concedono automaticamente una licenza sulle immagini.
-2. Salvare le 18 immagini locali in `public/assets/characters/<slug>.webp` e le pose trasparenti di Wing in `public/assets/wing/<pose>.png`.
-3. In `src/data/characters.js` completare `portraitSrc`, `sourceUrl`, `credit` e `permissionStatus: 'authorized'`. Il percorso è relativo a `public`, senza slash iniziale, ad esempio `assets/characters/kurapika.webp`. `sourceUrl` deve identificare la fonte reale del ritratto; registrare anche gli estremi del permesso in questo documento.
-4. In `src/data/wing.js` impostare `permissionStatus: 'authorized'`, fonte, credito e percorsi in `poses.neutral`, `poses.smile`, `poses.curious`, `poses.thinking`. Una sola posa neutra è sufficiente per il fallback delle altre espressioni.
-5. L’app renderizza le immagini soltanto con stato `authorized`; errori di caricamento tornano ai segnaposto. Le immagini dei personaggi hanno `alt`, dimensioni stabili e caricamento lazy. L’immagine Wing resta nella posizione centrale dietro al bicchiere.
-6. Aggiungere i crediti eventualmente richiesti dalla licenza in un elemento visibile o in una pagina dedicata prima del rilascio; i campi `credit` sono metadata predisposti, non una pagina di attribuzioni automatica.
-
-Le tre schede sono fisse per categoria: Gon/Netero/Uvogin, Meruem/Zeno/Razor, Killua/Hisoka/Biscuit, Kurapika/Kite/Shizuku, Illumi/Morel/Shalnark e Chrollo/Neferpitou/Pakunoda. Kurapika resta Conjurer di base; il testo spiega la condizione degli occhi scarlatti.
-
-Fonti di partenza indicate nella specifica: [VIZ](https://www.viz.com/hunter-x-hunter), [Madhouse](https://madhouse.co.jp/english/works/tv_hunter/), [AniList](https://docs.anilist.co/guide/graphql/), [termini AniList](https://docs.anilist.co/guide/terms-of-use), [Jikan](https://jikan.moe/). I link iniziali delle schede portano alla pagina ufficiale dell’opera, non a una presunta immagine autorizzata.
-
-Hunter × Hunter e i relativi personaggi appartengono ai rispettivi titolari. Nessuna licenza sui personaggi è rivendicata dal prototipo.
+Hunter × Hunter e i personaggi appartengono ai rispettivi titolari. I dialoghi dell'app non sono presentati come citazioni canoniche.

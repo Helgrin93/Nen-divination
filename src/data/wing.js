@@ -1,7 +1,12 @@
-// Add local, authentic, authorized transparent portraits here (paths relative to public/).
+// Existing aligned PNGs, integrated for local review; provenance is not recorded.
 export const wing = {
-  permissionStatus: 'missing',
-  credit: null,
-  sourceUrl: 'https://www.viz.com/hunter-x-hunter',
-  poses: { neutral: null, smile: null, curious: null, thinking: null },
+  permissionStatus: 'local-preview',
+  credit: 'Existing scene-v3 artwork; origin and redistribution permission unverified',
+  sourceUrl: null,
+  poses: {
+    neutral: 'assets/scene-v3/wing-neutral.png',
+    smile: 'assets/scene-v3/wing-smile.png',
+    eyesClosed: 'assets/scene-v3/wing-eyes-closed.png',
+    gesture: 'assets/scene-v3/wing-gesture.png',
+  },
 };

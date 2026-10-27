@@ -3,13 +3,13 @@ import { readFile } from 'node:fs/promises';
 import { questions,types } from '../src/data/questions.js';
 
 async function toConcentration(page){
-  await page.getByRole('button',{name:'Inizia la prova'}).click();
+  await page.getByRole('button',{name:'Inizia',exact:true}).click();
   for(let n=0;n<9;n++){
     if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
     if(await page.locator('.hold-button').count())break;
     await page.locator('.answer').first().click();
     await page.getByRole('button',{name:'Continua',exact:true}).click();
-    if(n===3){await expect(page.locator('.interlude')).toContainText('Oh, interessante…');}
+    if(n===3){await expect(page.locator('.interlude h2')).toHaveText(/^(Oh, interessante…|Capisco…|Vediamo…|Mh, curioso…|Molto bene\.)$/);}
   }
   await expect(page.locator('.hold-button')).toBeVisible();
 }
@@ -19,7 +19,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('/');await noOverflow(page);
   await page.screenshot({path:`.verification/${testInfo.project.name}-intro.png`,fullPage:true});
-  await page.getByRole('button',{name:'Inizia la prova'}).click();
+  await page.getByRole('button',{name:'Inizia',exact:true}).click();
   const ids=await page.locator('.answer').evaluateAll(nodes=>nodes.map(n=>n.dataset.option));
   const question=await page.locator('.question-title').innerText();
   await page.locator('.answer').first().click();await page.getByRole('button',{name:'Continua',exact:true}).click();
@@ -40,7 +40,24 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   await expect(page.locator('.hold-button')).toBeVisible();
   await page.screenshot({path:`.verification/${testInfo.project.name}-hold.png`,fullPage:true});
   const hold=page.locator('.hold-button');await hold.focus();
-  await page.keyboard.down('Space');await page.waitForTimeout(600);await page.keyboard.up('Space');
+  await page.keyboard.down('Space');await page.waitForTimeout(600);
+  await expect(page.locator('.hands-motion')).toBeVisible();
+  const handPixels=await page.locator('.hands-motion').evaluate(canvas=>{
+    const original=document.createElement('canvas');original.width=1536;original.height=304;
+    original.getContext('2d').drawImage(document.querySelector('.glass-plate'),0,-720);
+    const before=original.getContext('2d').getImageData(0,0,1536,304).data;
+    const after=canvas.getContext('2d').getImageData(0,0,1536,304).data;
+    let left=0,right=0,glass=0;
+    for(let y=60;y<280;y+=3)for(let x=250;x<1286;x+=3){
+      const i=(y*1536+x)*4,delta=Math.abs(before[i]-after[i])+Math.abs(before[i+1]-after[i+1])+Math.abs(before[i+2]-after[i+2]);
+      if(x<590)left+=delta;else if(x>946)right+=delta;else if(x>700&&x<835)glass+=delta;
+    }
+    return {left,right,glass};
+  });
+  expect(handPixels.left).toBeGreaterThan(1000);expect(handPixels.right).toBeGreaterThan(1000);expect(handPixels.glass).toBe(0);
+  expect(Number(await page.locator('.water-effects').getAttribute('data-concentration'))).toBeGreaterThan(.5);
+  await page.keyboard.up('Space');
+  await expect(page.locator('.hands-motion')).toBeHidden();
   await expect(page.locator('.hold-progress')).toHaveAttribute('aria-valuenow','0');
   await expect(page.locator('body')).toHaveAttribute('data-phase','concentration');
   await hold.focus();await page.keyboard.down('Space');await page.waitForTimeout(4700);await page.keyboard.up('Space');
@@ -56,7 +73,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   const png=await readFile(`.verification/${testInfo.project.name}-card.png`);
   expect(png.readUInt32BE(16)).toBe(1080);expect(png.readUInt32BE(20)).toBe(1350);
   await page.getByRole('button',{name:'English',exact:true}).click();await expect(page.locator('.nen-title')).toHaveText(new RegExp(effect,'i'));
-  await page.getByRole('button',{name:'Retake quiz'}).click();await expect(page.getByRole('button',{name:'Begin the test'})).toBeVisible();
+  await page.getByRole('button',{name:'Retake quiz'}).click();await expect(page.getByRole('button',{name:'Start',exact:true})).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -69,8 +86,11 @@ test('all six deterministic revelations persist in the same scene and export saf
   });
   for(const type of types){
     await page.goto('/');
+    await expect(page.locator('.water-effects')).toHaveAttribute('data-ready','true');
+    const water=await page.locator('.water-effects').elementHandle();
+    await water.evaluate(canvas=>{window.initialWater=new Uint8ClampedArray(canvas.getContext('2d').getImageData(0,0,1000,563).data);});
     await context.setOffline(true);
-    await page.getByRole('button',{name:'Inizia la prova'}).click();
+    await page.getByRole('button',{name:'Inizia',exact:true}).click();
     const scene=await page.locator('.scene').elementHandle();
     for(let n=0;n<9;n++){
       if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
@@ -86,12 +106,31 @@ test('all six deterministic revelations persist in the same scene and export saf
     await expect(page.locator('.nen-title')).toHaveText(new RegExp(type,'i'));
     expect(await scene.evaluate(el=>el===document.querySelector('.scene'))).toBe(true);
     await page.screenshot({path:`.verification/effect-${type}.png`,fullPage:true});
-    if(type==='specialization'){
-      expect(await page.locator('.leaf').evaluate(el=>Number(getComputedStyle(el).opacity))).toBeLessThan(.1);
-      expect(await page.locator('.leaf-fragments path').first().evaluate(el=>Number(getComputedStyle(el).opacity))).toBeGreaterThan(.8);
-    }
+    await expect(page.locator('.water-effects')).toHaveAttribute('data-effect-progress','1');
+    const changes=await water.evaluate(canvas=>{
+      const pixels=canvas.getContext('2d').getImageData(0,0,1000,563).data;
+      let glass=0,hands=0,leafGreenBefore=0,leafGreenAfter=0;
+      for(let y=0;y<563;y++)for(let x=0;x<1000;x++){
+        const i=(y*1000+x)*4;
+        const delta=Math.abs(pixels[i]-window.initialWater[i])+Math.abs(pixels[i+1]-window.initialWater[i+1])+Math.abs(pixels[i+2]-window.initialWater[i+2]);
+        if(x>330&&x<670&&y>50&&y<460)glass+=delta;
+        if(x<300||x>700)hands+=delta;
+        // The leaf disappears into warm, brighter water in the unified scene.
+        // Measure its green tint relative to red, not absolute brightness.
+        if(x>455&&x<540&&y>98&&y<114){leafGreenBefore+=window.initialWater[i+1]-window.initialWater[i];leafGreenAfter+=pixels[i+1]-pixels[i];}
+      }
+      return {glass,hands,leafGreenBefore,leafGreenAfter};
+    });
+    expect(changes.glass).toBeGreaterThan(1000);
+    expect(changes.hands).toBe(0);
+    if(type==='specialization')expect(changes.leafGreenAfter).toBeLessThan(changes.leafGreenBefore);
     if(type==='transmutation')await expect(page.locator('.scene-effect-caption')).toContainText('dolce');
-    if(type==='emission')expect(await page.locator('.emission-tint').evaluate(el=>Number(getComputedStyle(el).opacity))).toBe(1);
+    const finalPixels=await water.evaluate(canvas=>canvas.toDataURL());
+    await page.getByRole('button',{name:'English',exact:true}).click();
+    expect(await water.evaluate(canvas=>canvas===document.querySelector('.water-effects'))).toBe(true);
+    expect(await water.evaluate(canvas=>canvas.toDataURL())).toBe(finalPixels);
+    await page.getByRole('button',{name:'Italiano',exact:true}).click();
+    expect(await page.locator('.nen-title').evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);
     await page.evaluate(type=>{
       if(type==='emission'){
         Object.defineProperty(navigator,'share',{value:async()=>{},configurable:true});
@@ -100,6 +139,11 @@ test('all six deterministic revelations persist in the same scene and export saf
     },type);
     const downloaded=page.waitForEvent('download');await page.getByRole('button',{name:'Condividi',exact:true}).click();
     expect((await downloaded).suggestedFilename()).toBe(`nen-divination-${type}.png`);
+    await page.getByRole('button',{name:'Riprova il quiz',exact:true}).click();
+    expect(await water.evaluate(canvas=>{
+      const pixels=canvas.getContext('2d').getImageData(0,0,1000,563).data;
+      return pixels.every((value,i)=>value===window.initialWater[i]);
+    })).toBe(true);
     await context.setOffline(false);
   }
 });

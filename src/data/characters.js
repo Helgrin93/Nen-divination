@@ -1,4 +1,5 @@
-// Only add authentic portraits with verified permission. See ASSETS.md.
+import imageCatalog from './characterImages.json' with { type: 'json' };
+// Nen associations and descriptions are curated locally, never imported from an API.
 export const characters = [
   {
     "name": "Gon Freecss",
@@ -125,8 +126,8 @@ export const characters = [
     "credit": null,
     "permissionStatus": "missing",
     "description": {
-      "it": "Materializza catene con funzioni specifiche; con gli occhi scarlatti accede anche a Emperor Time.",
-      "en": "Conjures chains with specialized functions; his Scarlet Eyes also unlock Emperor Time."
+      "it": "Materializza catene con funzioni specifiche. Con gli occhi scarlatti diventa Specialista e può usare Emperor Time.",
+      "en": "Conjures chains with specialized functions. With Scarlet Eyes he becomes a Specialist and can use Emperor Time."
     },
     "slug": "kurapika"
   },
@@ -234,4 +235,8 @@ export const characters = [
     },
     "slug": "pakunoda"
   }
-];
+].map(character => ({
+  ...character,
+  nenSource: 'SPEC_NEN_DIVINATION_CODEX.md §8.1; REDESIGN_VISIVO_SPEC.md',
+  image: imageCatalog.characters[character.slug] || { status: 'missing', localPreviewSrc: null, portraitUrl: null },
+}));

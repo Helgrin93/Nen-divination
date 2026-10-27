@@ -30,7 +30,7 @@ export async function createShareCard(result, lang) {
   while(ctx.measureText(type.name.toUpperCase()).width>930){size--;ctx.font=`${size}px Georgia`;}
   ctx.fillText(type.name.toUpperCase(),540,282);
   ctx.fillStyle='#d5dfde';ctx.font='30px Georgia';
-  ctx.fillText(lang==='it'?type.it:t.tagline,540,332);
+  if(lang==='it')ctx.fillText(type.it,540,332);
   ctx.fillStyle='#bac6cb';ctx.font='24px Arial';
   wrapText(ctx,type.personality[lang],540,397,850,35);
   ctx.fillStyle='#aebbc8';ctx.font='18px Arial';ctx.fillText(t.secondary,540,545);
