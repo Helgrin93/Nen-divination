@@ -56,9 +56,9 @@ function localScenePreview(mode) {
   };
 }
 
-export default defineConfig(({ command, mode }) => ({
+export default defineConfig(({ command, mode, isPreview }) => ({
   plugins: [localScenePreview(mode)],
-  base: command === 'build' ? '/nen-divination/' : '/',
+  base: command === 'build' || isPreview ? '/nen-divination/' : '/',
   build: { copyPublicDir: false },
   server: { watch: { ignored: ['**/.verification/**', '**/test-results/**', '**/playwright-report/**'] } },
   test: { include: ['src/tests/**/*.test.js'] },
