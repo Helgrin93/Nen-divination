@@ -38,7 +38,7 @@ body:not([data-phase=result]) .site-footer{display:none}
 .scene .accessible-reveal{background:#233d30e8;font-size:11px;min-height:44px;padding:6px 14px;margin-top:8px;border-radius:24px;color:#fffaf0}
 .scene-effect-caption{bottom:16px;padding:10px 20px;border-radius:20px;max-width:610px;background:#142b26ed;font-size:12px;color:#f5f3e8}
 .scene[data-phase=concentration] .scene-effect-caption{display:none}
-.scene.is-holding .water-stage{filter:drop-shadow(0 0 9px #dcebc42b)}
+.scene.is-holding .water-stage{filter:none}
 
 /* Result: the SAME photo and animated canvas, with a tighter framing. */
 body[data-phase=result]{background:#070d13;color:#edf1ef;color-scheme:dark}

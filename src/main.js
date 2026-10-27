@@ -59,8 +59,9 @@ function bringContentIntoView(){
 }
 function render({focus=false}={}){
   cleanupHold?.();cleanupHold=null;holdActive=false;
-  handsMotion.setActive(false);waterScene.setConcentration(false);
   const tr=t(), phase=state.phase;
+  handsMotion.setPhase(phase);
+  handsMotion.setActive(false);waterScene.setConcentration(false);
   document.body.dataset.phase=phase;
   scene.dataset.phase=phase;scene.classList.remove('is-holding');
   if(!['waterEffect','result'].includes(phase)){scene.dataset.effect='none';scene.querySelector('.scene-effect-caption').textContent='';}

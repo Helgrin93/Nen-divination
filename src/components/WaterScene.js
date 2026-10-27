@@ -1,149 +1,171 @@
-// Local effect coordinates map to a 650 × 366 region of the unified scene.
-// Only the goblet is composited above Wing; the room and hands stay untouched.
-const leafOutline = 'M416 109 Q439 98 462 91 Q507 80 552 95 L588 105 L588 109 L568 110 Q535 128 485 122 Q450 122 416 109 Z';
-const glassInterior = 'M352 103 Q353 76 500 76 Q640 76 646 103 C649 234 633 365 510 384 C387 385 352 275 352 103 Z';
-const glassOutline = 'M342 86 C340 25 656 25 657 86 C672 225 640 374 521 400 L479 400 C370 374 334 231 342 86 Z';
-const makeCanvas = (w,h) => Object.assign(document.createElement('canvas'), {width:w,height:h});
-const ease = n => n*n*(3-2*n);
+// Local coordinates map to the approved goblet illustration, never the viewport.
+const W=1000,H=680;
+const leafOutline='M416 109 Q439 98 462 91 Q507 80 552 95 L588 105 L588 109 L568 110 Q535 128 485 122 Q450 122 416 109 Z';
+const glassOutline='M342 86 C340 25 656 25 657 86 C672 225 640 374 521 400 L479 400 C370 374 334 231 342 86 Z';
+const waterInterior='M356 88 Q500 38 644 88 C651 224 628 359 510 381 C393 382 352 270 356 88Z';
+const makeCanvas=(w,h)=>Object.assign(document.createElement('canvas'),{width:w,height:h});
+const clamp=n=>Math.max(0,Math.min(1,n));
+const smooth=n=>{n=clamp(n);return n*n*(3-2*n);};
 
-export function mountWaterScene(scene) {
+export function mountWaterScene(scene){
   const canvas=scene.querySelector('.water-effects'),image=scene.querySelector('.glass-plate');
-  if(!canvas || !image)return {setEffect(){},setConcentration(){},reset(){},destroy(){}};
-  // Keep transparent mask edges deterministic when restoring the initial scene.
-  const ctx=canvas.getContext('2d',{willReadFrequently:true});
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-  let base=null,leaf=null,effect='none',progress=0,frame=0,started=0,lastTick=0;
-  let concentrating=false,concentration=0,elapsed=0;
-  const mask=new Path2D(leafOutline), glassMask=new Path2D(glassInterior), silhouette=new Path2D(glassOutline);
+  if(!canvas||!image)return {setEffect(){},setConcentration(){},reset(){},destroy(){}};
+  // Pin CPU rasterization: switching backends after pixel reads otherwise
+  // changes a few antialiased rim pixels by one value when replaying.
+  const ctx=canvas.getContext('2d',{willReadFrequently:true}),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const cleanImage=new Image();
+  const leafMask=new Path2D(leafOutline),silhouette=new Path2D(glassOutline),interior=new Path2D(waterInterior);
+  let original,base,leaf,surface,frame=0,last=0,elapsed=0,effect='none',progress=0;
+  let holding=false,holdStarted=0,concentration=0,effectStarted=0,active=true;
 
   function prepare(){
-    if(!image.naturalWidth)return;
-    const original=makeCanvas(1000,563),originalCtx=original.getContext('2d',{willReadFrequently:true});
-    originalCtx.drawImage(image,443,560,650,366,0,0,1000,563);
-    leaf=makeCanvas(1000,563);
-    const leafCtx=leaf.getContext('2d');leafCtx.clip(mask);leafCtx.drawImage(original,0,0);
-    base=makeCanvas(1000,563);const baseCtx=base.getContext('2d');baseCtx.drawImage(original,0,0);
-    // Reconstruct only the water hidden by the leaf from adjacent rows of the
-    // same illustration. Vertical reflections remain in their original columns.
-    const pixels=originalCtx.getImageData(0,0,1000,563),clean=baseCtx.getImageData(0,0,1000,563);
-    for(let y=70;y<146;y++)for(let x=395;x<606;x++){
-      const at=(y*1000+x)*4,top=(67*1000+x)*4,bottom=(148*1000+x)*4,ratio=(y-67)/81;
-      for(let c=0;c<3;c++)clean.data[at+c]=pixels.data[top+c]*(1-ratio)+pixels.data[bottom+c]*ratio;
-    }
-    const patch=makeCanvas(1000,563);patch.getContext('2d').putImageData(clean,0,0);
-    baseCtx.save();baseCtx.clip(mask);baseCtx.drawImage(patch,0,0);baseCtx.restore();
-    draw();canvas.dataset.ready='true';
+    if(!image.naturalWidth||!cleanImage.complete||!cleanImage.naturalWidth)return;
+    original=makeCanvas(W,H);original.getContext('2d').drawImage(image,443,560,650,442,0,0,W,H);
+    leaf=makeCanvas(W,H);const lc=leaf.getContext('2d');lc.clip(leafMask);lc.drawImage(original,0,0);
+    base=makeCanvas(W,H);const bc=base.getContext('2d');bc.drawImage(original,0,0);
+    // A dedicated inpainted water plate avoids stretching rim highlights into
+    // the space beneath the moving leaf. Only its original footprint is used.
+    bc.save();bc.clip(leafMask);bc.drawImage(cleanImage,443,560,650,442,0,0,W,H);bc.restore();
+    surface=makeCanvas(W,H);const sc=surface.getContext('2d');
+    sc.beginPath();sc.ellipse(500,105,143,24,0,0,Math.PI*2);sc.clip();sc.drawImage(base,0,0);
+    canvas.dataset.ready='true';draw();
   }
-
-  function draw(){
-    if(!base)return;
-    const p=ease(progress);
-    ctx.clearRect(0,0,1000,563);
-    ctx.save();ctx.clip(silhouette);ctx.drawImage(base,0,0);ctx.restore();
-    ctx.save();ctx.clip(glassMask);
-    if(effect==='emission'){
-      ctx.globalCompositeOperation='color';ctx.globalAlpha=.95*p;ctx.fillStyle='#5758eb';ctx.fillRect(330,50,330,420);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
-      ctx.fillStyle=`rgba(91,105,238,${.34*p})`;ctx.fillRect(330,50,330,420);
-      ctx.strokeStyle=`rgba(213,223,255,${.42*p})`;ctx.lineWidth=5;
-      for(let i=0;i<3;i++){const y=165+i*65;ctx.beginPath();ctx.moveTo(350,y);ctx.bezierCurveTo(430,y-24*Math.sin(elapsed*2+i),560,y+24,650,y-8);ctx.stroke();}
-    }
-    if(effect==='enhancement'){
-      ctx.fillStyle=`rgba(141,207,233,${.32*p})`;ctx.fillRect(345,105-43*p,310,310);
-      ctx.fillStyle=`rgba(194,237,250,${.6*p})`;ctx.beginPath();ctx.ellipse(500,105-43*p,144,25,0,0,Math.PI*2);ctx.fill();
-      ctx.strokeStyle=`rgba(245,253,255,${.95*p})`;ctx.lineWidth=5;ctx.stroke();
-    }
-    if(effect==='conjuration'){
-      for(let i=0;i<18;i++){
-        const x=390+(i*67)%215,y=150+(i*43)%200;
-        ctx.save();ctx.translate(x,y+35*(1-p)+Math.sin(elapsed*2+i)*5*p);ctx.rotate(i*1.7+elapsed*.3);ctx.globalAlpha=p*(.7+(i%3)*.15);
-        const size=8+i%4*2;ctx.fillStyle=i%2?'#a9efd9':'#effff7';ctx.strokeStyle='#407f73';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-size);ctx.lineTo(size*.6,0);ctx.lineTo(0,size);ctx.lineTo(-size*.6,0);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
-      }
-    }
-    if(effect==='transmutation'){
-      ctx.fillStyle=`rgba(255,212,119,${.17*p})`;ctx.fillRect(350,80,300,310);
-      for(let i=0;i<16;i++){
-        const x=395+(i*47)%210+Math.sin(elapsed*2+i)*5*p,y=170+(i*37)%200-65*p;
-        ctx.strokeStyle=`rgba(255,238,177,${p*.95})`;ctx.fillStyle=`rgba(255,220,135,${p*.24})`;ctx.lineWidth=3.5;ctx.beginPath();ctx.arc(x,y,5+i%4*1.5,0,Math.PI*2);ctx.fill();ctx.stroke();
-      }
-    }
-    const rippleStrength=concentration*.85+(effect!=='none'?.6*p:0);
-    if(rippleStrength>0){
-      for(let i=0;i<3;i++){
-        const cycle=(elapsed*.65+i/3)%1;
-        ctx.strokeStyle=`rgba(235,255,247,${rippleStrength*(1-cycle)*.9})`;ctx.lineWidth=3.5;
-        ctx.beginPath();ctx.ellipse(500,105-(effect==='enhancement'?43*p:0),30+110*cycle,6+19*cycle,0,0,Math.PI*2);ctx.stroke();
+  function ripples(y,strength){
+    // Perspective waves with a dark trough beside each highlight, clipped to
+    // the actual surface. Subpixel displacement replaces luminous energy FX.
+    ctx.save();ctx.beginPath();ctx.ellipse(500,y,140,23,0,0,Math.PI*2);ctx.clip();
+    for(let i=0;i<4;i++){
+      const phase=(elapsed*.46+i*.27)%1,r=18+phase*139,fade=Math.sin(phase*Math.PI)*strength;
+      for(const [offset,color,alpha] of [[1.4,'70,83,77',.21],[0,'247,245,222',.35]]){
+        ctx.strokeStyle=`rgba(${color},${fade*alpha})`;ctx.lineWidth=1.25;ctx.beginPath();
+        for(let j=0;j<=90;j++){
+          const a=j/90*Math.PI*2,wobble=Math.sin(a*3+elapsed*1.3+i)*.65*strength;
+          const x=497+Math.cos(a)*(r+wobble),wy=y+Math.sin(a)*(r*.16+wobble*.22)+offset;
+          if(j===0)ctx.moveTo(x,wy);else ctx.lineTo(x,wy);
+        }
+        ctx.stroke();
       }
     }
     ctx.restore();
-    ctx.save();
-    let dx=0,dy=0,angle=0;
-    if(effect==='manipulation'){dx=35*Math.sin(p*Math.PI*2)+22*p;dy=10*Math.sin(p*Math.PI*2);angle=p*(Math.PI*2+.45);}
-    if(effect==='enhancement')dy=-43*p;
-    if(concentration>0){dy+=Math.sin(elapsed*3)*2*concentration;angle+=Math.sin(elapsed*2)*.035*concentration;}
-    ctx.translate(500+dx,105+dy);ctx.rotate(angle);ctx.translate(-500,-105);
-    if(effect==='specialization'){
-      ctx.filter=`brightness(${1-.88*Math.min(1,p*2)}) saturate(${1-p})`;
-      ctx.globalAlpha=1-Math.max(0,(p-.4)/.6);
-    }
-    ctx.drawImage(leaf,0,0);ctx.restore();
-    if(effect==='specialization' && p>.4){
-      ctx.save();ctx.clip(glassMask);ctx.filter='brightness(.13) saturate(.15)';ctx.globalAlpha=Math.min(1,(p-.4)*3);
-      for(let i=0;i<9;i++){
-        const x=418+i*18,y=86+(i%3)*9,fall=(p-.4)/.6*(80+(i*31)%150);
-        ctx.save();ctx.translate(x+(i%2?18:-10),y+fall);ctx.rotate((i%2?1:-1)*p*.7);
-        ctx.beginPath();ctx.moveTo(-8,-5);ctx.lineTo(-2,-13);ctx.lineTo(7,-6);ctx.lineTo(4,8);ctx.lineTo(-5,5);ctx.closePath();ctx.clip();
-        ctx.drawImage(leaf,x,y,19,29,-9,-14,21,31);ctx.restore();
+  }
+  function overflow(p){
+    const spill=smooth((p-.46)/.30);if(!spill)return;
+    // Unequal thin sheets follow the outside of the bowl before detaching.
+    for(const [side,delay] of [[-1,0],[1,.12]]){
+      const q=clamp((spill-delay)/(1-delay));if(!q)continue;
+      const x=500+side*155;
+      ctx.save();ctx.lineCap='round';ctx.beginPath();ctx.rect(x-48,83,96,12+221*q);ctx.clip();
+      ctx.beginPath();ctx.moveTo(x,90);ctx.bezierCurveTo(x+side*12,123,x+side*5,220,x-side*31,296);
+      ctx.strokeStyle=`rgba(105,147,151,${.20*q})`;ctx.lineWidth=8*q;ctx.stroke();
+      ctx.strokeStyle=`rgba(234,243,234,${.48*q})`;ctx.lineWidth=2.1*q;ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x-side*3,93);ctx.bezierCurveTo(x+side*6,135,x-side*1,222,x-side*32,292);
+      ctx.strokeStyle=`rgba(255,253,237,${.3*q})`;ctx.lineWidth=1;ctx.stroke();
+      ctx.restore();ctx.save();
+      for(let i=0;i<3&&q>.92;i++){
+        const age=(elapsed*.92+i*.33+(side===1?.17:0))%1,fall=age*age*324*q;
+        ctx.fillStyle=`rgba(221,235,227,${.52*q*(1-age*.4)})`;
+        ctx.beginPath();ctx.ellipse(x-side*32+side*age*5,296+fall,1.8+age*.6,3+age*4,side*.08,0,Math.PI*2);ctx.fill();
       }
       ctx.restore();
     }
-    if(effect==='enhancement'){
-      ctx.strokeStyle=`rgba(215,245,255,${.95*p})`;ctx.lineWidth=7;ctx.lineCap='round';
-      for(const [x,y] of [[345,93],[654,93]]){
-        ctx.beginPath();ctx.moveTo(x,y);ctx.bezierCurveTo(x-12,y+30,x+12,y+95*p,x+7,y+220*p);ctx.stroke();
-        for(let i=0;i<3;i++){const drop=(elapsed*.7+i/3)%1;ctx.fillStyle=`rgba(222,248,255,${.9*p*(1-drop)})`;ctx.beginPath();ctx.ellipse(x+7,y+180*p+drop*150,4,8,0,0,Math.PI*2);ctx.fill();}
+    const wet=smooth((p-.72)/.28);
+    if(wet){
+      ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);
+      ctx.moveTo(626,565);ctx.ellipse(500,565,126,45,0,0,Math.PI*2);ctx.closePath();ctx.clip('evenodd');
+      ctx.translate(500,620);ctx.scale(1,.13);ctx.beginPath();
+      for(let i=0;i<=80;i++){
+        const a=i/80*Math.PI*2,r=(111+Math.sin(a*5)*6+Math.cos(a*7)*3)*wet;
+        if(i===0)ctx.moveTo(Math.cos(a)*r,Math.sin(a)*r);else ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);
       }
+      ctx.closePath();ctx.fillStyle='rgba(71,91,79,.15)';ctx.fill();ctx.strokeStyle='rgba(241,240,213,.23)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
     }
-    if(concentration>0){
-      ctx.save();ctx.globalAlpha=concentration;ctx.shadowColor='#d1ffe5';ctx.shadowBlur=12;
-      for(const direction of [-1,1])for(let i=0;i<3;i++){
-        const cycle=(elapsed*.55+i/3)%1;
-        const x=500+direction*(300-135*cycle),y=300-120*cycle;
-        ctx.strokeStyle=`rgba(213,255,226,${(1-cycle)*.7})`;ctx.lineWidth=4;
-        ctx.beginPath();ctx.moveTo(x+direction*25,y+35);ctx.quadraticCurveTo(x,y+5,x-direction*12,y-12);ctx.stroke();
+  }
+  function draw(){
+    if(!base)return;
+    const enhancing=effect==='enhancement',p=enhancing?smooth(progress):0;
+    // The approved goblet is already nearly full: its perspective rim only
+    // leaves ~10 native pixels of headroom. Never levitate water above it.
+    const rise=16*smooth(p/.60),surfaceY=105-rise;
+    const strength=concentration*.78+(enhancing?.30*(1-p)+.18:0);
+    ctx.clearRect(0,0,W,H);
+    // Five unapproved reactions intentionally retain the untouched water.
+    if(!concentration&&!enhancing){
+      ctx.save();ctx.clip(silhouette);ctx.drawImage(original,0,0);ctx.restore();
+    }else{
+      ctx.save();ctx.clip(silhouette);ctx.drawImage(base,0,0);ctx.restore();
+      ctx.save();ctx.clip(interior);
+      if(rise>0){
+        // Remove the old meniscus as the real surface moves upward.
+        ctx.save();ctx.beginPath();ctx.ellipse(500,108,141,31,0,0,Math.PI*2);ctx.clip();
+        ctx.globalAlpha=smooth(rise/8);ctx.drawImage(base,425,146,150,46,357,75,286,70);ctx.restore();
+        const water=ctx.createLinearGradient(0,surfaceY,0,205);
+        water.addColorStop(0,'rgba(199,221,213,.12)');water.addColorStop(1,'rgba(200,219,208,0)');
+        ctx.fillStyle=water;ctx.fillRect(357,surfaceY,286,140);
+      }
+      ctx.save();ctx.beginPath();ctx.ellipse(500,surfaceY,143,24,0,0,Math.PI*2);ctx.clip();
+      for(let row=79;row<132;row+=2){
+        const offset=Math.sin(row*.43+elapsed*2.2)*strength*1.35;
+        // Baked rim highlights must never rise along with the water.
+        if(!rise)ctx.drawImage(surface,355,row,290,2,355+offset,row,290,2.15);
+      }
+      if(rise>0){
+        const reflection=ctx.createLinearGradient(0,surfaceY-24,0,surfaceY+24);
+        reflection.addColorStop(0,'rgba(151,176,179,.23)');reflection.addColorStop(.55,'rgba(217,226,213,.12)');reflection.addColorStop(1,'rgba(119,148,152,.18)');
+        ctx.fillStyle=reflection;ctx.fillRect(355,surfaceY-24,290,48);
       }
       ctx.restore();
+      if(rise>0){
+        ctx.beginPath();ctx.ellipse(500,surfaceY,142,23,0,0,Math.PI*2);
+        ctx.strokeStyle='rgba(221,234,224,.42)';ctx.lineWidth=1.2;ctx.stroke();
+      }
+      ripples(surfaceY,strength);ctx.restore();
+      // The original rim remains in front of the water and its reflections.
+      if(rise){
+        ctx.save();ctx.clip(silhouette);ctx.beginPath();
+        ctx.ellipse(500,92,157,48,0,0,Math.PI*2);ctx.closePath();
+        ctx.moveTo(646,89);ctx.ellipse(500,89,146,39,0,0,Math.PI*2);ctx.closePath();
+        ctx.clip('evenodd');ctx.drawImage(base,0,0);ctx.restore();
+      }
+      ctx.save();ctx.translate(500,surfaceY+Math.sin(elapsed*2.1)*.65*strength);
+      ctx.rotate(Math.sin(elapsed*1.45)*.009*strength);ctx.translate(-500,-105);ctx.drawImage(leaf,0,0);ctx.restore();
+      if(enhancing)overflow(p);
     }
     canvas.dataset.renderedEffect=effect;canvas.dataset.effectProgress=String(progress);
-    canvas.dataset.concentration=concentration.toFixed(3);
+    canvas.dataset.concentration=concentration.toFixed(3);canvas.dataset.surfaceY=surfaceY.toFixed(2);
+    canvas.dataset.deferred=String(effect!=='none'&&!enhancing);
   }
+  function schedule(){if(!frame&&active&&!document.hidden)frame=requestAnimationFrame(tick);}
   function tick(now){
-    frame=0;
-    const dt=Math.min(80,now-lastTick);lastTick=now;
-    elapsed=(now-started)/1000;
-    if(effect!=='none')progress=Math.min(1,(now-started)/3600);
-    concentration+=((concentrating?1:0)-concentration)*(1-Math.exp(-dt/180));
-    if(Math.abs(concentration-(concentrating?1:0))<.002)concentration=concentrating?1:0;
+    frame=0;const dt=Math.min(60,now-last||16);last=now;elapsed+=dt/1000;
+    if(holding)concentration=smooth((clamp((now-holdStarted)/4500)-.10)/.90);
+    else concentration*=Math.exp(-dt/190);
+    if(concentration<.001)concentration=0;
+    if(effect==='enhancement')progress=reduced.matches?1:clamp((now-effectStarted)/3900);
     draw();
-    if(!reduced.matches&&(concentrating||concentration>0||(effect!=='none'&&progress<1)))frame=requestAnimationFrame(tick);
+    if(!reduced.matches&&(holding||concentration>0||(effect==='enhancement'&&progress<1)))schedule();
   }
-  function setConcentration(active){
-    if(concentrating===active)return;
-    concentrating=active;
-    if(reduced.matches){concentration=active?.5:0;draw();return;}
-    if(!frame){started=lastTick=performance.now();frame=requestAnimationFrame(tick);}
+  function setConcentration(value){
+    if(holding===value)return;holding=value;
+    if(value){holdStarted=performance.now();concentration=0;}
+    if(reduced.matches){concentration=0;draw();}else schedule();
   }
   function setEffect(next){
     if(effect===next)return;
-    cancelAnimationFrame(frame);frame=0;concentrating=false;concentration=0;elapsed=0;effect=next;progress=reduced.matches?1:0;started=lastTick=performance.now();draw();
-    if(progress<1)frame=requestAnimationFrame(tick);
+    effect=next;holding=false;concentration=0;progress=reduced.matches?1:0;
+    effectStarted=performance.now();last=effectStarted;draw();if(next==='enhancement')schedule();
   }
-  const motionChange=()=>{if(reduced.matches){cancelAnimationFrame(frame);frame=0;concentration=concentrating?.5:0;progress=effect==='none'?0:1;elapsed=0;draw();}};
-  reduced.addEventListener('change',motionChange);
-  image.addEventListener('load',prepare);
+  function reset(){cancelAnimationFrame(frame);frame=0;holding=false;concentration=0;effect='none';progress=0;elapsed=0;draw();}
+  function motionChange(){
+    if(reduced.matches){cancelAnimationFrame(frame);frame=0;concentration=0;progress=effect==='none'?0:1;draw();}else schedule();
+  }
+  function visibility(){
+    if(document.hidden){cancelAnimationFrame(frame);frame=0;holding=false;concentration=0;draw();}
+    else {last=performance.now();if(effect==='enhancement'&&progress<1)schedule();}
+  }
+  cleanImage.onload=prepare;
+  cleanImage.onerror=()=>{canvas.hidden=true;scene.dataset.waterAsset='missing';};
+  cleanImage.src=import.meta.env.BASE_URL+'assets/divination/water-clean.png';
+  image.addEventListener('load',prepare);reduced.addEventListener('change',motionChange);document.addEventListener('visibilitychange',visibility);
   if(image.complete)prepare();
-  return {
-    setEffect,setConcentration,
-    reset(){cancelAnimationFrame(frame);frame=0;concentrating=false;concentration=0;elapsed=0;effect='none';progress=0;draw();},
-    destroy(){cancelAnimationFrame(frame);image.removeEventListener('load',prepare);reduced.removeEventListener('change',motionChange);},
-  };
+  return {setEffect,setConcentration,reset,destroy(){active=false;cancelAnimationFrame(frame);cleanImage.onload=cleanImage.onerror=null;image.removeEventListener('load',prepare);reduced.removeEventListener('change',motionChange);document.removeEventListener('visibilitychange',visibility);}};
 }

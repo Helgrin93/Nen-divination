@@ -1,5 +1,7 @@
 # Nen Divination
 
+> **Prova di qualità della divinazione — 27 ottobre 2026:** nuove pose delle mani, increspature progressive durante i 4,5 secondi e nuova reazione del **Potenziamento**. Gli effetti precedenti sono rimossi; le altre cinque categorie conservano l'acqua statica in attesa di approvazione. Con Vite avviato, apri [l'anteprima diretta](http://localhost:5173/review/divination.html) senza rifare il quiz. Analisi, verifiche e asset necessari in [divination-quality-notes.md](assets/scene/divination-quality-notes.md). Nessun push o deploy.
+
 > **Correzione scena continua (27 ottobre):** ripristinati i quattro livelli originali di Wing sopra un unico fondale con tavolo, mani e calice arrotondato con stelo. Intro, quiz e divinazione condividono la stessa composizione; il risultato ne conserva il calice e l?effetto. Dettagli e prompt in [unified-scene-notes.md](assets/scene/unified-scene-notes.md).
 
 > **V2 — revisione locale del 27 ottobre 2026.** Avvia con `npm.cmd run dev` e apri `http://localhost:5173/`. Fondale con tappeto e crepe dal nuovo riferimento, quattro espressioni di Wing con dissolvenza, sei effetti su canvas e risultato compatto con radar e schede personaggio. Mani e bicchiere conservati. Tenrai ha fornito nomi, ID e URL dei 18 personaggi; i ritratti non sono pubblicati perché i permessi sulle immagini restano non verificati. Vedi [ASSET_STATUS.md](ASSET_STATUS.md) per screenshot e limiti grafici.

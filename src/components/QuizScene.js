@@ -6,9 +6,9 @@ export function quizScene() {
   return `<div class="quiz-scene-art" aria-hidden="true">
     <div class="water-stage unified-stage">
       <img class="glass-plate room-backdrop" src="${base}assets/scene-v3/unified-goblet-scene.png" width="1536" height="1024" alt="" fetchpriority="high">
-      <canvas class="hands-motion" width="1536" height="304" hidden></canvas>
+      <canvas class="hands-motion" width="1536" height="512" hidden></canvas>
       <div class="scene-plate wing-plate">${Object.entries(wing.poses).map(([expression,src])=>`<img class="wing-sprite${expression==='neutral'?' is-active':''}" data-pose="${expression}" src="${base}${src}" alt="" ${expression==='neutral'?'fetchpriority="high"':''}>`).join('')}</div>
-      <canvas class="water-effects" width="1000" height="563"></canvas>
+      <canvas class="water-effects" width="1000" height="680"></canvas>
     </div>
   </div>`;
 }

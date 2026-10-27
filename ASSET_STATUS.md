@@ -2,6 +2,14 @@
 
 Aggiornato il **27 ottobre 2026**. La scena di divinazione e la scheda risultato V2 sono integrate nell'anteprima; la fedeltà grafica finale resta incompleta per gli asset elencati sotto. Nessun push o deploy eseguito.
 
+## Prova di qualità della divinazione — revisione corrente
+
+Integrate tre pose anatomiche dedicate delle mani, un tavolo senza mani e una superficie senza foglia, generati con lo strumento integrato imagegen dal fondale approvato. File in `public/assets/divination/`. Il runtime usa soltanto le impronte delle vecchie mani e della foglia dei nuovi fondali: Wing, tappeto, muro e calice continuano a usare i file originali.
+
+La nuova animazione riguarda esclusivamente Potenziamento e increspature di concentrazione. Le altre cinque reazioni sono statiche, in attesa dell'approvazione richiesta. Rimossi raggi, lineette convergenti, bagliori e vecchie reazioni provvisorie. Punteggi e schermata finale invariati.
+
+Per la rifinitura servono fotogrammi intermedi delle mani, vetro e acqua su livelli originali separati, una foglia con alpha rifinito e una piccola sequenza illustrata del velo d'acqua sul bordo. I tre disegni attuali usano raccordi brevi su canvas; non equivalgono a una sequenza completa disegnata fotogramma per fotogramma. Dettagli e prompt in [divination-quality-notes.md](assets/scene/divination-quality-notes.md). Le sezioni successive descrivono le revisioni precedenti.
+
 ## Ripresa: muro con tappeto e quattro espressioni
 
 Su richiesta dell'utente, il muro dietro Wing mostra un tappeto con bordi teal, verde, ocra e rosso e piccole crepe che spuntano ai lati. `public/assets/scene-v3/wall-rug.png` è un fondale senza personaggi, generato con imagegen dal riferimento allegato; prompt completo in `assets/scene/wall-rug.prompt.md`. È un livello separato: file e animazioni di mani, bicchiere e foglia restano invariati, così come layout delle risposte e risultato.

@@ -40,24 +40,23 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   await expect(page.locator('.hold-button')).toBeVisible();
   await page.screenshot({path:`.verification/${testInfo.project.name}-hold.png`,fullPage:true});
   const hold=page.locator('.hold-button');await hold.focus();
-  await page.keyboard.down('Space');await page.waitForTimeout(600);
+  await expect(page.locator('.hands-motion')).toHaveAttribute('data-pose','approach');
+  await page.keyboard.down('Space');await page.waitForTimeout(1600);
   await expect(page.locator('.hands-motion')).toBeVisible();
   const handPixels=await page.locator('.hands-motion').evaluate(canvas=>{
-    const original=document.createElement('canvas');original.width=1536;original.height=304;
-    original.getContext('2d').drawImage(document.querySelector('.glass-plate'),0,-720);
-    const before=original.getContext('2d').getImageData(0,0,1536,304).data;
-    const after=canvas.getContext('2d').getImageData(0,0,1536,304).data;
+    const after=canvas.getContext('2d').getImageData(0,0,1536,512).data;
     let left=0,right=0,glass=0;
-    for(let y=60;y<280;y+=3)for(let x=250;x<1286;x+=3){
-      const i=(y*1536+x)*4,delta=Math.abs(before[i]-after[i])+Math.abs(before[i+1]-after[i+1])+Math.abs(before[i+2]-after[i+2]);
-      if(x<590)left+=delta;else if(x>946)right+=delta;else if(x>700&&x<835)glass+=delta;
+    for(let y=60;y<480;y+=3)for(let x=250;x<1286;x+=3){
+      const alpha=after[(y*1536+x)*4+3];
+      if(x<590)left+=alpha;else if(x>946)right+=alpha;else if(x>700&&x<835)glass+=alpha;
     }
     return {left,right,glass};
   });
   expect(handPixels.left).toBeGreaterThan(1000);expect(handPixels.right).toBeGreaterThan(1000);expect(handPixels.glass).toBe(0);
-  expect(Number(await page.locator('.water-effects').getAttribute('data-concentration'))).toBeGreaterThan(.5);
+  expect(Number(await page.locator('.water-effects').getAttribute('data-concentration'))).toBeGreaterThan(.1);
+  await expect(page.locator('.hands-motion')).toHaveAttribute('data-pose','concentration');
   await page.keyboard.up('Space');
-  await expect(page.locator('.hands-motion')).toBeHidden();
+  await expect(page.locator('.hands-motion')).toHaveAttribute('data-pose','approach');
   await expect(page.locator('.hold-progress')).toHaveAttribute('aria-valuenow','0');
   await expect(page.locator('body')).toHaveAttribute('data-phase','concentration');
   await hold.focus();await page.keyboard.down('Space');await page.waitForTimeout(4700);await page.keyboard.up('Space');
@@ -77,7 +76,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   expect(errors).toEqual([]);
 });
 
-test('all six deterministic revelations persist in the same scene and export safely offline',async({page,context},testInfo)=>{
+test('Potenziamento animates; five pending reactions retain the illustration and all results export offline',async({page,context},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop','The full responsive flow is covered separately.');
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.addInitScript(()=>{
@@ -121,9 +120,12 @@ test('all six deterministic revelations persist in the same scene and export saf
       }
       return {glass,hands,leafGreenBefore,leafGreenAfter};
     });
-    expect(changes.glass).toBeGreaterThan(1000);
+    if(type==='enhancement')expect(changes.glass).toBeGreaterThan(1000);
+    else {
+      expect(changes.glass).toBe(0);
+      await expect(page.locator('.water-effects')).toHaveAttribute('data-deferred','true');
+    }
     expect(changes.hands).toBe(0);
-    if(type==='specialization')expect(changes.leafGreenAfter).toBeLessThan(changes.leafGreenBefore);
     if(type==='transmutation')await expect(page.locator('.scene-effect-caption')).toContainText('dolce');
     const finalPixels=await water.evaluate(canvas=>canvas.toDataURL());
     await page.getByRole('button',{name:'English',exact:true}).click();
