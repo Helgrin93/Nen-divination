@@ -1,12 +1,8 @@
 // One photographic scene and one canvas persist from the quiz to the result.
 import { wing } from '../data/wing.js';
-const preview = import.meta.env.DEV || import.meta.env.MODE === 'local-review';
 const base = import.meta.env.BASE_URL;
 
 export function quizScene() {
-  // Release assets have not been supplied yet. Do not ship private reference crops
-  // or issue requests for invented asset paths in the normal production build.
-  if (!preview) return '<div class="quiz-scene-art"><p class="scene-asset-notice" data-i18n="sceneMissing"></p></div>';
   return `<div class="quiz-scene-art" aria-hidden="true">
     <div class="water-stage unified-stage">
       <img class="glass-plate room-backdrop" src="${base}assets/scene-v3/unified-goblet-scene.png" width="1536" height="1024" alt="" fetchpriority="high">

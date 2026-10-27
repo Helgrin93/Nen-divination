@@ -8,7 +8,7 @@ Su richiesta dell'utente, il muro dietro Wing mostra un tappeto con bordi teal, 
 
 Collegati i quattro PNG trasparenti già presenti in `public/assets/scene-v3/`: neutro, sorriso, occhi chiusi e gesto. Dissolvenza di 240 ms, disattivata con movimento ridotto. Le reazioni occasionali preesistenti mantengono la stessa espressione cambiando lingua, selezionando una risposta o tornando indietro. Se una posa manca, resta visibile quella neutra. Provenienza dei quattro PNG ancora da registrare: non sono certificati come fotogrammi autentici.
 
-La build normale esclude ora anche `assets/scene-v3/`, che Vite avrebbe altrimenti copiato automaticamente da `public/`. La build `local-review` include il fondale e le quattro pose, senza i due file sorgente inutilizzati `composition-source.png` e `background-source.png`.
+Aggiornamento produzione: entrambe le build includono soltanto `unified-goblet-scene.png` e le quattro pose di Wing. Sorgenti e fondali intermedi inutilizzati restano esclusi. Vedere `ASSETS.md` per i permessi non verificati.
 
 ## Correzione definitiva delle risposte quiz
 
@@ -80,6 +80,6 @@ Screenshot aggiornati in `.verification/`: `desktop-result.png`, `tablet-result.
 - `npm.cmd run assets:scene`: ricrea i montaggi privati con Vite già avviato.
 - `npm.cmd run build:review`: build di revisione in `.verification/v2/dist`, con prefisso `/nen-divination/` e asset locali.
 - `node scripts/verify-build.mjs --review`: verifica flusso e download PNG della build di revisione.
-- `npm.cmd run build`: esclude i riferimenti privati e mostra un avviso per gli asset scenici assenti; **non è una release grafica V2 pronta da pubblicare**.
+- `npm.cmd run build`: include la scena completa, escludendo riferimenti privati e sorgenti inutilizzati. Permessi da documentare in `ASSETS.md`.
 
 Dataset, 96 vettori, calibrazione, bonus e state machine sono invariati. Resta da completare il set di asset autorizzati e controllare la fedeltà visiva finale con l'utente.

@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { readFile, readdir } from 'node:fs/promises';
 
-// Reference crops are available for local review only, never in the Pages build.
+// Private reference crops remain local; runtime scene assets ship in every build.
 function localScenePreview(mode) {
   const names = ['wing-room.png', 'table-glass.png', 'room-edge.png', 'table-edge.png', 'anime-water-scene.png'];
   // Always use the canonical rounded, stemmed glass reference in every phase.
@@ -31,15 +31,13 @@ function localScenePreview(mode) {
       });
     },
     async generateBundle() {
-      // Copy public assets explicitly so unfinished scene-v3 source files do not
-      // silently enter the release merely because they reside in public/.
-      const sceneAssets=new Set(['wall-rug.png','unified-goblet-scene.png','wing-neutral.png','wing-smile.png','wing-eyes-closed.png','wing-gesture.png']);
+      // Only the runtime composition and poses are published, never source files.
+      const sceneAssets=new Set(['unified-goblet-scene.png','wing-neutral.png','wing-smile.png','wing-eyes-closed.png','wing-gesture.png']);
       const copyPublic=async(directory,prefix='')=>{
         for(const entry of await readdir(directory,{withFileTypes:true})){
           if(entry.name.startsWith('.'))continue;
           const fileName=prefix+entry.name;
           const source=new URL(entry.name+(entry.isDirectory()?'/':''),directory);
-          if(fileName==='assets/scene-v3' && mode!=='local-review')continue;
           if(entry.isDirectory())await copyPublic(source,fileName+'/');
           else if(!fileName.startsWith('assets/scene-v3/') || sceneAssets.has(entry.name)){
             this.emitFile({type:'asset',fileName,source:await readFile(source)});
