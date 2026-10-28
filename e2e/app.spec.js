@@ -62,7 +62,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   await hold.focus();await page.keyboard.down('Space');await page.waitForTimeout(4700);await page.keyboard.up('Space');
   await expect(page.locator('body')).toHaveAttribute('data-phase','waterEffect');
   const effect=await page.locator('.scene').getAttribute('data-effect');expect(effect).not.toBe('none');
-  await expect(page.locator('.nen-title')).toBeVisible();
+  await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});
   await expect(page.locator('.scene')).toHaveAttribute('data-effect',effect);
   await expect(page.locator('.character-card')).toHaveCount(3);await noOverflow(page);
   await page.screenshot({path:`.verification/${testInfo.project.name}-result.png`,fullPage:true});
@@ -76,7 +76,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   expect(errors).toEqual([]);
 });
 
-test('Potenziamento animates; five pending reactions retain the illustration and all results export offline',async({page,context},testInfo)=>{
+test('all six completed reactions persist and all results export offline',async({page,context},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop','The full responsive flow is covered separately.');
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.addInitScript(()=>{
@@ -120,10 +120,10 @@ test('Potenziamento animates; five pending reactions retain the illustration and
       }
       return {glass,hands,leafGreenBefore,leafGreenAfter};
     });
-    if(type==='enhancement')expect(changes.glass).toBeGreaterThan(1000);
+    if(type!=='transmutation')expect(changes.glass).toBeGreaterThan(1000);
     else {
       expect(changes.glass).toBe(0);
-      await expect(page.locator('.water-effects')).toHaveAttribute('data-deferred','true');
+      await expect(page.locator('.water-effects')).toHaveAttribute('data-stage','sweet');
     }
     expect(changes.hands).toBe(0);
     if(type==='transmutation')await expect(page.locator('.scene-effect-caption')).toContainText('dolce');
@@ -161,7 +161,7 @@ test('pointer cancellation, right button, blur, and reduced-motion alternative',
   await hold.focus();await page.keyboard.down('Enter');await page.waitForTimeout(250);await page.evaluate(()=>window.dispatchEvent(new Event('blur')));await page.keyboard.up('Enter');
   await expect(page.locator('.hold-progress')).toHaveAttribute('aria-valuenow','0');
   await page.emulateMedia({reducedMotion:'reduce'});await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();
-  await expect(page.locator('.nen-title')).toBeVisible();await noOverflow(page);
+  await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});await noOverflow(page);
 });
 
 test('native mouse or touch hold completes only after 4.5 seconds',async({page,browserName},testInfo)=>{
@@ -178,5 +178,5 @@ test('native mouse or touch hold completes only after 4.5 seconds',async({page,b
   await page.waitForTimeout(3700);
   if(touch)await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});else await page.mouse.up();
   await expect(page.locator('body')).toHaveAttribute('data-phase','waterEffect');
-  await expect(page.locator('.nen-title')).toBeVisible();
+  await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});
 });

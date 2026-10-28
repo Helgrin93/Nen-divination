@@ -8,6 +8,7 @@ import { nenTypes } from './data/nenTypes.js';
 import { createAttempt, selectAnswer, advance, goBack, reveal } from './game/stateMachine.js';
 import { quizScene, setupQuizScene } from './components/QuizScene.js';
 import { mountWaterScene } from './components/WaterScene.js';
+import { wingDivination,wingTransmutationIntro } from './components/divinationTimeline.js';
 import { mountHandsMotion } from './components/HandsMotion.js';
 import { mountHold } from './components/HoldInteraction.js';
 import { resultView } from './components/ResultView.js';
@@ -31,6 +32,23 @@ const content=document.querySelector('#content'),scene=document.querySelector('.
 const setExpression=setupQuizScene(scene);
 const waterScene=mountWaterScene(scene);
 const handsMotion=mountHandsMotion(scene);
+scene.addEventListener('divinationstage',({detail})=>{
+  if(state.phase!=='waterEffect'||detail.effect!=='transmutation')return;
+  const sweet=detail.stage==='sweet',line=content.querySelector('.revelation-card p');
+  if(line)line.textContent=(sweet?wingDivination.transmutation:wingTransmutationIntro)[lang];
+  setExpression(sweet?'smile':'curious');
+});
+scene.addEventListener('divinationcomplete',()=>{
+  if(state.phase!=='waterEffect')return;
+  clearTimeout(effectTimer);
+  effectTimer=setTimeout(()=>{
+    if(state.phase!=='waterEffect')return;
+    state.phase='result';render({focus:true});window.scrollTo({top:0,behavior:'instant'});
+  },180);
+});
+scene.addEventListener('divinationerror',()=>{
+  if(state.phase==='waterEffect')scene.querySelector('.scene-effect-caption').textContent=lang==='it'?'Impossibile caricare gli sprite della divinazione. Ricarica la pagina.':'The divination sprites could not load. Please reload the page.';
+});
 const t=()=>translations[lang];
 function translate(){
   document.documentElement.lang=lang;
@@ -95,8 +113,10 @@ function render({focus=false}={}){
       holdActive=true;handsMotion.setActive(true);waterScene.setConcentration(true);scene.classList.add('is-holding');button.querySelector('span').textContent=t().holding;scene.querySelector('.hold-announcement').textContent=t().holding;
     },onReset:()=>{holdActive=false;handsMotion.setActive(false);waterScene.setConcentration(false);scene.classList.remove('is-holding');button.querySelector('span').textContent=t().hold;scene.querySelector('.hold-announcement').textContent=t().reset;},onComplete:completeHold});
   }else if(phase==='waterEffect'){
-    setExpression('curious');
-    content.innerHTML=`<section class="revelation-card" aria-live="polite"><div class="speech-bubble"><span class="speaker">WING</span><h1>${tr.revealing}</h1></div></section>`;
+    const tasting=state.result.primary==='transmutation',sweet=waterScene.getState().stage==='sweet';
+    setExpression(tasting&&sweet?'smile':'curious');
+    const dialogue=tasting&&!sweet?wingTransmutationIntro:wingDivination[state.result.primary];
+    content.innerHTML=`<section class="revelation-card" aria-live="polite"><div class="speech-bubble"><span class="speaker">WING</span><h1>${tr.revealing}</h1><p>${dialogue[lang]}</p></div></section>`;
   }else if(phase==='result'){
     setExpression('smile');
     content.innerHTML=resultView(state.result,lang,tr);
@@ -110,10 +130,6 @@ function completeHold(){
   render({focus:true});
   scene.dataset.effect=state.result.primary;
   waterScene.setEffect(state.result.primary);
-  effectTimer=setTimeout(()=>{
-    if(state.phase!=='waterEffect')return;
-    state.phase='result';render({focus:true});window.scrollTo({top:0,behavior:'instant'});
-  },reducedMotion.matches?150:4200);
 }
 let toastTimer;
 function toast(message){const el=document.querySelector('.toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),6000);}

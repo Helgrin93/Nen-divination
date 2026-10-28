@@ -4,3 +4,6 @@ test-results/
 playwright-report/
 .verification/
 *.local
+.env
+.env.*
+!.env.example

@@ -76,7 +76,7 @@ test('a delayed expression never replaces Wing with an unloaded frame',async({pa
   await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-ready','true');
 });
 
-test('native water coordinates stay registered and deferred effects leave no duplicate glass',async({page})=>{
+test('native water coordinates stay registered and effects preserve the glass rim',async({page})=>{
   await page.goto('/review/divination.html');
   await expect(page.locator('.water-effects')).toHaveAttribute('data-ready','true');
   const registration=await page.evaluate(()=>{
@@ -89,7 +89,9 @@ test('native water coordinates stay registered and deferred effects leave no dup
     const alpha=await page.evaluate(effect=>{
       window.divinationReview.water.setEffect(effect);
       const c=document.querySelector('.water-effects'),data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;
-      let sum=0;for(let i=3;i<data.length;i+=4)sum+=data[i];return sum;
+      // The original back rim and stem stay owned by the scene illustration.
+      let sum=0;for(let y=585;y<602;y++)for(let x=680;x<855;x++)sum+=data[(y*c.width+x)*4+3];
+      return sum;
     },effect);
     expect(alpha).toBe(0);
   }

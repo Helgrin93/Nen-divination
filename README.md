@@ -1,6 +1,6 @@
 # Nen Divination
 
-> **Prova di qualità della divinazione — 27 ottobre 2026:** nuove pose delle mani, increspature progressive durante i 4,5 secondi e nuova reazione del **Potenziamento**. Gli effetti precedenti sono rimossi; le altre cinque categorie conservano l'acqua statica in attesa di approvazione. Con Vite avviato, apri [l'anteprima diretta](http://localhost:5173/review/divination.html) senza rifare il quiz. Analisi, verifiche e asset necessari in [divination-quality-notes.md](assets/scene/divination-quality-notes.md). Nessun push o deploy.
+> **Sei divinazioni — 28 ottobre 2026:** ricostruite tutte le sequenze con atlas illustrati, maschere registrate e timeline indipendenti. Con Vite avviato, apri [l'anteprima diretta](http://localhost:5173/review/divination.html): selezione del tipo, replay, pausa e cursore temporale senza quiz. Dettagli, asset e verifiche in [DIVINATION_IMPLEMENTATION.md](DIVINATION_IMPLEMENTATION.md). Nessun push o deploy.
 
 > **Correzione scena continua (27 ottobre):** ripristinati i quattro livelli originali di Wing sopra un unico fondale con tavolo, mani e calice arrotondato con stelo. Intro, quiz e divinazione condividono la stessa composizione; il risultato ne conserva il calice e l?effetto. Dettagli e prompt in [unified-scene-notes.md](assets/scene/unified-scene-notes.md).
 
@@ -72,7 +72,13 @@ Controlla i file inclusi prima del primo commit, in particolare i riferimenti vi
 
 Riferimenti tecnici: [deployment Vite](https://vite.dev/guide/static-deploy.html), [workflow GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-## Test
+## Anteprima delle sei divinazioni
+
+Con `npm run dev`, aprire `http://localhost:5173/review/divination.html`. La pagina di sviluppo permette selezione diretta dei sei tipi, avvio/ripetizione, pausa/ripresa, cursore temporale, lingua IT/EN e inquadratura risultato. I preset aprono finestre desktop o mobile. La pressione di 4,5 secondi rimane disponibile.
+
+Le trasformazioni complesse usano atlas illustrati con alpha; movimenti e increspature sono programmatici. Tutte le sequenze conservano lo stato finale nell'app. Dettagli, asset, file modificati e verifiche: [DIVINATION_IMPLEMENTATION.md](DIVINATION_IMPLEMENTATION.md). Screenshot temporali e video reali: `node scripts/review-divination.mjs` con Vite avviato; output in `.verification/divination-v3/`. La pagina e i controlli sono esclusi dalla build di produzione.
+
+## Esecuzione dei test
 
 ```sh
 npm test

@@ -47,7 +47,7 @@ test('progressive hold, local masks, physical rise and reset in the quality prev
   await page.clock.runFor(50);await page.keyboard.up('Enter');
   await expect(page.locator('.scene')).toHaveAttribute('data-effect','enhancement');
   await page.clock.runFor(1500);const middle=await read();
-  await page.clock.runFor(2500);const final=await read();
+  await page.clock.runFor(4900);const final=await read();
   expect(middle.surface).toBeLessThan(original.surface);expect(final.surface).toBeLessThan(middle.surface);
   await expect(page.locator('.water-effects')).toHaveAttribute('data-effect-progress','1');
   await expect(page.locator('.hands-motion')).toHaveAttribute('data-pose','concentration');

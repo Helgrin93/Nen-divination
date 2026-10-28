@@ -1,0 +1,8 @@
+﻿.review-controls{position:fixed;right:14px;top:76px;width:260px;padding:15px;z-index:20;background:#faf7eeeF;border:1px solid #8c7653;border-radius:14px;color:#26382d;box-shadow:0 4px 20px #30201222;font:12px/1.4 Arial,sans-serif}
+.review-controls label{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+.review-controls select,.review-controls button{font:inherit;padding:7px;border:1px solid #8c9a88;border-radius:6px;background:#fffdf6;color:#26382d;min-height:32px}
+.review-controls select{flex:1;min-width:0}.review-actions{display:flex;gap:5px;flex-wrap:wrap}.review-controls input{width:100%;accent-color:#365b43}.review-controls p{margin:8px 0 0;font-size:11px}.review-options{display:flex;flex-direction:column}.site-header [data-restart]{color:inherit}
+#experience{width:var(--review-width,100%);max-width:100%;margin:auto}.revelation-card p{font:15px/1.45 Arial,sans-serif;margin:6px 0}
+.scene[data-phase=result]>.content{display:none}
+@media(max-width:1000px){.review-controls{top:auto;bottom:8px;right:8px;width:245px;padding:9px}.review-options{flex-direction:row;flex-wrap:wrap}.review-controls label{margin:3px 0}.review-controls p{display:none}.review-controls select,.review-controls button{min-height:28px;padding:4px}.review-controls output{font-size:10px}}
+@media(max-width:700px){.review-controls{position:relative;inset:auto;width:auto;margin:8px}.scene{height:calc(100dvh - 54px);min-height:430px}}
