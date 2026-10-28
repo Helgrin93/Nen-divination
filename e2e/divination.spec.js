@@ -32,9 +32,9 @@ test('progressive hold, local masks, physical rise and reset in the quality prev
   expect(late.surface).toBe(original.surface);
   await expect(page.locator('.scene')).toHaveAttribute('data-effect','none');
   const bounds=await page.locator('.water-effects').evaluate(canvas=>{
-    const pixels=canvas.getContext('2d').getImageData(0,0,1000,563).data;
+    const pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
     // Aura must not introduce any luminous marks outside the goblet.
-    let outside=0;for(let y=0;y<563;y+=3)for(const x of [20,100,250,750,900,980])outside+=pixels[(y*1000+x)*4+3];
+    let outside=0;for(let y=0;y<canvas.height;y+=3)for(const x of [20,100,250,1250,1400,1500])outside+=pixels[(y*canvas.width+x)*4+3];
     return outside;
   });
   expect(bounds).toBe(0);

@@ -3,8 +3,8 @@
 .scene .quiz-scene-art{background:#d8bd93}
 .water-stage.unified-stage{top:0;left:50%;width:150cqh;height:auto;aspect-ratio:3/2;transform:translateX(-50%);mask-image:none}
 .unified-stage .glass-plate{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:none}
-.unified-stage .wing-plate{top:0;left:50%;width:64%;height:64%;aspect-ratio:3/2;z-index:1;mask-image:none}
-.unified-stage .water-effects{inset:auto;left:28.841146%;top:54.6875%;width:42.317708%;height:43.164063%;z-index:2}
+.unified-stage .wing-plate{top:0;left:50%;width:64%;height:64%;aspect-ratio:3/2;z-index:1;mask-image:var(--wing-occlusion);mask-size:100% 100%;mask-repeat:no-repeat}
+.unified-stage .water-effects{inset:0;width:100%;height:100%;z-index:2}
 .unified-stage .hands-motion{position:absolute;left:0;bottom:0;width:100%;height:50%;pointer-events:none;z-index:3}
 .unified-stage .hands-motion[hidden]{display:none}
 .scene>.content{inset-block-start:40%}

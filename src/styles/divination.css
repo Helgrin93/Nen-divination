@@ -9,7 +9,7 @@ body:not([data-phase=result]) .site-footer{display:none}
 .room-band .scene-extension{display:none}
 .room-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%}
 .wing-plate{aspect-ratio:3/2;mask-image:none}
-.wing-sprite{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .24s ease}
+.wing-sprite{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
 .wing-sprite.is-active{opacity:1}
 .wing-sprite[hidden]{display:none}
 @media(prefers-reduced-motion:reduce){.wing-sprite{transition:none}}

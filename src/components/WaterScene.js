@@ -1,7 +1,8 @@
 // Local coordinates map to the approved goblet illustration, never the viewport.
+import { waterRegion as region } from './sceneGeometry.js';
+// Mask authoring units map once into the native 1536 x 1024 scene.
 const W=1000,H=680;
 const leafOutline='M416 109 Q439 98 462 91 Q507 80 552 95 L588 105 L588 109 L568 110 Q535 128 485 122 Q450 122 416 109 Z';
-const glassOutline='M342 86 C340 25 656 25 657 86 C672 225 640 374 521 400 L479 400 C370 374 334 231 342 86 Z';
 const waterInterior='M356 88 Q500 38 644 88 C651 224 628 359 510 381 C393 382 352 270 356 88Z';
 const makeCanvas=(w,h)=>Object.assign(document.createElement('canvas'),{width:w,height:h});
 const clamp=n=>Math.max(0,Math.min(1,n));
@@ -14,18 +15,18 @@ export function mountWaterScene(scene){
   // changes a few antialiased rim pixels by one value when replaying.
   const ctx=canvas.getContext('2d',{willReadFrequently:true}),reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const cleanImage=new Image();
-  const leafMask=new Path2D(leafOutline),silhouette=new Path2D(glassOutline),interior=new Path2D(waterInterior);
+  const leafMask=new Path2D(leafOutline),interior=new Path2D(waterInterior);
   let original,base,leaf,surface,frame=0,last=0,elapsed=0,effect='none',progress=0;
   let holding=false,holdStarted=0,concentration=0,effectStarted=0,active=true;
 
   function prepare(){
     if(!image.naturalWidth||!cleanImage.complete||!cleanImage.naturalWidth)return;
-    original=makeCanvas(W,H);original.getContext('2d').drawImage(image,443,560,650,442,0,0,W,H);
+    original=makeCanvas(W,H);original.getContext('2d').drawImage(image,region.x,region.y,region.width,region.height,0,0,W,H);
     leaf=makeCanvas(W,H);const lc=leaf.getContext('2d');lc.clip(leafMask);lc.drawImage(original,0,0);
     base=makeCanvas(W,H);const bc=base.getContext('2d');bc.drawImage(original,0,0);
     // A dedicated inpainted water plate avoids stretching rim highlights into
     // the space beneath the moving leaf. Only its original footprint is used.
-    bc.save();bc.clip(leafMask);bc.drawImage(cleanImage,443,560,650,442,0,0,W,H);bc.restore();
+    bc.save();bc.clip(leafMask);bc.drawImage(cleanImage,region.x,region.y,region.width,region.height,0,0,W,H);bc.restore();
     surface=makeCanvas(W,H);const sc=surface.getContext('2d');
     sc.beginPath();sc.ellipse(500,105,143,24,0,0,Math.PI*2);sc.clip();sc.drawImage(base,0,0);
     canvas.dataset.ready='true';draw();
@@ -87,17 +88,30 @@ export function mountWaterScene(scene){
     // leaves ~10 native pixels of headroom. Never levitate water above it.
     const rise=16*smooth(p/.60),surfaceY=105-rise;
     const strength=concentration*.78+(enhancing?.30*(1-p)+.18:0);
-    ctx.clearRect(0,0,W,H);
+    ctx.resetTransform();ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.setTransform(region.width/W,0,0,region.height/H,region.x,region.y);
     // Five unapproved reactions intentionally retain the untouched water.
     if(!concentration&&!enhancing){
-      ctx.save();ctx.clip(silhouette);ctx.drawImage(original,0,0);ctx.restore();
+      // Transparent at rest: the background is the only owner of the glass.
     }else{
-      ctx.save();ctx.clip(silhouette);ctx.drawImage(base,0,0);ctx.restore();
+      // Erase only the baked leaf, never repaint the bowl, stem or rim.
+      ctx.save();ctx.clip(leafMask);ctx.drawImage(base,0,0);ctx.restore();
       ctx.save();ctx.clip(interior);
+      // Preserve the rim by excluding it from the animated region. Drawing a
+      // second antialiased rim to restore it can create a bright edge halo.
+      ctx.beginPath();ctx.rect(0,0,W,H);
+      ctx.moveTo(657,92);ctx.ellipse(500,92,157,48,0,0,Math.PI*2);ctx.closePath();
+      ctx.moveTo(646,89);ctx.ellipse(500,89,146,39,0,0,Math.PI*2);ctx.closePath();
+      ctx.clip('evenodd');
       if(rise>0){
         // Remove the old meniscus as the real surface moves upward.
         ctx.save();ctx.beginPath();ctx.ellipse(500,108,141,31,0,0,Math.PI*2);ctx.clip();
-        ctx.globalAlpha=smooth(rise/8);ctx.drawImage(base,425,146,150,46,357,75,286,70);ctx.restore();
+        ctx.globalAlpha=smooth(rise/8);
+        // Use a local water wash; enlarging a rectangular texture here used
+        // to introduce a visibly stretched patch below the meniscus.
+        const wash=ctx.createLinearGradient(0,77,0,139);
+        wash.addColorStop(0,'rgba(173,166,130,.24)');wash.addColorStop(1,'rgba(173,166,130,0)');
+        ctx.fillStyle=wash;ctx.fillRect(357,77,286,62);ctx.restore();
         const water=ctx.createLinearGradient(0,surfaceY,0,205);
         water.addColorStop(0,'rgba(199,221,213,.12)');water.addColorStop(1,'rgba(200,219,208,0)');
         ctx.fillStyle=water;ctx.fillRect(357,surfaceY,286,140);
@@ -119,19 +133,12 @@ export function mountWaterScene(scene){
         ctx.strokeStyle='rgba(221,234,224,.42)';ctx.lineWidth=1.2;ctx.stroke();
       }
       ripples(surfaceY,strength);ctx.restore();
-      // The original rim remains in front of the water and its reflections.
-      if(rise){
-        ctx.save();ctx.clip(silhouette);ctx.beginPath();
-        ctx.ellipse(500,92,157,48,0,0,Math.PI*2);ctx.closePath();
-        ctx.moveTo(646,89);ctx.ellipse(500,89,146,39,0,0,Math.PI*2);ctx.closePath();
-        ctx.clip('evenodd');ctx.drawImage(base,0,0);ctx.restore();
-      }
       ctx.save();ctx.translate(500,surfaceY+Math.sin(elapsed*2.1)*.65*strength);
       ctx.rotate(Math.sin(elapsed*1.45)*.009*strength);ctx.translate(-500,-105);ctx.drawImage(leaf,0,0);ctx.restore();
       if(enhancing)overflow(p);
     }
     canvas.dataset.renderedEffect=effect;canvas.dataset.effectProgress=String(progress);
-    canvas.dataset.concentration=concentration.toFixed(3);canvas.dataset.surfaceY=surfaceY.toFixed(2);
+    canvas.dataset.concentration=concentration.toFixed(3);canvas.dataset.surfaceY=(region.y+surfaceY*region.height/H).toFixed(2);
     canvas.dataset.deferred=String(effect!=='none'&&!enhancing);
   }
   function schedule(){if(!frame&&active&&!document.hidden)frame=requestAnimationFrame(tick);}

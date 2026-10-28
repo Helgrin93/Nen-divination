@@ -66,8 +66,8 @@ function render({focus=false}={}){
   scene.dataset.phase=phase;scene.classList.remove('is-holding');
   if(!['waterEffect','result'].includes(phase)){scene.dataset.effect='none';scene.querySelector('.scene-effect-caption').textContent='';}
   // All interactive phases share the same scene, canvas and camera.
-  if(phase!=='result')scene.append(content);
-  else document.querySelector('#experience').append(content);
+  const contentParent=phase==='result'?document.querySelector('#experience'):scene;
+  if(content.parentElement!==contentParent)contentParent.append(content);
   document.documentElement.style.setProperty('--accent',phase==='result'?nenTypes[state.result.primary].color:'#c8b998');
   scene.querySelector('.scene-hold-slot').innerHTML='';
   if(phase==='intro'){
@@ -127,7 +127,15 @@ document.addEventListener('click',async e=>{
     return;
   }
   const option=e.target.closest('[data-option]');
-  if(option){const answerScroll=content.querySelector('.answers').scrollTop;selectAnswer(state,option.dataset.option);render();content.querySelector('.answers').scrollTop=answerScroll;content.querySelector(`[data-option="${option.dataset.option}"]`).focus({preventScroll:true});return;}
+  if(option){
+    selectAnswer(state,option.dataset.option);
+    content.querySelectorAll('[data-option]').forEach(button=>{
+      const selected=button===option;
+      button.classList.toggle('is-selected',selected);button.setAttribute('aria-pressed',String(selected));
+    });
+    content.querySelector('[data-action="next"]').disabled=false;
+    return;
+  }
   const action=e.target.closest('[data-action]')?.dataset.action;
   if(!action)return;
   if(action==='begin'){state.phase='quiz';render({focus:true});bringContentIntoView();}

@@ -87,7 +87,7 @@ test('Potenziamento animates; five pending reactions retain the illustration and
     await page.goto('/');
     await expect(page.locator('.water-effects')).toHaveAttribute('data-ready','true');
     const water=await page.locator('.water-effects').elementHandle();
-    await water.evaluate(canvas=>{window.initialWater=new Uint8ClampedArray(canvas.getContext('2d').getImageData(0,0,1000,563).data);});
+    await water.evaluate(canvas=>{window.initialWater=new Uint8ClampedArray(canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data);});
     await context.setOffline(true);
     await page.getByRole('button',{name:'Inizia',exact:true}).click();
     const scene=await page.locator('.scene').elementHandle();
@@ -107,16 +107,16 @@ test('Potenziamento animates; five pending reactions retain the illustration and
     await page.screenshot({path:`.verification/effect-${type}.png`,fullPage:true});
     await expect(page.locator('.water-effects')).toHaveAttribute('data-effect-progress','1');
     const changes=await water.evaluate(canvas=>{
-      const pixels=canvas.getContext('2d').getImageData(0,0,1000,563).data;
+      const pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
       let glass=0,hands=0,leafGreenBefore=0,leafGreenAfter=0;
-      for(let y=0;y<563;y++)for(let x=0;x<1000;x++){
-        const i=(y*1000+x)*4;
+      for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++){
+        const i=(y*canvas.width+x)*4;
         const delta=Math.abs(pixels[i]-window.initialWater[i])+Math.abs(pixels[i+1]-window.initialWater[i+1])+Math.abs(pixels[i+2]-window.initialWater[i+2]);
-        if(x>330&&x<670&&y>50&&y<460)glass+=delta;
-        if(x<300||x>700)hands+=delta;
+        if(x>650&&x<890&&y>580&&y<900)glass+=delta;
+        if(x<620||x>920)hands+=delta;
         // The leaf disappears into warm, brighter water in the unified scene.
         // Measure its green tint relative to red, not absolute brightness.
-        if(x>455&&x<540&&y>98&&y<114){leafGreenBefore+=window.initialWater[i+1]-window.initialWater[i];leafGreenAfter+=pixels[i+1]-pixels[i];}
+        if(x>739&&x<794&&y>624&&y<635){leafGreenBefore+=window.initialWater[i+1]-window.initialWater[i];leafGreenAfter+=pixels[i+1]-pixels[i];}
       }
       return {glass,hands,leafGreenBefore,leafGreenAfter};
     });
@@ -143,7 +143,7 @@ test('Potenziamento animates; five pending reactions retain the illustration and
     expect((await downloaded).suggestedFilename()).toBe(`nen-divination-${type}.png`);
     await page.getByRole('button',{name:'Riprova il quiz',exact:true}).click();
     expect(await water.evaluate(canvas=>{
-      const pixels=canvas.getContext('2d').getImageData(0,0,1000,563).data;
+      const pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
       return pixels.every((value,i)=>value===window.initialWater[i]);
     })).toBe(true);
     await context.setOffline(false);

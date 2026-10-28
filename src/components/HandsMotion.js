@@ -54,9 +54,10 @@ export function mountHandsMotion(scene){
       }
       ctx.globalAlpha=1;
     }
-    const index=Math.min(1,Math.floor(amount)),fraction=amount-index;
-    const blend=smooth((fraction-.40)/.20);
-    drawPose(index,1-blend,amount);drawPose(index+1,blend,amount);
+    // These are different anatomical drawings, not registered video frames.
+    // Blending them produced two translucent palms/finger sets mid-travel.
+    // Keep a single opaque drawing while the wrist travel stays continuous.
+    drawPose(Math.min(2,Math.round(amount)),1,amount);
     canvas.hidden=false;canvas.dataset.ready='true';canvas.dataset.approach=amount.toFixed(3);
     canvas.dataset.pose=amount<.4?'rest':amount<1.6?'approach':'concentration';
   }
