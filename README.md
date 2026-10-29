@@ -14,6 +14,8 @@ Il flusso comprende incontro con Wing, sette domande, fino a due approfondimenti
 
 ## Avvio locale
 
+La nuova **scheda risultati** si può provare senza quiz in [review/results.html](http://localhost:5173/review/results.html): sei Nen, IT/EN e pulsanti Salva/Condividi. Riproduce la parte inferiore del nuovo mockup; la scena superiore della build è conservata. Ritratti reali dal catalogo Tenrai integrati e verificati nel browser. Dettagli, confronti e condizioni delle immagini in [RESULT_REDESIGN_REPORT.md](RESULT_REDESIGN_REPORT.md). Le note V2 sopra descrivono le revisioni precedenti.
+
 Richiede **Node.js 22.12+**; Node.js 24 è la versione usata per la verifica. Apri un terminale nella cartella del progetto:
 
 ```sh

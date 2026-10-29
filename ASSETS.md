@@ -27,6 +27,8 @@ Hunter × Hunter e i personaggi appartengono ai rispettivi titolari. I dialoghi 
 
 ## Build di produzione - 27 ottobre 2026
 
+**Aggiornamento scheda risultati:** i 18 ritratti MyAnimeList già identificati tramite Tenrai sono ora copiati in `public/assets/characters/`, su richiesta esplicita dell'utente. URL, ID, crediti e hash sono registrati nel catalogo; i file si caricano e si decodificano nel browser e sono inclusi nella build locale. `permissionStatus` rimane `unverified`: i termini Tenrai non concedono diritti sulle immagini di terzi. Nessuna nuova licenza è attribuita e nessun push o deploy è eseguito. Verifica e condizioni in [RESULT_REDESIGN_REPORT.md](RESULT_REDESIGN_REPORT.md). Le indicazioni storiche sopra su zero ritratti si riferiscono alla versione precedente.
+
 La scena corrente usa `unified-goblet-scene.png` (fondale generato con tappeto, crepe, tavolo, mani, calice e foglia) e `wing-neutral.png`, `wing-smile.png`, `wing-eyes-closed.png`, `wing-gesture.png`. Acqua, foglia e movimento delle mani sono elaborati sul canvas a partire dal fondale; non richiedono ritagli privati. `wall-rug.png` costituisce un input del montaggio, non un file richiesto a runtime. Le righe storiche sopra relative al riferimento anime descrivono la precedente anteprima.
 
 La build pubblica soltanto questi cinque PNG di scene-v3. Esclude `background-source.png`, `composition-source.png`, `wall-rug.png`, anteprime e cartella `reference`. Nessun blocco della scena dipende dalla configurazione di produzione.

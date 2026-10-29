@@ -22,8 +22,8 @@ export const characters = [
     "credit": null,
     "permissionStatus": "missing",
     "description": {
-      "it": "Maestro di enorme disciplina: un esempio di allenamento e potenziamento portati all'estremo.",
-      "en": "A master of discipline whose training pushed enhancement to extraordinary heights."
+      "it": "Con Hyakushiki Kannon guida una gigantesca figura dalle molte braccia, sferrando colpi a velocità straordinaria.",
+      "en": "His 100-Type Guanyin Bodhisattva directs a giant many-armed figure to strike at extraordinary speed."
     },
     "slug": "netero"
   },
@@ -48,8 +48,8 @@ export const characters = [
     "credit": null,
     "permissionStatus": "missing",
     "description": {
-      "it": "Re delle formichimere con un'aura eccezionale, classificato come Emitter nelle informazioni successive dell'autore.",
-      "en": "The Chimera Ant King, whose extraordinary aura is classified as Emission in later author materials."
+      "it": "Assorbe l'aura degli utilizzatori di Nen di cui si nutre, accrescendo la propria potenza e acquisendo nuove capacità.",
+      "en": "Absorbs the aura of Nen users he consumes, increasing his power and gaining new abilities."
     },
     "slug": "meruem"
   },
@@ -113,8 +113,8 @@ export const characters = [
     "credit": null,
     "permissionStatus": "missing",
     "description": {
-      "it": "Hunter e mentore esperta: padroneggia l'aura e un addestramento rigoroso.",
-      "en": "An expert Hunter and mentor with deep aura mastery and rigorous training."
+      "it": "Con Magical Esthetician richiama Cookie, che usa massaggi e una lozione d'aura per alleviare la fatica e favorire il recupero.",
+      "en": "Magical Esthetician summons Cookie, whose massages and aura lotion relieve fatigue and support recovery."
     },
     "slug": "biscuit"
   },

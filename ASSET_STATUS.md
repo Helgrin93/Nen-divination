@@ -24,6 +24,8 @@ Applicate le indicazioni testuali del 27 ottobre: quattro riquadri bianchi trasl
 
 ## Scheda finale compatta
 
+**Revisione successiva dal nuovo mockup:** questa sezione descrive il layout precedente. La scheda corrente ha titolo con palette richiesta, radar a sei colori, potere e affinità in due pannelli, e tre ritratti effettivi per categoria. I 18 file del catalogo Tenrai sono ora integrati localmente, verificati HTTP 200 e decodificati; lo stato dei permessi resta `unverified`. La scena superiore è conservata con confronto di pixel. Anteprima: http://localhost:5173/review/results.html. Dettagli e verifiche: [RESULT_REDESIGN_REPORT.md](RESULT_REDESIGN_REPORT.md).
+
 Applicata la richiesta del 27 ottobre: mantenere la composizione di `reference/RESULT_TARGET_EXACT.png`, con minore sviluppo verticale e le stesse mani della divinazione.
 
 - Hero più basso; stessa immagine, stesso canvas ed effetto finale conservati dalla prova al risultato.

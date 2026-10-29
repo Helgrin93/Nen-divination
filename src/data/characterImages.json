@@ -7,7 +7,8 @@
   "permissionReview": {
     "source": "https://tenrai.org/terms",
     "status": "unverified",
-    "note": "API caching permitted; image rights are not granted by the API provider. No portraits copied into public/assets/characters."
+    "note": "Tenrai Terms sections 3 and 6 checked. They permit API-response caching and do not grant third-party image rights. The 18 exact MAL portraits are cached for the requested local result redesign; permissionStatus remains unverified. No license or publishing permission is inferred.",
+    "reviewedAt": "2026-10-29T02:07:38.386Z"
   },
   "characters": {
     "gon": {
@@ -23,7 +24,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/gon.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "c9723505a4723b0494355410529e5bc78b050bf6dec62ead8f979233c53cec40",
+        "bytes": 39819
+      }
     },
     "netero": {
       "slug": "netero",
@@ -38,7 +46,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/netero.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "433a954ad4faefd015999f2f02c97d5021e62f4b30d077be94dbdc265efe8341",
+        "bytes": 34945
+      }
     },
     "uvogin": {
       "slug": "uvogin",
@@ -53,7 +68,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/uvogin.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "f8c18861a97b62b4262e9c2fa3e57dea85c5640ffe73350d791c0add74d7870f",
+        "bytes": 28581
+      }
     },
     "meruem": {
       "slug": "meruem",
@@ -68,7 +90,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/meruem.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "f544ea73bf301845cfccb7922b937e13090d7ad47acee20e41e52c011bf3612a",
+        "bytes": 36283
+      }
     },
     "zeno": {
       "slug": "zeno",
@@ -83,7 +112,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/zeno.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "899e007ce4eb31b76a7ed0dd7e760a009d3411f4082df697c91e9c982b25af51",
+        "bytes": 29716
+      }
     },
     "razor": {
       "slug": "razor",
@@ -98,7 +134,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/razor.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "b383ad55b8eb6f975e6384529d7c719fb1a05b1b41735e531b56d70caabd3417",
+        "bytes": 33621
+      }
     },
     "killua": {
       "slug": "killua",
@@ -113,7 +156,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/killua.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "8d0dd4473e58d7e61784b6ca1cf187d3d2b85a2157534e0f1cbdbee88105e7ec",
+        "bytes": 38360
+      }
     },
     "hisoka": {
       "slug": "hisoka",
@@ -128,7 +178,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/hisoka.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "d7f7607d8f9f9f64444c5fb2080bdc9cc7330b0fa1da789039969bae01e5c5a0",
+        "bytes": 42884
+      }
     },
     "biscuit": {
       "slug": "biscuit",
@@ -143,7 +200,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/biscuit.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "94a863c7cd497ed0d47534185ad5e6fa262b670b89621c632c742714bcdad31e",
+        "bytes": 41466
+      }
     },
     "kurapika": {
       "slug": "kurapika",
@@ -158,7 +222,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/kurapika.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "5f658fa0edf065d80da9ed4d836d2746a3ebe7e36c0c32494f99357c46adbacb",
+        "bytes": 56897
+      }
     },
     "kite": {
       "slug": "kite",
@@ -173,7 +244,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/kite.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "388860c4e57345b3e8248a36193fc4c3392eb19ef98d19b9e059a1bec990f239",
+        "bytes": 29541
+      }
     },
     "shizuku": {
       "slug": "shizuku",
@@ -188,7 +266,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/shizuku.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "34d4a5a9bb0709872182f7f16648d0e3a5ba95b2290bae5732339b39cb1af808",
+        "bytes": 28626
+      }
     },
     "illumi": {
       "slug": "illumi",
@@ -203,7 +288,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/illumi.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "4ad2d0b74da873889286a6ba32c3a30eea5590eeb9bc031d00c7fa806eb1b38e",
+        "bytes": 45013
+      }
     },
     "morel": {
       "slug": "morel",
@@ -218,7 +310,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/morel.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "6522880e3829b4bcdd43075ac4d53d5794d4083afcf696e647851057573d3b84",
+        "bytes": 23921
+      }
     },
     "shalnark": {
       "slug": "shalnark",
@@ -233,7 +332,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/shalnark.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "b6b5cfcec7e1c07d928ef1d68e0aad725b56b23871c94a005a22fade18de2cdc",
+        "bytes": 29576
+      }
     },
     "chrollo": {
       "slug": "chrollo",
@@ -248,7 +354,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/chrollo.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "8ab07664db87a242dac3499d6f6b12513d75aa538f899096dc12b77ea3a44773",
+        "bytes": 44972
+      }
     },
     "neferpitou": {
       "slug": "neferpitou",
@@ -263,7 +376,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/neferpitou.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "52cc1cb2df29ae09d092749536cd216d61556e521a960860f262165bd451d4ab",
+        "bytes": 43990
+      }
     },
     "pakunoda": {
       "slug": "pakunoda",
@@ -278,7 +398,14 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "cachedPortraitSrc": "assets/characters/pakunoda.jpg",
+      "imageVerification": {
+        "checkedAt": "2026-10-29T02:05:09.089Z",
+        "httpStatus": 200,
+        "sha256": "ac9618b04afb0d66727567848dd6350c5f9bbcd83b7938c9bf14cbc2941d4f7b",
+        "bytes": 49605
+      }
     }
   }
 }
