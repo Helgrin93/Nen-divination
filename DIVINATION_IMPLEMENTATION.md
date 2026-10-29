@@ -1,5 +1,7 @@
 ﻿# Sei divinazioni — implementazione del 28 ottobre 2026
 
+> Aggiornamento artistico V3: vedere [ART_PASS_V3_REPORT.md](ART_PASS_V3_REPORT.md) per le nuove pose della Manipolazione, i materiali dell'acqua e i confronti prima/dopo. Questo documento conserva la descrizione precedente all'art pass.
+
 Le sei sequenze usano un unico compositore Canvas 2D con sprite illustrati. Il Canvas registra e maschera gli asset: non disegna proceduralmente le trasformazioni complesse. Nessuna dipendenza aggiunta.
 
 ## Anteprima di sviluppo

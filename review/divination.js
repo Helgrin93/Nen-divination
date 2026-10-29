@@ -48,5 +48,15 @@ scene.addEventListener('divinationcomplete',()=>{expression('smile');});
 scene.addEventListener('divinationstage',({detail})=>{if(detail.effect==='transmutation'){dialogue();expression(detail.stage==='sweet'?'smile':'curious');}});
 function status(){const s=water.getState();slider.value=s.elapsed;document.querySelector('[data-clock]').textContent=`${(s.elapsed/1000).toFixed(2)} / ${(s.duration/1000).toFixed(2)} s`;document.querySelector('[data-pause]').textContent=s.paused?'Riprendi':'Pausa';document.querySelector('[data-status]').textContent=`${s.effect} · ${s.stage} · ${s.paused?'pausa':s.progress===1?'completata':'in esecuzione'}`;requestAnimationFrame(status);}start();status();
 window.divinationReview={hands,water,scene,play,start};
+const controls=document.querySelector('.review-controls');
+const samples=document.createElement('div');samples.className='review-samples';
+samples.innerHTML=[0,25,50,75,100].map(p=>'<button type="button" data-sample="'+p+'">'+p+'%</button>').join('');
+controls.append(samples);
+const zoom=document.createElement('label');zoom.innerHTML='<input type="checkbox" data-detail> Dettaglio del calice';controls.append(zoom);
+const detail=document.createElement('canvas');detail.width=400;detail.height=616;detail.className='review-detail';detail.hidden=true;controls.append(detail);
+controls.addEventListener('click',e=>{const sample=e.target.closest('[data-sample]');if(!sample)return;if(water.getState().effect==='none')play();water.pause();water.seek(water.getState().duration*Number(sample.dataset.sample)/100);});
+let detailFrame=0;
+function inspectDetail(){detailFrame=0;if(detail.hidden)return;const ctx=detail.getContext('2d');ctx.clearRect(0,0,400,616);for(const source of [scene.querySelector('.glass-plate'),scene.querySelector('.water-effects')])ctx.drawImage(source,628,570,280,431,0,0,400,616);detailFrame=requestAnimationFrame(inspectDetail);}
+controls.querySelector('[data-detail]').addEventListener('change',e=>{detail.hidden=!e.target.checked;cancelAnimationFrame(detailFrame);detailFrame=0;if(!detail.hidden)inspectDetail();});
 const requested=new URLSearchParams(location.search).get('type');
 if(Object.hasOwn(divinationEffects,requested)){type.value=requested;play();}

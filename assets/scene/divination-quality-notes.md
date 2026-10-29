@@ -1,5 +1,7 @@
 ﻿# Verifica artistica delle sei divinazioni — 28 ottobre 2026
 
+> Per l'art pass successivo e i confronti della nuova Manipolazione: [ART_PASS_V3_REPORT.md](../../ART_PASS_V3_REPORT.md) e [audit della baseline](art-pass-v3-audit.md).
+
 La precedente prova animava soltanto il Potenziamento. Il renderer corrente usa sprite illustrati per traboccamento, gocce, impatti, foglia secca, frammenti e residui; programma movimenti, maschere, transizioni, diffusione e increspature. Le sei categorie hanno timeline proprie.
 
 Dettagli e comandi: [DIVINATION_IMPLEMENTATION.md](../../DIVINATION_IMPLEMENTATION.md). Anteprima: `http://localhost:5173/review/divination.html`, disponibile solo in sviluppo.

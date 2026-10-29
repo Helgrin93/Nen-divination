@@ -6,3 +6,5 @@
 .scene[data-phase=result]>.content{display:none}
 @media(max-width:1000px){.review-controls{top:auto;bottom:8px;right:8px;width:245px;padding:9px}.review-options{flex-direction:row;flex-wrap:wrap}.review-controls label{margin:3px 0}.review-controls p{display:none}.review-controls select,.review-controls button{min-height:28px;padding:4px}.review-controls output{font-size:10px}}
 @media(max-width:700px){.review-controls{position:relative;inset:auto;width:auto;margin:8px}.scene{height:calc(100dvh - 54px);min-height:430px}}
+.review-samples{display:flex;gap:4px;margin-top:9px}.review-samples button{flex:1;padding:5px 3px;min-width:0}.review-controls label:has([data-detail]){justify-content:flex-start}.review-controls [data-detail]{width:auto}.review-detail{display:block;width:100%;height:auto;margin-top:8px;border:1px solid #acb1a2;border-radius:8px}.review-detail[hidden]{display:none}
+@media(min-width:701px){.review-controls:has([data-detail]:checked){max-height:calc(100dvh - 88px);overflow:auto}}

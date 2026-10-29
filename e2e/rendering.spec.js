@@ -86,13 +86,36 @@ test('native water coordinates stay registered and effects preserve the glass ri
   });
   expect(registration).toEqual({width:1536,height:1024,same:true});
   for(const effect of ['none','emission','transmutation','conjuration','manipulation','specialization']){
-    const alpha=await page.evaluate(effect=>{
-      window.divinationReview.water.setEffect(effect);
-      const c=document.querySelector('.water-effects'),data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;
-      // The original back rim and stem stay owned by the scene illustration.
-      let sum=0;for(let y=585;y<602;y++)for(let x=680;x<855;x++)sum+=data[(y*c.width+x)*4+3];
-      return sum;
+    const unchanged=await page.evaluate(effect=>{
+      const w=window.divinationReview.water;w.setEffect(effect);w.pause();
+      const c=document.querySelector('.water-effects'),ctx=c.getContext('2d');
+      const pixels=ctx.getImageData(680,585,175,17).data;
+      w.reset();const rim=ctx.getImageData(680,585,175,17).data;
+      return pixels.every((value,i)=>value===rim[i]);
     },effect);
-    expect(alpha).toBe(0);
+    expect(unchanged).toBe(true);
   }
+});
+
+test('glass transmits the decoded Wing pose without restarting the running effect',async({page})=>{
+  await page.goto('/review/divination.html');
+  await expect(page.locator('.wing-sprite[data-ready=true]')).toHaveCount(4);
+  await expect(page.locator('.water-effects')).toHaveAttribute('data-ready','true');
+  const samples=await page.evaluate(()=>{
+    const water=window.divinationReview.water,c=document.querySelector('.water-effects'),plate=document.querySelector('.glass-plate');
+    water.setEffect('conjuration');water.pause();const time=water.getState().duration*.6;
+    return ['neutral','smile','eyesClosed','gesture'].map(pose=>{
+      for(const image of document.querySelectorAll('.wing-sprite'))image.classList.toggle('is-active',image.dataset.pose===pose);
+      water.seek(time);
+      const actual=Object.assign(document.createElement('canvas'),{width:1536,height:1024}),ac=actual.getContext('2d');ac.drawImage(plate,0,0);ac.drawImage(c,0,0);
+      const expected=Object.assign(document.createElement('canvas'),{width:1536,height:1024}),ec=expected.getContext('2d');
+      ec.drawImage(document.querySelector('.wing-sprite.is-active'),1536*.18,0,1536*.64,1024*.64);
+      let error=0;for(const x of [730,750,768,785,805]){
+        const a=ac.getImageData(x,600,1,1).data,e=ec.getImageData(x,600,1,1).data;
+        for(let k=0;k<3;k++)error=Math.max(error,Math.abs(a[k]-e[k]));
+      }
+      return {pose,rendered:c.dataset.glassPose,error,elapsed:water.getState().elapsed,paused:water.getState().paused};
+    });
+  });
+  for(const sample of samples){expect(sample.rendered).toBe(sample.pose);expect(sample.error).toBeLessThan(25);expect(sample.elapsed).toBe(3360);expect(sample.paused).toBe(true);}
 });

@@ -51,3 +51,17 @@ test('hidden scenes resume without skipping the transformation; motion reduction
   await page.clock.runFor(200);expect(Number(await canvas.getAttribute('data-effect-progress'))).toBeGreaterThan(Number(progress));
   await page.emulateMedia({reducedMotion:'reduce'});await expect(canvas).toHaveAttribute('data-effect-progress','1');
 });
+
+test('Wing announces sweet water at 90 percent in both languages',async({page})=>{
+  await page.goto('/review/divination.html');await expect(page.locator('.water-effects')).toHaveAttribute('data-ready','true');
+  await page.locator('[data-type]').selectOption('transmutation');
+  await page.evaluate(()=>window.divinationReview.water.pause());
+  for(const [language,sweet] of [['it','dolce'],['en','sweet']]){
+    await page.locator('[data-language]').selectOption(language);
+    await page.evaluate(()=>{const w=window.divinationReview.water;w.seek(w.getState().duration*.899);});
+    await expect(page.locator('[data-dialogue]')).not.toContainText(sweet);
+    await page.evaluate(()=>{const w=window.divinationReview.water;w.seek(w.getState().duration*.90);});
+    await expect(page.locator('[data-dialogue]')).toContainText(sweet);
+    await expect(page.locator('.water-effects')).toHaveAttribute('data-stage','sweet');
+  }
+});

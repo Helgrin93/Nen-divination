@@ -1,0 +1,25 @@
+{
+  "source": "Approved before art pass V3; native canvas 1536x1024",
+  "frames": [
+    {
+      "fraction": 0,
+      "sha256": "989369dd223111e538ef46c3308916f69c0594a19c35f31bbb52775e5686846f"
+    },
+    {
+      "fraction": 0.25,
+      "sha256": "13d6d330e854854529023877b3932184e275b7df2dbb54f1184f5ce25477a276"
+    },
+    {
+      "fraction": 0.5,
+      "sha256": "05d5e5db00b9f977995d45a39d0c55bcc896e63ef483c3a8ce6f64322ed607f6"
+    },
+    {
+      "fraction": 0.75,
+      "sha256": "c70eedc192f190c8ae7ef1fe60930908cff8141914297ba46e688f97bc11f362"
+    },
+    {
+      "fraction": 1,
+      "sha256": "89a03d05a5a32c8261d5ce9865b2cf5c0075fda4f7850c62399d1cd9e82efdc9"
+    }
+  ]
+}

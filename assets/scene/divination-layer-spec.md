@@ -1,8 +1,12 @@
 ﻿# Livelli della divinazione — stato corrente
 
+> Art pass V3: materiali e coordinate aggiornati in [ART_PASS_V3_REPORT.md](../../ART_PASS_V3_REPORT.md). Specializzazione e asset approvati conservati. La descrizione seguente documenta la base precedente.
+
 Aggiornamento del 28 ottobre 2026. L'analisi precedente rilevava cinque effetti assenti e una sagoma ocra nel vecchio `water-clean.png`. Il renderer è stato sostituito con sei sequenze complete. Specifica, asset e comandi correnti: [DIVINATION_IMPLEMENTATION.md](../../DIVINATION_IMPLEMENTATION.md).
 
 ## Composizione
+
+Correzioni successive: [SCENE_CORRECTIONS_REPORT.md](../../SCENE_CORRECTIONS_REPORT.md). Due fasce RGBA ripristinano il bordo del tappeto davanti alle crepe. Il compositore ricostruisce la trasparenza dell'aria e del bordo superiore del bicchiere dalla posa attiva di Wing, prima degli effetti del liquido. Il fondale e i quattro sprite originali restano intatti.
 
 1. Fondale approvato immutabile, proprietario del calice, dello stelo e del bordo.
 2. `water-surface-clean.png`: riparazione locale con alpha della foglia impressa, 240 × 60, origine nativa `(650,600)`. Derivazione armonica dal disegno originale; nessun ridisegno dell'ambiente.

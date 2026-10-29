@@ -87,7 +87,12 @@ test('all six completed reactions persist and all results export offline',async(
     await page.goto('/');
     await expect(page.locator('.water-effects')).toHaveAttribute('data-ready','true');
     const water=await page.locator('.water-effects').elementHandle();
-    await water.evaluate(canvas=>{window.initialWater=new Uint8ClampedArray(canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data);});
+    await water.evaluate(canvas=>{
+      window.initialWater=new Uint8ClampedArray(canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data);
+      window.initialGlassCorrection=new Uint8Array(canvas.width*canvas.height);
+      for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++)if(window.initialWater[(y*canvas.width+x)*4+3])
+        for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)if(x+dx>=0&&x+dx<canvas.width&&y+dy>=0&&y+dy<canvas.height)window.initialGlassCorrection[(y+dy)*canvas.width+x+dx]=1;
+    });
     await context.setOffline(true);
     await page.getByRole('button',{name:'Inizia',exact:true}).click();
     const scene=await page.locator('.scene').elementHandle();
@@ -106,20 +111,22 @@ test('all six completed reactions persist and all results export offline',async(
     expect(await scene.evaluate(el=>el===document.querySelector('.scene'))).toBe(true);
     await page.screenshot({path:`.verification/effect-${type}.png`,fullPage:true});
     await expect(page.locator('.water-effects')).toHaveAttribute('data-effect-progress','1');
-    const changes=await water.evaluate(canvas=>{
+    const changes=await water.evaluate((canvas,type)=>{
       const pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
       let glass=0,hands=0,leafGreenBefore=0,leafGreenAfter=0;
       for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++){
         const i=(y*canvas.width+x)*4;
         const delta=Math.abs(pixels[i]-window.initialWater[i])+Math.abs(pixels[i+1]-window.initialWater[i+1])+Math.abs(pixels[i+2]-window.initialWater[i+2]);
-        if(x>650&&x<890&&y>580&&y<900)glass+=delta;
+        // Wing's reaction changes the common transmitted shirt pixels; only
+        // the liquid itself must remain identical during Transmutation.
+        if(x>650&&x<890&&y>580&&y<900&&!(type==='transmutation'&&window.initialGlassCorrection[y*canvas.width+x]))glass+=delta;
         if(x<620||x>920)hands+=delta;
         // The leaf disappears into warm, brighter water in the unified scene.
         // Measure its green tint relative to red, not absolute brightness.
         if(x>739&&x<794&&y>624&&y<635){leafGreenBefore+=window.initialWater[i+1]-window.initialWater[i];leafGreenAfter+=pixels[i+1]-pixels[i];}
       }
       return {glass,hands,leafGreenBefore,leafGreenAfter};
-    });
+    },type);
     if(type!=='transmutation')expect(changes.glass).toBeGreaterThan(1000);
     else {
       expect(changes.glass).toBe(0);

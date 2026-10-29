@@ -11,7 +11,8 @@ try{
 const page=await browser.newPage({viewport:{width:1600,height:850}});
 await page.goto(baseURL);
 const result=await page.evaluate(async()=>{
- const paths=['/assets/scene-v3/unified-goblet-scene.png','/assets/divination/water-clean.png','/assets/divination/table-clean.png','/assets/divination/hands-poses.png','/assets/divination/leaf-states-atlas.png','/assets/divination/overflow-atlas.png','/assets/divination/water-surface-clean.png'];
+ const paths=['/assets/scene-v3/unified-goblet-scene.png','/assets/divination/water-clean.png','/assets/divination/table-clean.png','/assets/divination/hands-poses.png','/assets/divination/leaf-states-atlas.png','/assets/divination/overflow-atlas.png','/assets/divination/water-surface-clean.png','/assets/divination/leaf-flex-atlas-v3.png','/assets/divination/overflow-ink-atlas-v3.png','/assets/divination/sediment-atlas-v3.png','/assets/divination/diffusion-mattes-v3.png'];
+ paths.push('/assets/divination/rug-border-repair.png');
  const items=await Promise.all(paths.map(async path=>{
   const image=new Image();image.src=path;await image.decode();
   const canvas=Object.assign(document.createElement('canvas'),{width:image.width,height:image.height});
@@ -49,7 +50,7 @@ const result=await page.evaluate(async()=>{
 await page.screenshot({path:`${out}/source-comparison.png`});
 result.inventory=await readdir('public/assets/divination');
 result.referenceCommit='a23403b';
-result.scope='Approved source, original plates and current six-effect sprite assets. Visual acceptance is recorded separately in .verification/divination-v3.';
+result.scope='Approved source, original plates and current six-effect sprite assets. Art-pass comparison is recorded in .verification/divination-art-v3; earlier review remains in .verification/divination-v3.';
 result.visualReviewRequired=true;
 for(const item of result.images){
  const bytes=await readFile(`public${item.path}`);

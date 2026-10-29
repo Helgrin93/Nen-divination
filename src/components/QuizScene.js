@@ -7,6 +7,7 @@ export function quizScene() {
   return `<div class="quiz-scene-art" aria-hidden="true">
     <div class="water-stage unified-stage" style='--wing-occlusion:${wingOcclusionMask}'>
       <img class="glass-plate room-backdrop" src="${base}assets/scene-v3/unified-goblet-scene.png" width="1536" height="1024" alt="" fetchpriority="high">
+      <img class="rug-border-repair" src="${base}assets/divination/rug-border-repair.png" width="1536" height="1024" alt="">
       <canvas class="hands-motion" width="1536" height="512" hidden></canvas>
       <div class="scene-plate wing-plate">${Object.entries(wing.poses).map(([expression,src])=>`<img class="wing-sprite${expression==='neutral'?' is-active':''}" data-pose="${expression}" src="${base}${src}" alt="" ${expression==='neutral'?'fetchpriority="high"':''}>`).join('')}</div>
       <canvas class="water-effects" width="1536" height="1024"></canvas>
