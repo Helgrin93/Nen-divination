@@ -109,7 +109,7 @@ function render({focus=false}={}){
       <div class="question-navigation"><button class="text-button" data-action="back" ${state.index===0?'disabled':''}>${icon('back')}${tr.back}</button><button class="button next-button" data-action="next" ${!state.answers[q.id]?'disabled':''}>${tr.next}${icon('arrow')}</button></div></section>`;
   }else if(phase==='concentration'){
     setExpression('neutral');
-    content.innerHTML=`<section class="focus-card"><div class="speech-bubble"><span class="speaker">WING</span><h1 data-i18n="focusTitle"></h1><p data-i18n="focus"></p></div></section>`;
+    content.innerHTML=`<section class="focus-card"><div class="speech-bubble"><div class="bubble-scroll" tabindex="0" role="region" aria-label="WING"><span class="speaker">WING</span><h1 data-i18n="focusTitle"></h1><p data-i18n="focus"></p></div></div></section>`;
     scene.querySelector('.scene-hold-slot').innerHTML=`<button class="hold-button" aria-describedby="hold-description"><span data-i18n="hold"></span><small>4.5 s</small></button><div class="hold-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div><button class="text-button accessible-reveal" data-action="reveal" data-i18n="accessible"></button><span id="hold-description" class="sr-only" data-i18n="holdHelp"></span><span class="hold-announcement sr-only" aria-live="polite"></span>`;
     const button=scene.querySelector('.hold-button');
     cleanupHold=mountHold({button,progress:scene.querySelector('.hold-progress'),onStart:()=>{
@@ -119,7 +119,7 @@ function render({focus=false}={}){
     const tasting=state.result.primary==='transmutation',sweet=waterScene.getState().stage==='sweet';
     setExpression(tasting&&sweet?'smile':'curious');
     const dialogue=tasting&&!sweet?wingTransmutationIntro:wingDivination[state.result.primary];
-    content.innerHTML=`<section class="revelation-card" aria-live="polite"><div class="speech-bubble"><span class="speaker">WING</span><h1>${tr.revealing}</h1><p>${dialogue[lang]}</p></div></section>`;
+    content.innerHTML=`<section class="revelation-card" aria-live="polite"><div class="speech-bubble"><div class="bubble-scroll" tabindex="0" role="region" aria-label="WING"><span class="speaker">WING</span><h1>${tr.revealing}</h1><p>${dialogue[lang]}</p></div></div></section>`;
   }else if(phase==='result'){
     setExpression('smile');
     content.innerHTML=resultView(state.result,lang,tr);

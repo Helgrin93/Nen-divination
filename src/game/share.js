@@ -28,7 +28,8 @@ async function exportPortrait(character){
   // Image rights and CORS are separate gates. An API URL grants neither.
   if(character.permissionStatus!=='authorized'||!character.portraitSrc)return null;
   try{
-    const response=await fetch(character.portraitSrc,{mode:'cors',signal:AbortSignal.timeout(4000)});
+    const source=/^https:/.test(character.portraitSrc)?character.portraitSrc:import.meta.env.BASE_URL+character.portraitSrc.replace(/^\//,'');
+    const response=await fetch(source,{mode:'cors',signal:AbortSignal.timeout(4000)});
     if(!response.ok||!response.headers.get('content-type')?.startsWith('image/'))return null;
     const blob=await response.blob();if(blob.size>5_000_000)return null;
     const url=URL.createObjectURL(blob);
@@ -51,31 +52,33 @@ export async function createShareCard(result,lang,{format='card'}={}){
   while(ctx.measureText(type.name.toUpperCase()).width>930){size--;ctx.font=`${size}px Georgia`;}
   ctx.fillText(type.name.toUpperCase(),540,story?350:282);
   if(lang==='it'){ctx.fillStyle='#d5dfde';ctx.font='32px Georgia';ctx.fillText(type.it,540,story?400:332);}
-  ctx.fillStyle='#c8d4dc';ctx.font='27px Georgia';wrapText(ctx,type.personality[lang],540,story?453:397,890,36);
+  ctx.fillStyle='#c8d4dc';ctx.font=story?'32px Georgia':'27px Georgia';
+  const description=story?type.personality[lang].split(/(?<=[.!?])\s/)[0]:type.personality[lang];
+  wrapText(ctx,description,540,story?453:397,890,story?42:36,story?3:Infinity);
   if(!story){
     ctx.fillStyle='#aebbc8';ctx.font='18px Arial';ctx.fillText(t.secondary,540,555);
     ctx.fillStyle='#edf1ef';ctx.font='30px Georgia';ctx.fillText(nenTypes[result.secondary].name,540,596);
   }
   const svg=radarSvg(result.radar,t,colour).replace('viewBox=','width="600" height="540" viewBox=');
   const radar=await svgImage(svg);
-  ctx.drawImage(radar,story?90:180,story?565:615,story?900:720,story?810:648);
+  ctx.drawImage(radar,story?120:180,story?540:615,story?840:720,story?756:648);
   if(story){
     const three=charactersFor(result.primary).slice(0,3),images=await Promise.all(three.map(exportPortrait));
-    ctx.fillStyle='#aebbc8';ctx.font='20px Arial';ctx.fillText(t.storyCharacters,540,1418);
+    ctx.fillStyle='#aebbc8';ctx.font='20px Arial';ctx.fillText(t.storyCharacters,540,1340);
     for(let i=0;i<three.length;i++){
       const x=70+i*320,character=three[i],image=images[i];
-      ctx.strokeStyle='#29404e';ctx.strokeRect(x,1444,300,188);
-      ctx.fillStyle='#edf1ef';ctx.textAlign='center';ctx.font='26px Georgia';wrapText(ctx,character.name,x+150,1482,278,29,2);
+      ctx.strokeStyle='#29404e';ctx.strokeRect(x,1364,300,176);
+      ctx.fillStyle='#edf1ef';ctx.textAlign='center';ctx.font='26px Georgia';wrapText(ctx,character.name,x+150,1402,278,29,2);
       if(image){
-        const crop=Math.min(image.width,image.height*.85);ctx.drawImage(image,(image.width-crop)/2,0,crop,crop/1.5,x+65,1532,170,86);
+        const crop=Math.min(image.width,image.height*.85);ctx.drawImage(image,(image.width-crop)/2,0,crop,crop/1.5,x+65,1444,170,86);
       }else{
         // An honest text-only card, never a fake portrait or an initial avatar.
-        ctx.fillStyle='#becbd4';ctx.font='20px Georgia';wrapText(ctx,character.description[lang],x+150,1545,270,26,3);
+        ctx.fillStyle='#becbd4';ctx.font='20px Georgia';wrapText(ctx,character.description[lang],x+150,1460,270,26,3);
       }
     }
-    ctx.textAlign='center';ctx.setLineDash([7,8]);ctx.strokeStyle='#405565';ctx.strokeRect(310,1678,460,82);ctx.setLineDash([]);
-    ctx.fillStyle='#b8c8d2';ctx.font='22px Arial';ctx.fillText(t.storySticker,540,1727);
-    ctx.fillStyle='#99adbb';ctx.font='21px Arial';ctx.fillText('helgrin93.github.io/nen-divination',540,1810);
+    ctx.textAlign='center';ctx.setLineDash([7,8]);ctx.strokeStyle='#405565';ctx.strokeRect(310,1570,460,72);ctx.setLineDash([]);
+    ctx.fillStyle='#b8c8d2';ctx.font='22px Arial';ctx.fillText(t.storySticker,540,1614);
+    ctx.fillStyle='#99adbb';ctx.font='21px Arial';ctx.fillText('helgrin93.github.io/nen-divination',540,1665);
     canvas.dataset.portraitsIncluded=String(images.filter(Boolean).length);
   }else{
     ctx.fillStyle='#99adbb';ctx.font='18px Arial';ctx.fillText('helgrin93.github.io/nen-divination',540,1295);

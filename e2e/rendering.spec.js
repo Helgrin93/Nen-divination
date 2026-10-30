@@ -1,4 +1,5 @@
 import { test,expect } from '@playwright/test';
+import {finishDialogue} from './helpers/dialogue.js';
 
 test('a failed neutral sprite falls back to another decoded Wing',async({page})=>{
   await page.route('**/wing-neutral.png',route=>route.abort());
@@ -32,13 +33,14 @@ test('Wing stays decoded, opaque and persistent over twelve question changes',as
       if(window.watchWing)requestAnimationFrame(frame);
     }frame();
   });
-  // Revisit the reaction question six times. These are actual UI transitions,
-  // with answer selection, not direct calls to the presentation controller.
+  // Visit the separate reaction, then revisit answered questions six times.
   for(let i=0;i<2;i++){
     await page.locator('.answer').first().click();await page.locator('[data-action=next]').click();
   }
+  await expect(page.locator('.scene')).toHaveAttribute('data-pose','eyesClosed');
+  await finishDialogue(page);
   for(let i=0;i<6;i++){
-    await expect(page.locator('.scene')).toHaveAttribute('data-pose','eyesClosed');
+    await expect(page.locator('.scene')).toHaveAttribute('data-pose','neutral');
     await page.locator('[data-action=back]').click();
     await expect(page.locator('.scene')).toHaveAttribute('data-pose','neutral');
     await page.locator('[data-action=next]').click();
@@ -67,13 +69,12 @@ test('a delayed expression never replaces Wing with an unloaded frame',async({pa
   await expect(page.locator('.scene')).toHaveAttribute('data-expression','eyesClosed');
   await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','neutral');
   await expect(page.locator('.wing-sprite.is-active')).toHaveCSS('opacity','1');
-  await page.locator('[data-action=back]').click();
   release();
   await expect(page.locator('.wing-sprite[data-pose=eyesClosed]')).toHaveAttribute('data-ready','true');
-  await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','neutral');
-  await page.locator('[data-action=next]').click();
   await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','eyesClosed');
   await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-ready','true');
+  await finishDialogue(page);await page.locator('[data-action=back]').click();
+  await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','neutral');
 });
 
 test('native water coordinates stay registered and effects preserve the glass rim',async({page})=>{

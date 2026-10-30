@@ -1,4 +1,4 @@
-export const radarOrder = ['enhancement', 'emission', 'manipulation', 'specialization', 'conjuration', 'transmutation'];
+export {resultRadarOrder as radarOrder} from './resultPresentation.js';
 
 export const nenTypes = {
   enhancement: {

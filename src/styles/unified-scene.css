@@ -54,13 +54,21 @@
   .scene .question-title{font-size:16px;line-height:1.4}
   .scene:has(.interlude)>.content,.scene:is([data-phase=concentration],[data-phase=waterEffect])>.content{inset-block-start:var(--dialogue-top)}
   .scene .interlude{position:relative}
-  .scene .interlude h2{font-size:19px;line-height:1.35;max-height:calc(var(--mobile-camera-width) * .158 - 50px);overflow:auto;margin:6px 0}
+  .scene .interlude h2{font-size:19px;line-height:1.35;max-height:max(28px,calc(var(--mobile-camera-width) * .158 - 50px));overflow:auto;margin:6px 0}
   .scene .interlude>.button{position:absolute;top:calc(var(--mobile-scene-height) * .82 - var(--dialogue-top));right:4px}
   .scene .focus-card .speech-bubble,.scene .revelation-card .speech-bubble{padding:10px 14px}
+  .scene :is(.focus-card,.revelation-card) .bubble-scroll{max-height:calc(var(--mobile-camera-width) * .158 - 22px);overflow:auto;overscroll-behavior:contain}
   .scene .focus-card h1,.scene .revelation-card h1{font-size:18px;margin:4px 0}
   .scene .focus-card p,.scene .revelation-card p{font-size:13px;line-height:1.4;margin:4px 0}
 }
+.scene .interlude .speech-bubble{animation:wing-dialogue-enter .18s ease-out}
+@keyframes wing-dialogue-enter{from{opacity:0}to{opacity:1}}
 @media(min-width:701px){.scene .interlude>.button{align-self:flex-end;margin-right:-100px}}
 @media(max-height:500px) and (orientation:landscape){
   .scene:not([data-phase=result]){height:600px;min-height:600px}
+}
+@media(max-width:700px) and (max-height:620px){
+  .scene:has(.interlude[data-dialogue=important])>.content{inset-block-start:60%}
+  .scene .interlude[data-dialogue=important] h2{max-height:76px}
+  .scene .interlude[data-dialogue=important]>.button{position:static;align-self:flex-end}
 }

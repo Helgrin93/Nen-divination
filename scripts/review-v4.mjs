@@ -2,7 +2,7 @@ import {chromium} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 const phase=process.argv.find(a=>a.startsWith('--phase='))?.slice(8)||'final';
 const directory=`.verification/v4/${phase}`;await mkdir(directory,{recursive:true});
-const browser=await chromium.launch(process.platform==='win32'?{channel:'chrome'}:{}),records=[];
+const browser=await chromium.launch(process.platform==='win32'?{channel:'chrome'}:{}),records=[],videos={};
 try{
  for(const device of ['desktop','mobile']){
   const context=await browser.newContext({viewport:device==='mobile'?{width:390,height:844}:{width:1440,height:900},isMobile:device==='mobile',hasTouch:device==='mobile',locale:'it-IT',recordVideo:{dir:`${directory}/videos`,size:device==='mobile'?{width:390,height:844}:{width:960,height:600}}});
@@ -22,13 +22,15 @@ try{
     await page.locator('[data-play]').click();await page.waitForTimeout(type==='specialization'?7900:6500);
     await page.goto(`http://127.0.0.1:5173/review/results.html?type=${type}`);await page.waitForFunction(()=>window.resultsReview);
     await page.locator('.wing-sprite[data-pose=smile][data-ready=true]').waitFor();
-    await page.locator('.character-card:visible img').evaluateAll(imgs=>Promise.all(imgs.map(img=>img.decode().catch(()=>{}))));
-    await page.locator('.result-review-controls').evaluate(el=>el.hidden=true);
+    await page.locator('.character-card:visible img').evaluateAll(imgs=>Promise.all(imgs.map(img=>{img.loading='eager';return img.decode().catch(()=>{});} )));
+    await page.locator('.result-review-controls').evaluate(el=>el.style.display='none');
     await page.screenshot({path:`${directory}/${device}-${type}-result.png`,fullPage:true});
     await page.locator('.scene').screenshot({path:`${directory}/${device}-${type}-scene.png`});
    }
+   console.log(`${phase}: ${device} ${type}`);
   }
-  await context.close();console.log(`${phase}: ${device} captured`);
+  const video=page.video();await context.close();videos[device]=await video.path();console.log(`${phase}: ${device} captured`);
  }
  await writeFile(`${directory}/frames.json`,JSON.stringify(records,null,2));
+ await writeFile(`${directory}/videos.json`,JSON.stringify(videos,null,2));
 }finally{await browser.close();}

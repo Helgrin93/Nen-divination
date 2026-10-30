@@ -31,12 +31,15 @@ function localScenePreview(mode) {
       });
     },
     async generateBundle() {
+      const catalog=JSON.parse(await readFile(new URL('./src/data/characterImages.json',import.meta.url),'utf8'));
+      const authorizedPortraits=new Set(Object.values(catalog.characters).filter(entry=>entry.permissionStatus==='authorized').map(entry=>entry.cachedPortraitSrc).filter(Boolean));
       // Only the runtime composition and poses are published, never source files.
       const sceneAssets=new Set(['unified-goblet-scene.png','wing-neutral.png','wing-smile.png','wing-eyes-closed.png','wing-gesture.png']);
       const copyPublic=async(directory,prefix='')=>{
         for(const entry of await readdir(directory,{withFileTypes:true})){
           if(entry.name.startsWith('.'))continue;
           const fileName=prefix+entry.name;
+          if(mode!=='local-review' && (fileName==='assets/divination/water-clean.png' || fileName.startsWith('assets/characters/')&&!authorizedPortraits.has(fileName)))continue;
           const source=new URL(entry.name+(entry.isDirectory()?'/':''),directory);
           if(entry.isDirectory())await copyPublic(source,fileName+'/');
           else if(!fileName.startsWith('assets/scene-v3/') || sceneAssets.has(entry.name)){

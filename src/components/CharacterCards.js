@@ -1,7 +1,7 @@
 import { charactersFor } from '../data/characters.js';
 
 export function portraitSource(character) {
-  if(character.portraitSrc && character.permissionStatus==='authorized')return character.portraitSrc;
+  if(character.portraitSrc && character.permissionStatus==='authorized')return /^(https:|data:)/.test(character.portraitSrc)?character.portraitSrc:import.meta.env.BASE_URL+character.portraitSrc.replace(/^\//,'');
   // Preserve the existing local review cache; do not redistribute new copies.
   if((import.meta.env.DEV||import.meta.env.MODE==='local-review')&&character.image?.cachedPortraitSrc)return import.meta.env.BASE_URL+character.image.cachedPortraitSrc;
   return character.image?.portraitUrl || null;

@@ -48,6 +48,7 @@ test('V2 keeps the scene, selection and scroll stable with four accessible answe
       await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','eyesClosed');
       await expect(page.locator('.wing-sprite.is-active')).toHaveCSS('opacity','1');
     }
+    await finishDialogue(page);
     await page.locator('.answer').first().click();
     await page.getByRole('button',{name:'Continua',exact:true}).click();
   }
@@ -61,7 +62,7 @@ test('V2 keeps the scene, selection and scroll stable with four accessible answe
   await page.getByRole('button',{name:'Italiano',exact:true}).click();
   expect(await plate.boundingBox()).toEqual(imageBox);
   await page.screenshot({path:`.verification/v2/${testInfo.project.name}-reaction.png`});
-  await page.getByRole('button',{name:'Continua',exact:true}).click();
+  await finishDialogue(page);
   for(let i=0;i<2;i++){
     await page.locator('.answer').first().click();
     await page.getByRole('button',{name:'Continua',exact:true}).click();
@@ -69,10 +70,11 @@ test('V2 keeps the scene, selection and scroll stable with four accessible answe
   await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','gesture');
   await page.emulateMedia({reducedMotion:'reduce'});
   await expect.poll(()=>page.locator('.wing-sprite.is-active').evaluate(img=>parseFloat(getComputedStyle(img).transitionDuration))).toBeLessThanOrEqual(.000001);
+  await finishDialogue(page);
   await page.getByRole('button',{name:'Indietro',exact:true}).click();
   await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','neutral');
   await page.getByRole('button',{name:'Continua',exact:true}).click();
-  await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','gesture');
+  await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','neutral');
   expect(await plate.boundingBox()).toEqual(imageBox);
 });
 
