@@ -15,6 +15,7 @@ import { resultView } from './components/ResultView.js';
 import { icon } from './components/icons.js';
 import { shareResult } from './game/share.js';
 import { createWingReactions } from './game/wingReactions.js';
+import { setupCharacterCards } from './components/CharacterCards.js';
 
 let storage;
 try { storage=window.localStorage; } catch { /* The app works without storage. */ }
@@ -122,7 +123,7 @@ function render({focus=false}={}){
   }else if(phase==='result'){
     setExpression('smile');
     content.innerHTML=resultView(state.result,lang,tr);
-    content.querySelectorAll('.character-portrait img').forEach(img=>img.addEventListener('error',()=>img.remove(),{once:true}));
+    setupCharacterCards(content,tr);
   }
   translate();
   if(focus)focusHeading();

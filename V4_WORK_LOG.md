@@ -38,3 +38,12 @@ D. QA completa, audit del bundle/repository, README e rapporto con confronti.
 - Test: 28 unitari; simulazione superata (vincite casuali 15,56–17,557%, medesime della baseline); due E2E mirati desktop/mobile superati, con tempi, lingue e dialoghi importanti verificati; build riuscita.
 
 Riferimenti sulle immagini: [Tenrai, condizioni §§3 e 6](https://tenrai.org/terms), consultate il 30 ottobre 2026. I metadati disponibili non costituiscono licenza delle illustrazioni.
+
+## Fase B
+
+- Radar SVG con ordine fisso Enhancement → Transmutation → Conjuration → Specialization → Manipulation → Emission; colori canonici, sei medaglioni kanji, riempimento del vincitore e valori reali del quiz. Nessuna icona/asterisco/tooltip sotto il radar.
+- Etichette esterne alla griglia e ai medaglioni; corretta una collisione iniziale fra nome e percentuale, rilevata dal test geometrico a 320 px.
+- Tre card iniziali e due aggiuntive in un pannello animato con `aria-expanded`, `aria-controls`, `inert`, focus stabile e movimento ridotto rispettato. Ordine immutabile, mobile a colonna, testi integrali.
+- Descrizioni tecniche dei sei poteri già complete nella base: riviste e conservate; distinta la personalità dalle abilità e resa più equilibrata anche l’affinità secondaria di Manipolazione.
+- Tutti i 30 ritratti verificati: HTTP 200, contenuto JPEG, decodifica browser e CORS canvas riusciti. Nessuna nuova copia immagine nel runtime. Log tecnico nel catalogo e in `.verification/v4/portrait-audit.json`. Pubblicazione delle immagini: diritti non verificati, nessun permesso dedotto.
+- Verifiche: 28 unitari e build; E2E con due risultati × due lingue × sette larghezze (320/375/390/430/768/1280/1440), nessun testo tagliato/collisione/overflow, espansione 3+2 e focus corretti. Screenshot in `.verification/v4/phase-b/`.

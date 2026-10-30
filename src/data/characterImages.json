@@ -30,6 +30,23 @@
         "httpStatus": 200,
         "sha256": "c9723505a4723b0494355410529e5bc78b050bf6dec62ead8f979233c53cec40",
         "bytes": 39819
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:29.976Z",
+        "slug": "gon",
+        "name": "Gon Freecss",
+        "malId": 30,
+        "url": "https://cdn.myanimelist.net/images/characters/11/174517.jpg",
+        "source": "https://myanimelist.net/character/30/Gon_Freecss",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 39819,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "netero": {
@@ -52,6 +69,23 @@
         "httpStatus": 200,
         "sha256": "433a954ad4faefd015999f2f02c97d5021e62f4b30d077be94dbdc265efe8341",
         "bytes": 34945
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:30.151Z",
+        "slug": "netero",
+        "name": "Isaac Netero",
+        "malId": 14489,
+        "url": "https://cdn.myanimelist.net/images/characters/7/257355.jpg",
+        "source": "https://myanimelist.net/character/14489/Isaac_Netero",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 34945,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "uvogin": {
@@ -74,6 +108,23 @@
         "httpStatus": 200,
         "sha256": "f8c18861a97b62b4262e9c2fa3e57dea85c5640ffe73350d791c0add74d7870f",
         "bytes": 28581
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:30.299Z",
+        "slug": "uvogin",
+        "name": "Uvogin",
+        "malId": 5836,
+        "url": "https://cdn.myanimelist.net/images/characters/14/198581.jpg",
+        "source": "https://myanimelist.net/character/5836/Uvogin",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 28581,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "phinks": {
@@ -89,7 +140,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:30.453Z",
+        "slug": "phinks",
+        "name": "Phinks Magcub",
+        "malId": 5834,
+        "url": "https://cdn.myanimelist.net/images/characters/4/193009.jpg",
+        "source": "https://myanimelist.net/character/5834/Phinks_Magkav",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 27620,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "palm": {
       "slug": "palm",
@@ -104,7 +172,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:30.583Z",
+        "slug": "palm",
+        "name": "Palm Siberia",
+        "malId": 34054,
+        "url": "https://cdn.myanimelist.net/images/characters/10/211775.jpg",
+        "source": "https://myanimelist.net/character/34054/Palm_Siberia",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 33915,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "meruem": {
       "slug": "meruem",
@@ -126,6 +211,23 @@
         "httpStatus": 200,
         "sha256": "f544ea73bf301845cfccb7922b937e13090d7ad47acee20e41e52c011bf3612a",
         "bytes": 36283
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:30.765Z",
+        "slug": "meruem",
+        "name": "Meruem",
+        "malId": 23277,
+        "url": "https://cdn.myanimelist.net/images/characters/6/243861.jpg",
+        "source": "https://myanimelist.net/character/23277/Meruem",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 36283,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "zeno": {
@@ -148,6 +250,23 @@
         "httpStatus": 200,
         "sha256": "899e007ce4eb31b76a7ed0dd7e760a009d3411f4082df697c91e9c982b25af51",
         "bytes": 29716
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:30.904Z",
+        "slug": "zeno",
+        "name": "Zeno Zoldyck",
+        "malId": 59,
+        "url": "https://cdn.myanimelist.net/images/characters/5/193007.jpg",
+        "source": "https://myanimelist.net/character/59/Zeno_Zoldyck",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 29716,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "razor": {
@@ -170,6 +289,23 @@
         "httpStatus": 200,
         "sha256": "b383ad55b8eb6f975e6384529d7c719fb1a05b1b41735e531b56d70caabd3417",
         "bytes": 33621
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:31.041Z",
+        "slug": "razor",
+        "name": "Razor",
+        "malId": 22518,
+        "url": "https://cdn.myanimelist.net/images/characters/9/172385.jpg",
+        "source": "https://myanimelist.net/character/22518/Razor",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 33621,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "leorio": {
@@ -185,7 +321,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:31.199Z",
+        "slug": "leorio",
+        "name": "Leorio Paradinight",
+        "malId": 29,
+        "url": "https://cdn.myanimelist.net/images/characters/11/549311.jpg",
+        "source": "https://myanimelist.net/character/29/Leorio_Paladiknight",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 49881,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "knov": {
       "slug": "knov",
@@ -200,7 +353,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:31.337Z",
+        "slug": "knov",
+        "name": "Knov",
+        "malId": 82925,
+        "url": "https://cdn.myanimelist.net/images/characters/6/215471.jpg",
+        "source": "https://myanimelist.net/character/82925/Knov",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 29698,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "killua": {
       "slug": "killua",
@@ -222,6 +392,23 @@
         "httpStatus": 200,
         "sha256": "8d0dd4473e58d7e61784b6ca1cf187d3d2b85a2157534e0f1cbdbee88105e7ec",
         "bytes": 38360
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:31.479Z",
+        "slug": "killua",
+        "name": "Killua Zoldyck",
+        "malId": 27,
+        "url": "https://cdn.myanimelist.net/images/characters/2/327920.jpg",
+        "source": "https://myanimelist.net/character/27/Killua_Zoldyck",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 38360,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "hisoka": {
@@ -244,6 +431,23 @@
         "httpStatus": 200,
         "sha256": "d7f7607d8f9f9f64444c5fb2080bdc9cc7330b0fa1da789039969bae01e5c5a0",
         "bytes": 42884
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:31.619Z",
+        "slug": "hisoka",
+        "name": "Hisoka Morow",
+        "malId": 31,
+        "url": "https://cdn.myanimelist.net/images/characters/3/174561.jpg",
+        "source": "https://myanimelist.net/character/31/Hisoka_Morow",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 42884,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "biscuit": {
@@ -266,6 +470,23 @@
         "httpStatus": 200,
         "sha256": "94a863c7cd497ed0d47534185ad5e6fa262b670b89621c632c742714bcdad31e",
         "bytes": 41466
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:31.774Z",
+        "slug": "biscuit",
+        "name": "Biscuit Krueger",
+        "malId": 13898,
+        "url": "https://cdn.myanimelist.net/images/characters/5/194667.jpg",
+        "source": "https://myanimelist.net/character/13898/Biscuit_Krueger",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 41466,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "machi": {
@@ -281,7 +502,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:31.914Z",
+        "slug": "machi",
+        "name": "Machi Komacine",
+        "malId": 5830,
+        "url": "https://cdn.myanimelist.net/images/characters/4/182389.jpg",
+        "source": "https://myanimelist.net/character/5830/Machi_Komachine",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 48452,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "feitan": {
       "slug": "feitan",
@@ -296,7 +534,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:32.051Z",
+        "slug": "feitan",
+        "name": "Feitan Portor",
+        "malId": 3195,
+        "url": "https://cdn.myanimelist.net/images/characters/10/174721.jpg",
+        "source": "https://myanimelist.net/character/3195/Feitan_Portor",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 27603,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "kurapika": {
       "slug": "kurapika",
@@ -318,6 +573,23 @@
         "httpStatus": 200,
         "sha256": "5f658fa0edf065d80da9ed4d836d2746a3ebe7e36c0c32494f99357c46adbacb",
         "bytes": 56897
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:32.211Z",
+        "slug": "kurapika",
+        "name": "Kurapika",
+        "malId": 28,
+        "url": "https://cdn.myanimelist.net/images/characters/3/549312.jpg",
+        "source": "https://myanimelist.net/character/28/Kurapika",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 56897,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "kite": {
@@ -340,6 +612,23 @@
         "httpStatus": 200,
         "sha256": "388860c4e57345b3e8248a36193fc4c3392eb19ef98d19b9e059a1bec990f239",
         "bytes": 29541
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:32.360Z",
+        "slug": "kite",
+        "name": "Kite",
+        "malId": 20594,
+        "url": "https://cdn.myanimelist.net/images/characters/5/203429.jpg",
+        "source": "https://myanimelist.net/character/20594/Kite",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 29541,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "shizuku": {
@@ -362,6 +651,23 @@
         "httpStatus": 200,
         "sha256": "34d4a5a9bb0709872182f7f16648d0e3a5ba95b2290bae5732339b39cb1af808",
         "bytes": 28626
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:32.490Z",
+        "slug": "shizuku",
+        "name": "Shizuku Murasaki",
+        "malId": 5833,
+        "url": "https://cdn.myanimelist.net/images/characters/10/178469.jpg",
+        "source": "https://myanimelist.net/character/5833/Shizuku_Murasaki",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 28626,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "knuckle": {
@@ -377,7 +683,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:32.614Z",
+        "slug": "knuckle",
+        "name": "Knuckle Bine",
+        "malId": 29809,
+        "url": "https://cdn.myanimelist.net/images/characters/6/572043.jpg",
+        "source": "https://myanimelist.net/character/29809/Knuckle_Bine",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 22059,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "genthru": {
       "slug": "genthru",
@@ -392,7 +715,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:32.778Z",
+        "slug": "genthru",
+        "name": "Genthru",
+        "malId": 33300,
+        "url": "https://cdn.myanimelist.net/images/characters/9/552880.jpg",
+        "source": "https://myanimelist.net/character/33300/Genthru",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 32861,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "illumi": {
       "slug": "illumi",
@@ -414,6 +754,23 @@
         "httpStatus": 200,
         "sha256": "4ad2d0b74da873889286a6ba32c3a30eea5590eeb9bc031d00c7fa806eb1b38e",
         "bytes": 45013
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:32.936Z",
+        "slug": "illumi",
+        "name": "Illumi Zoldyck",
+        "malId": 57,
+        "url": "https://cdn.myanimelist.net/images/characters/8/174521.jpg",
+        "source": "https://myanimelist.net/character/57/Illumi_Zoldyck",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 45013,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "morel": {
@@ -436,6 +793,23 @@
         "httpStatus": 200,
         "sha256": "6522880e3829b4bcdd43075ac4d53d5794d4083afcf696e647851057573d3b84",
         "bytes": 23921
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:33.087Z",
+        "slug": "morel",
+        "name": "Morel Mackernasey",
+        "malId": 29806,
+        "url": "https://cdn.myanimelist.net/images/characters/13/211097.jpg",
+        "source": "https://myanimelist.net/character/29806/Morel_Mackernasey",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 23921,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "shalnark": {
@@ -458,6 +832,23 @@
         "httpStatus": 200,
         "sha256": "b6b5cfcec7e1c07d928ef1d68e0aad725b56b23871c94a005a22fade18de2cdc",
         "bytes": 29576
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:33.241Z",
+        "slug": "shalnark",
+        "name": "Shalnark",
+        "malId": 5832,
+        "url": "https://cdn.myanimelist.net/images/characters/7/178463.jpg",
+        "source": "https://myanimelist.net/character/5832/Shalnark_Ryuseih",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 29576,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "kalluto": {
@@ -473,7 +864,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:33.388Z",
+        "slug": "kalluto",
+        "name": "Kalluto Zoldyck",
+        "malId": 6089,
+        "url": "https://cdn.myanimelist.net/images/characters/2/246235.jpg",
+        "source": "https://myanimelist.net/character/6089/Kalluto_Zoldyck",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 31169,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "shaiapouf": {
       "slug": "shaiapouf",
@@ -488,7 +896,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:33.549Z",
+        "slug": "shaiapouf",
+        "name": "Shaiapouf",
+        "malId": 41135,
+        "url": "https://cdn.myanimelist.net/images/characters/3/563303.jpg",
+        "source": "https://myanimelist.net/character/41135/Shaiapouf",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 47391,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "chrollo": {
       "slug": "chrollo",
@@ -510,6 +935,23 @@
         "httpStatus": 200,
         "sha256": "8ab07664db87a242dac3499d6f6b12513d75aa538f899096dc12b77ea3a44773",
         "bytes": 44972
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:33.876Z",
+        "slug": "chrollo",
+        "name": "Chrollo Lucilfer",
+        "malId": 58,
+        "url": "https://cdn.myanimelist.net/images/characters/4/182387.jpg",
+        "source": "https://myanimelist.net/character/58/Chrollo_Lucilfer",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 44972,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "neferpitou": {
@@ -532,6 +974,23 @@
         "httpStatus": 200,
         "sha256": "52cc1cb2df29ae09d092749536cd216d61556e521a960860f262165bd451d4ab",
         "bytes": 43990
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:33.993Z",
+        "slug": "neferpitou",
+        "name": "Neferpitou",
+        "malId": 12300,
+        "url": "https://cdn.myanimelist.net/images/characters/12/253673.jpg",
+        "source": "https://myanimelist.net/character/12300/Neferpitou",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 43990,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "pakunoda": {
@@ -554,6 +1013,23 @@
         "httpStatus": 200,
         "sha256": "ac9618b04afb0d66727567848dd6350c5f9bbcd83b7938c9bf14cbc2941d4f7b",
         "bytes": 49605
+      },
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:34.140Z",
+        "slug": "pakunoda",
+        "name": "Pakunoda",
+        "malId": 5835,
+        "url": "https://cdn.myanimelist.net/images/characters/2/533870.jpg",
+        "source": "https://myanimelist.net/character/5835/Pakunoda",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 49605,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
       }
     },
     "neon": {
@@ -569,7 +1045,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:34.274Z",
+        "slug": "neon",
+        "name": "Neon Nostrade",
+        "malId": 17564,
+        "url": "https://cdn.myanimelist.net/images/characters/16/185665.jpg",
+        "source": "https://myanimelist.net/character/17564/Neon_Nostrade",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 37677,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     },
     "meleoron": {
       "slug": "meleoron",
@@ -584,7 +1077,24 @@
       "permissionStatus": "unverified",
       "permissionSource": "https://tenrai.org/terms",
       "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
-      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders",
+      "runtimeVerification": {
+        "checkedAt": "2026-10-30T03:10:34.427Z",
+        "slug": "meleoron",
+        "name": "Meleoron",
+        "malId": 29808,
+        "url": "https://cdn.myanimelist.net/images/characters/8/205215.jpg",
+        "source": "https://myanimelist.net/character/29808/Meleoron",
+        "permissionStatus": "unverified",
+        "httpStatus": 200,
+        "contentType": "image/jpeg",
+        "bytes": 25947,
+        "jpeg": true,
+        "width": 225,
+        "height": 350,
+        "browserDecoded": true,
+        "canvasCors": true
+      }
     }
   }
 }

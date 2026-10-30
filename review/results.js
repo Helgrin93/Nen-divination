@@ -13,6 +13,7 @@ import {createAttempt,selectAnswer,advance} from '../src/game/stateMachine.js';
 import {shareResult} from '../src/game/share.js';
 import {nenTypes} from '../src/data/nenTypes.js';
 import {translations} from '../src/data/translations.js';
+import {setupCharacterCards} from '../src/components/CharacterCards.js';
 if(!import.meta.env.DEV)throw new Error('Result preview is development-only.');
 
 function sample(type){
@@ -33,6 +34,7 @@ function render(effect=false){
  document.documentElement.lang=lang;scene.dataset.effect=type;
  document.querySelector('.scene-effect-caption').textContent=nenTypes[type].effect[lang];
  document.querySelector('#content').innerHTML=resultView(samples[type],lang,translations[lang]);
+ setupCharacterCards(document.querySelector('#content'),translations[lang]);
  for(const button of document.querySelectorAll('[data-lang]'))button.setAttribute('aria-pressed',String(button.dataset.lang===lang));
  if(effect){water.setEffect(type,{restart:true});water.pause();water.seek(water.getState().duration);}
 }
