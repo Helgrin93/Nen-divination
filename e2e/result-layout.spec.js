@@ -24,7 +24,7 @@ for(const type of types)test(`${type}: real quiz result, bilingual panels, portr
     await page.locator(`[data-option="${best.id}"]`).click();await page.getByRole('button',{name:'Continua',exact:true}).click();
   }
   const expected=evaluate(used,answers);expect(expected.primary).toBe(type);
-  await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
+  await finishDialogue(page);await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
   const view=page.locator('.result-view');await expect(view).toHaveAttribute('data-result-type',type);
   await expect(page.locator('.water-effects')).toHaveAttribute('data-effect-progress','1');
   const sceneBefore=await page.locator('.scene').evaluate(el=>({html:el.innerHTML,water:el.querySelector('.water-effects').toDataURL(),hands:el.querySelector('.hands-motion').toDataURL(),box:el.getBoundingClientRect().toJSON()}));
@@ -35,14 +35,14 @@ for(const type of types)test(`${type}: real quiz result, bilingual panels, portr
     await expect(page.locator('.affinity-card h2')).toHaveText(new RegExp(expected.secondary,'i'));
     await expect(page.locator('.affinity-description')).toHaveText(resultPresentation[expected.secondary].secondary[lang]);
     await expect(page.locator('.characters h2')).toHaveText(translations[lang].characters);
-    const axes=await page.locator('.radar-axis').evaluateAll(nodes=>nodes.map(el=>({type:el.dataset.nen,value:Number(el.dataset.value),colour:el.querySelector('text').getAttribute('fill')})));
+    const axes=await page.locator('.radar-axis').evaluateAll(nodes=>nodes.map(el=>({type:el.dataset.nen,value:Number(el.dataset.value),colour:el.querySelector('.radar-name').getAttribute('fill')})));
     expect(axes).toEqual(resultRadarOrder.map(id=>({type:id,value:expected.radar[id],colour:resultPresentation[id].colour})));
-    const actualCharacters=await page.locator('.character-card').evaluateAll(nodes=>nodes.map(el=>({slug:el.dataset.character,malId:Number(el.dataset.malId),name:el.querySelector('h3').textContent})));
-    expect(actualCharacters).toEqual(characters.filter(c=>c.nenType===type).map(c=>({slug:c.slug,malId:c.image.malId,name:c.name})));
+    const actualCharacters=await page.locator('.character-card:visible').evaluateAll(nodes=>nodes.map(el=>({slug:el.dataset.character,malId:Number(el.dataset.malId),name:el.querySelector('h3').textContent})));
+    expect(actualCharacters).toEqual(characters.filter(c=>c.nenType===type).slice(0,3).map(c=>({slug:c.slug,malId:c.image.malId,name:c.name})));
     await page.locator('.characters').scrollIntoViewIfNeeded();
-    await page.locator('.character-portrait img').evaluateAll(images=>Promise.all(images.map(img=>img.decode())));
+    await page.locator('.character-portrait:visible img').evaluateAll(images=>Promise.all(images.map(img=>img.decode())));
     await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
-    expect(await page.locator('.character-portrait img').evaluateAll(images=>images.length===3&&images.every(img=>img.naturalWidth===225&&img.naturalHeight===350))).toBe(true);
+    expect(await page.locator('.character-portrait:visible img').evaluateAll(images=>images.length===3&&images.every(img=>img.naturalWidth===225&&img.naturalHeight===350))).toBe(true);
     const geometry=await view.evaluate(el=>{
       const main=el.querySelector('.result-main').getBoundingClientRect(),power=el.querySelector('.power-card').getBoundingClientRect(),affinity=el.querySelector('.affinity-card').getBoundingClientRect(),scene=document.querySelector('.scene').getBoundingClientRect(),title=el.querySelector('.nen-title');
       return{overflow:document.documentElement.scrollWidth>innerWidth,titleFits:title.scrollWidth<=title.clientWidth,belowScene:main.top>=scene.bottom-1,desktopCards:Math.abs(power.top-affinity.top)<1,stackedCards:affinity.top>=power.bottom,sceneStable:window.resultScene===document.querySelector('.scene')&&window.resultCanvas===document.querySelector('.water-effects')&&window.resultHands===document.querySelector('.hands-motion')};

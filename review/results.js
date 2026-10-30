@@ -10,7 +10,7 @@ import {mountWaterScene} from '../src/components/WaterScene.js';
 import {mountHandsMotion} from '../src/components/HandsMotion.js';
 import {resultView} from '../src/components/ResultView.js';
 import {createAttempt,selectAnswer,advance} from '../src/game/stateMachine.js';
-import {shareResult} from '../src/game/share.js';
+import {shareResult,copyQuizLink} from '../src/game/share.js';
 import {nenTypes} from '../src/data/nenTypes.js';
 import {translations} from '../src/data/translations.js';
 import {setupCharacterCards} from '../src/components/CharacterCards.js';
@@ -43,8 +43,9 @@ document.addEventListener('click',async e=>{
  const language=e.target.closest('[data-lang]');if(language){lang=language.dataset.lang;render();return;}
  const action=e.target.closest('[data-action]')?.dataset.action;
  if(action==='replay'){location.href='/';return;}
- if(!['save','share'].includes(action)||busy)return;
- busy=true;try{const status=await shareResult(samples[type],lang,action==='share');const toast=document.querySelector('.toast');toast.textContent=translations[lang][status];toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),5000);}finally{busy=false;}
+ if(action==='copy-link'){const copied=await copyQuizLink();if(!copied){const field=document.querySelector('.copy-link-fallback');field.hidden=false;field.querySelector('input').focus();field.querySelector('input').select();}const toast=document.querySelector('.toast');toast.textContent=translations[lang][copied?'linkCopied':'copyManual'];toast.classList.add('visible');return;}
+ if(!['save','share','story'].includes(action)||busy)return;
+ busy=true;try{const status=await shareResult(samples[type],lang,action==='share',action==='story'?'story':'card');const toast=document.querySelector('.toast');toast.textContent=translations[lang][status];toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),5000);}finally{busy=false;}
 });
 while(!water.getState().ready)await new Promise(requestAnimationFrame);
 render(true);window.resultsReview={samples,water,hands};

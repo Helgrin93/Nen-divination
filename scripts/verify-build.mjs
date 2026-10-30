@@ -46,7 +46,7 @@ try{
     await page.getByRole('button',{name:'Continua',exact:true}).click();
   }
   await page.screenshot({path:`.verification/production/${device}-divination.png`});
-  await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
+  await finishDialogue(page);await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
   await page.locator('.nen-title').waitFor();
   await page.screenshot({path:`.verification/production/${device}-result.png`});
   {

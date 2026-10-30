@@ -13,7 +13,7 @@ import { mountHandsMotion } from './components/HandsMotion.js';
 import { mountHold } from './components/HoldInteraction.js';
 import { resultView } from './components/ResultView.js';
 import { icon } from './components/icons.js';
-import { shareResult } from './game/share.js';
+import { shareResult,copyQuizLink } from './game/share.js';
 import { createWingReactions } from './game/wingReactions.js';
 import { setupCharacterCards } from './components/CharacterCards.js';
 
@@ -103,7 +103,7 @@ function render({focus=false}={}){
   }else if(phase==='quiz'||phase==='bonus'){
       setExpression('neutral');
       const q=state.questions[state.index],total=state.index<7?7:state.index+1;
-      content.innerHTML=`<section class="quiz-card"><div class="speech-bubble"><div class="bubble-scroll"><div class="question-meta"><span class="speaker">WING</span><span>${tr.question} ${state.index+1} / ${total}</span></div>
+      content.innerHTML=`<section class="quiz-card"><div class="speech-bubble"><div class="bubble-scroll" tabindex="0" role="region" aria-label="${tr.question} ${state.index+1}"><div class="question-meta"><span class="speaker">WING</span><span>${tr.question} ${state.index+1} / ${total}</span></div>
       <h1 class="question-title">${q[lang]}</h1></div></div>
       <div class="answers">${q.options.map((o,i)=>`<button class="answer ${state.answers[q.id]===o.id?'is-selected':''}" data-option="${o.id}" aria-pressed="${state.answers[q.id]===o.id}"><span class="answer-letter" aria-hidden="true">${'ABCD'[i]}</span><span>${o[lang]}</span></button>`).join('')}</div>
       <div class="question-navigation"><button class="text-button" data-action="back" ${state.index===0?'disabled':''}>${icon('back')}${tr.back}</button><button class="button next-button" data-action="next" ${!state.answers[q.id]?'disabled':''}>${tr.next}${icon('arrow')}</button></div></section>`;
@@ -182,10 +182,14 @@ document.addEventListener('click',async e=>{
   if(action==='replay'){
     clearTimeout(effectTimer);clearTimeout(dialogueTimer);dialogue=null;shownReactions.clear();state=createAttempt();reactions=createWingReactions();waterScene.reset();scene.dataset.effect='none';render({focus:true});window.scrollTo({top:0,behavior:reducedMotion.matches?'instant':'smooth'});
   }
-  if((action==='save'||action==='share')&&state.phase==='result'&&!exporting){
+  if(action==='copy-link'&&state.phase==='result'){
+    if(await copyQuizLink())toast(t().linkCopied);
+    else{const field=content.querySelector('.copy-link-fallback');field.hidden=false;field.querySelector('input').focus();field.querySelector('input').select();toast(t().copyManual);}
+  }
+  if(['save','share','story'].includes(action)&&state.phase==='result'&&!exporting){
     exporting=true;
-    const controls=content.querySelectorAll('[data-action="save"],[data-action="share"]');controls.forEach(b=>{b.disabled=true;b.setAttribute('aria-busy','true');});
-    try{const status=await shareResult(state.result,lang,action==='share');toast(t()[status]);}
+    const controls=content.querySelectorAll('[data-action="save"],[data-action="share"],[data-action="story"]');controls.forEach(b=>{b.disabled=true;b.setAttribute('aria-busy','true');});
+    try{const status=await shareResult(state.result,lang,action==='share',action==='story'?'story':'card');toast(t()[status]);}
     catch(error){console.error('PNG export failed',error);toast(t().exportError);}
     finally{exporting=false;controls.forEach(b=>{b.disabled=false;b.removeAttribute('aria-busy');});}
   }

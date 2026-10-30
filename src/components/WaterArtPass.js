@@ -12,7 +12,7 @@ function matchWaterMaterial(source,colour){
   if(!d[i+3])continue;
   const light=(d[i]+d[i+1]+d[i+2])/3,highlight=smooth((light-218)/33),ink=1-smooth((light-68)/104);
   for(let k=0;k<3;k++)d[i+k]=colour[k]*(1-ink*.42)*(1-highlight*.84)+[249,247,232][k]*highlight*.84;
-  d[i+3]*=.42+highlight*.42+ink*.12;
+  d[i+3]*=.80+highlight*.16+ink*.04;
  }ctx.putImageData(pixels,0,0);return c;
 }
 const path=new Path2D('M364 104 Q500 58 636 104 C638 217 615 334 511 363 C413 365 365 265 364 104Z');
@@ -61,16 +61,16 @@ export function createWaterArtPass({original,base,leaf,assets}){
   x.getImageData(0,0,64,64);return c;
  });
  const capFrames=Array.from({length:25},(_,f)=>{
-  const rise=f/24*16,c=make(300,108),x=c.getContext('2d');x.translate(-350,-45);
+  const rise=f/24*18,c=make(300,108),x=c.getContext('2d');x.translate(-350,-45);
   // The surface expands toward the inner rim ellipse as the cup fills. Its
   // front contact stays behind the fixed glass lip; no exposed wood band.
-  const rx=141+f/24*4,ry=23+rise;
+  const rx=141+f/24*5,ry=24+f/24*8;
   // Both the raised surface and its old footprint use actual submerged
   // material. Sampling the air gap here made a separate pale, opaque layer.
-  x.save();x.beginPath();x.ellipse(500,105,140,24,0,0,Math.PI*2);x.clip();
-  x.drawImage(base,366,170,268,64,360,81,280,48);x.restore();
+  x.save();x.beginPath();x.ellipse(500,105,143,29,0,0,Math.PI*2);x.clip();
+  x.drawImage(base,366,170,268,64,357,76,286,58);x.restore();
   x.save();x.beginPath();x.ellipse(500,105-rise,rx,ry,0,0,Math.PI*2);x.clip();
-  x.drawImage(base,366,170,268,64,500-rx,105-rise-ry,rx*2,ry*2);x.restore();
+  x.drawImage(base,359,81,282,48,500-rx,105-rise-ry,rx*2,ry*2);x.restore();
   // A thin local meniscus, paired with the illustrated spill lip, establishes
   // the contact line without painting an opaque silver disk.
   x.save();x.beginPath();x.ellipse(500,105-rise,rx-1,ry-.5,0,0,Math.PI*2);x.strokeStyle='rgba(239,239,216,.48)';x.lineWidth=1.15;x.stroke();x.restore();return c;
@@ -148,20 +148,22 @@ export function createWaterArtPass({original,base,leaf,assets}){
   if(!p)return {surfaceY:105,droplets:0};clean(ctx);
   const cap=Math.round(rise*24);ctx.save();ctx.clip(fullCup);ctx.globalAlpha=smooth(rise/.15);ctx.drawImage(capFrames[cap],350,45);ctx.restore();
   ctx.save();ctx.clip(surfacePath);arc(ctx,491,105-rise*16,(p-.04)/.33,.28);ctx.restore();
-  originalLeaf(ctx,500,105-rise*16);restoreGlass(ctx,true);
+  originalLeaf(ctx,500,105-rise*18);restoreGlass(ctx);
+  // Preserve the actual lip without restoring the old, static front waterline.
+  ctx.save();ctx.clip(restoreRim,'evenodd');ctx.beginPath();ctx.rect(340,40,320,39);ctx.clip();ctx.drawImage(original,0,0);ctx.restore();
   if(p>.41&&p<.99){
    const fade=smooth((p-.41)/.045)*(1-smooth((p-.94)/.05));
    for(let side=0;side<2;side++){
     const [w,h]=artData.overflow.cell,f=flowPose(p,side),x=(side?655:343)-artData.overflow.pivot[0],y=(side?86:81)-artData.overflow.pivot[1];
-    ctx.save();ctx.globalAlpha=fade*(1-f.mix)*.8;ctx.drawImage(spills.flow,f.index*w,side*h,w,h,x,y,w,h);
-    ctx.globalAlpha=fade*f.mix*.8;ctx.drawImage(spills.flow,f.next*w,side*h,w,h,x,y,w,h);ctx.restore();
+    ctx.save();ctx.globalAlpha=fade*(1-f.mix)*.94;ctx.drawImage(spills.flow,f.index*w,side*h,w,h,x,y,w,h);
+    ctx.globalAlpha=fade*f.mix*.94;ctx.drawImage(spills.flow,f.next*w,side*h,w,h,x,y,w,h);ctx.restore();
    }
   }
   let drops=0;
   for(const [birth,side]of[[.60,0],[.665,0],[.70,1],[.735,0],[.77,1]]){
    const age=(p-birth)/.155;if(age<0||age>1.14)continue;
    const origin=flowPose(birth,side),land=610+(side?3:0),x=origin.x+(side?-1:1)*age*3;
-   if(age<1){drops++;ctx.save();ctx.globalAlpha=.68;ctx.drawImage(spills.drop,x-3.1,origin.y+(land-origin.y)*age*age,6.2,8+age*5);ctx.restore();}
+   if(age<1){drops++;ctx.save();ctx.globalAlpha=.85;ctx.drawImage(spills.drop,x-3.1,origin.y+(land-origin.y)*age*age,6.2,8+age*5);ctx.restore();}
    else{const q=(age-1)/.14,step=Math.min(2,Math.floor(q*3));ctx.save();ctx.globalAlpha=(1-q)*.45;ctx.drawImage(spills.impacts[step],x-15,land-8,30,13);ctx.restore();}
   }
   const wet=smooth((p-.75)/.20);
@@ -170,7 +172,7 @@ export function createWaterArtPass({original,base,leaf,assets}){
    ctx.globalAlpha=wet;ctx.drawImage(wetTable,wetRect.x,wetRect.y);
    ctx.globalAlpha=.16*wet;ctx.drawImage(assets.overflow,90,786,653,139,wetRect.x,wetRect.y,wetRect.width,wetRect.height);ctx.restore();
   }
-  return {surfaceY:105-rise*16,droplets:drops,capFrame:cap};
+  return {surfaceY:105-rise*18,droplets:drops,capFrame:cap};
  }
  function transmutation(ctx,p){
   // One initial impulse, then a genuine quiet interval before Wing's reply.

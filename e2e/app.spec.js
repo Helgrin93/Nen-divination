@@ -12,7 +12,7 @@ async function toConcentration(page){
     await page.getByRole('button',{name:'Continua',exact:true}).click();
     if(n===3){await expect(page.locator('.interlude h2')).toHaveText(/^(Oh, interessante…|Capisco…|Vediamo…|Mh, curioso…|Molto bene\.)$/);}
   }
-  await expect(page.locator('.hold-button')).toBeVisible();
+  await finishDialogue(page);await expect(page.locator('.hold-button')).toBeVisible();
 }
 async function noOverflow(page){expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
 
@@ -38,7 +38,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
     if(await page.locator('.hold-button').count())break;
     await page.locator('.answer').first().click();await page.getByRole('button',{name:'Continua',exact:true}).click();
   }
-  await expect(page.locator('.hold-button')).toBeVisible();
+  await finishDialogue(page);await expect(page.locator('.hold-button')).toBeVisible();
   await page.screenshot({path:`.verification/${testInfo.project.name}-hold.png`,fullPage:true});
   const hold=page.locator('.hold-button');await hold.focus();
   await expect(page.locator('.hands-motion')).toHaveAttribute('data-pose','approach');
@@ -65,7 +65,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   const effect=await page.locator('.scene').getAttribute('data-effect');expect(effect).not.toBe('none');
   await finishRevelation(page);await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});
   await expect(page.locator('.scene')).toHaveAttribute('data-effect',effect);
-  await expect(page.locator('.character-card')).toHaveCount(3);await noOverflow(page);
+  await expect(page.locator('.character-card:visible')).toHaveCount(3);await noOverflow(page);
   await page.screenshot({path:`.verification/${testInfo.project.name}-result.png`,fullPage:true});
   const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Salva risultato',exact:true}).click();
   const download=await downloadPromise;expect(download.suggestedFilename()).toMatch(/^nen-divination-.*\.png$/);
@@ -78,6 +78,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
 });
 
 test('all six completed reactions persist and all results export offline',async({page,context},testInfo)=>{
+  test.setTimeout(150000);
   test.skip(testInfo.project.name!=='desktop','The full responsive flow is covered separately.');
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.addInitScript(()=>{
@@ -106,7 +107,7 @@ test('all six completed reactions persist and all results export offline',async(
       await page.locator(`[data-option="${best.id}"]`).click();
       await page.getByRole('button',{name:'Continua',exact:true}).click();
     }
-    await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
+    await finishDialogue(page);await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
     await expect(page.locator('.scene')).toHaveAttribute('data-effect',type);
     await expect(page.locator('.nen-title')).toHaveText(new RegExp(type,'i'));
     expect(await scene.evaluate(el=>el===document.querySelector('.scene'))).toBe(true);
@@ -186,5 +187,5 @@ test('native mouse or touch hold completes only after 4.5 seconds',async({page,b
   await page.waitForTimeout(3700);
   if(touch)await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});else await page.mouse.up();
   await expect(page.locator('body')).toHaveAttribute('data-phase','waterEffect');
-  await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});
+  await finishRevelation(page);await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});
 });

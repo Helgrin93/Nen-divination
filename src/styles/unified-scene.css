@@ -44,3 +44,23 @@
   .scene:is([data-phase=concentration],[data-phase=waterEffect]) .speech-bubble h1{font-size:18px;margin:3px 0}
   .scene:is([data-phase=concentration],[data-phase=waterEffect]) .speech-bubble p{font-size:12px;line-height:1.35;margin-top:3px}
 }
+/* V4: preserve the camera and answers; move only Wing's dialogue above the glass. */
+@media(max-width:700px){
+  .scene{--mobile-scene-height:calc(100dvh - 54px - env(safe-area-inset-top));--mobile-camera-width:max(100vw,calc(var(--mobile-scene-height) * .84));--dialogue-top:calc(var(--mobile-camera-width) * .21)}
+  .scene:is([data-phase=quiz],[data-phase=bonus]):not(:has(.interlude))>.content{inset-block-start:57%}
+  .scene .quiz-card{position:relative}
+  .scene .quiz-card>.speech-bubble{position:absolute;top:calc(var(--dialogue-top) - var(--mobile-scene-height) * .57);width:100%;padding:10px 14px;max-height:none}
+  .scene .quiz-card .bubble-scroll{max-height:calc(var(--mobile-camera-width) * .158 - 22px);overflow:auto}
+  .scene .question-title{font-size:16px;line-height:1.4}
+  .scene:has(.interlude)>.content,.scene:is([data-phase=concentration],[data-phase=waterEffect])>.content{inset-block-start:var(--dialogue-top)}
+  .scene .interlude{position:relative}
+  .scene .interlude h2{font-size:19px;line-height:1.35;max-height:calc(var(--mobile-camera-width) * .158 - 50px);overflow:auto;margin:6px 0}
+  .scene .interlude>.button{position:absolute;top:calc(var(--mobile-scene-height) * .82 - var(--dialogue-top));right:4px}
+  .scene .focus-card .speech-bubble,.scene .revelation-card .speech-bubble{padding:10px 14px}
+  .scene .focus-card h1,.scene .revelation-card h1{font-size:18px;margin:4px 0}
+  .scene .focus-card p,.scene .revelation-card p{font-size:13px;line-height:1.4;margin:4px 0}
+}
+@media(min-width:701px){.scene .interlude>.button{align-self:flex-end;margin-right:-100px}}
+@media(max-height:500px) and (orientation:landscape){
+  .scene:not([data-phase=result]){height:600px;min-height:600px}
+}
