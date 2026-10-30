@@ -1,14 +1,13 @@
 {
   "provider": "tenrai",
   "endpoint": "https://api.tenrai.org/v1/anime/11061/characters",
-  "fetchedAt": "2026-10-27T00:24:25.680Z",
+  "fetchedAt": "2026-10-30T03:02:17.661Z",
   "status": "fetched",
   "sourceRecordCount": 205,
   "permissionReview": {
     "source": "https://tenrai.org/terms",
     "status": "unverified",
-    "note": "Tenrai Terms sections 3 and 6 checked. They permit API-response caching and do not grant third-party image rights. The 18 exact MAL portraits are cached for the requested local result redesign; permissionStatus remains unverified. No license or publishing permission is inferred.",
-    "reviewedAt": "2026-10-29T02:07:38.386Z"
+    "note": "API caching permitted; image rights are not granted by the API provider. Previously verified local portrait copies retained; rights status remains unverified."
   },
   "characters": {
     "gon": {
@@ -77,6 +76,36 @@
         "bytes": 28581
       }
     },
+    "phinks": {
+      "slug": "phinks",
+      "name": "Phinks Magcub",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 5834,
+      "sourceName": "Magkav, Phinks",
+      "sourceUrl": "https://myanimelist.net/character/5834/Phinks_Magkav",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/4/193009.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
+    "palm": {
+      "slug": "palm",
+      "name": "Palm Siberia",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 34054,
+      "sourceName": "Siberia, Palm",
+      "sourceUrl": "https://myanimelist.net/character/34054/Palm_Siberia",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/10/211775.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
     "meruem": {
       "slug": "meruem",
       "name": "Meruem",
@@ -142,6 +171,36 @@
         "sha256": "b383ad55b8eb6f975e6384529d7c719fb1a05b1b41735e531b56d70caabd3417",
         "bytes": 33621
       }
+    },
+    "leorio": {
+      "slug": "leorio",
+      "name": "Leorio Paradinight",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 29,
+      "sourceName": "Paladiknight, Leorio",
+      "sourceUrl": "https://myanimelist.net/character/29/Leorio_Paladiknight",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/11/549311.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
+    "knov": {
+      "slug": "knov",
+      "name": "Knov",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 82925,
+      "sourceName": "Knov",
+      "sourceUrl": "https://myanimelist.net/character/82925/Knov",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/6/215471.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
     },
     "killua": {
       "slug": "killua",
@@ -209,6 +268,36 @@
         "bytes": 41466
       }
     },
+    "machi": {
+      "slug": "machi",
+      "name": "Machi Komacine",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 5830,
+      "sourceName": "Komachine, Machi",
+      "sourceUrl": "https://myanimelist.net/character/5830/Machi_Komachine",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/4/182389.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
+    "feitan": {
+      "slug": "feitan",
+      "name": "Feitan Portor",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 3195,
+      "sourceName": "Portor, Feitan",
+      "sourceUrl": "https://myanimelist.net/character/3195/Feitan_Portor",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/10/174721.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
     "kurapika": {
       "slug": "kurapika",
       "name": "Kurapika",
@@ -274,6 +363,36 @@
         "sha256": "34d4a5a9bb0709872182f7f16648d0e3a5ba95b2290bae5732339b39cb1af808",
         "bytes": 28626
       }
+    },
+    "knuckle": {
+      "slug": "knuckle",
+      "name": "Knuckle Bine",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 29809,
+      "sourceName": "Bine, Knuckle",
+      "sourceUrl": "https://myanimelist.net/character/29809/Knuckle_Bine",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/6/572043.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
+    "genthru": {
+      "slug": "genthru",
+      "name": "Genthru",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 33300,
+      "sourceName": "Genthru",
+      "sourceUrl": "https://myanimelist.net/character/33300/Genthru",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/9/552880.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
     },
     "illumi": {
       "slug": "illumi",
@@ -341,6 +460,36 @@
         "bytes": 29576
       }
     },
+    "kalluto": {
+      "slug": "kalluto",
+      "name": "Kalluto Zoldyck",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 6089,
+      "sourceName": "Zoldyck, Kalluto",
+      "sourceUrl": "https://myanimelist.net/character/6089/Kalluto_Zoldyck",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/2/246235.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
+    "shaiapouf": {
+      "slug": "shaiapouf",
+      "name": "Shaiapouf",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 41135,
+      "sourceName": "Shaiapouf",
+      "sourceUrl": "https://myanimelist.net/character/41135/Shaiapouf",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/3/563303.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
     "chrollo": {
       "slug": "chrollo",
       "name": "Chrollo Lucilfer",
@@ -406,6 +555,36 @@
         "sha256": "ac9618b04afb0d66727567848dd6350c5f9bbcd83b7938c9bf14cbc2941d4f7b",
         "bytes": 49605
       }
+    },
+    "neon": {
+      "slug": "neon",
+      "name": "Neon Nostrade",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 17564,
+      "sourceName": "Nostrade, Neon",
+      "sourceUrl": "https://myanimelist.net/character/17564/Neon_Nostrade",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/16/185665.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
+    },
+    "meleoron": {
+      "slug": "meleoron",
+      "name": "Meleoron",
+      "provider": "tenrai",
+      "status": "identified",
+      "malId": 29808,
+      "sourceName": "Meleoron",
+      "sourceUrl": "https://myanimelist.net/character/29808/Meleoron",
+      "portraitUrl": "https://cdn.myanimelist.net/images/characters/8/205215.jpg",
+      "localPreviewSrc": null,
+      "permissionStatus": "unverified",
+      "permissionSource": "https://tenrai.org/terms",
+      "permissionNote": "Tenrai Terms §§3,6 permit caching API responses but grant no license to third-party artwork. No image reuse permission verified.",
+      "credit": "MyAnimeList via Tenrai v1; Hunter × Hunter — respective rights holders"
     }
   }
 }

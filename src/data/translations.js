@@ -39,7 +39,7 @@ export const translations = {
     accessible: 'Reveal without holding', revealTitle: 'The water is changing.', revealing: 'Watch the glass…', revealed: 'There… Your affinity has revealed itself.',
     resultLabel: 'YOUR NEN TYPE', secondary: 'SECONDARY AFFINITY', close: 'Your two affinities are very close.',
     relative: 'Relative quiz affinity', relativeNote: 'Relative normalized values: the highest is 100%. These are not probabilities or canonical Nen proficiency and do not need to add up to 100.',
-    power: 'NEN ABILITY', means: 'WHAT IT MEANS', characters: 'Some characters who share this Nen type:', save: 'Save result', share: 'Share', replay: 'Retake quiz',
+    power: 'NEN ABILITY', means: 'WHAT IT MEANS', characters: 'Some characters with this Nen type:', save: 'Save result', share: 'Share', replay: 'Retake quiz',
     missing: 'Image unavailable', source: 'Source', mentorFallback: 'Original portrait unavailable',
     saved: 'Your PNG card is ready.', shared: 'Result shared.', cancelled: 'Sharing cancelled.', downloaded: 'Sharing is unavailable: PNG card downloaded.', exportError: 'The card could not be created. Please try again.',
     ludic: 'A playful quiz inspired by Hisoka’s theory, not a canonical or scientific personality assessment.',

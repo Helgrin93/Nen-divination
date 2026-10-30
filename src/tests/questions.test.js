@@ -39,10 +39,10 @@ describe('Original bilingual question bank',()=>{
     expect(spread(chosen)).toBeCloseTo(Math.max(...questions.filter(q=>!used.includes(q)).map(spread)));
     expect(pickBonus(used,a,b).id).toBe(chosen.id);
   });
-  it('has exactly three specified characters for each type and no unauthorized images',()=>{
-    expect(characters).toHaveLength(18);expect(new Set(characters.map(c=>c.slug)).size).toBe(18);
-    types.forEach(type=>expect(characters.filter(c=>c.nenType===type)).toHaveLength(3));
-    expect(characters.filter(c=>c.nenType==='conjuration').map(c=>c.slug)).toEqual(['kurapika','kite','shizuku']);
+  it('has five approved characters per type, stable initial three and explicit image rights',()=>{
+    expect(characters).toHaveLength(30);expect(new Set(characters.map(c=>c.slug)).size).toBe(30);
+    types.forEach(type=>expect(characters.filter(c=>c.nenType===type)).toHaveLength(5));
+    expect(characters.filter(c=>c.nenType==='conjuration').map(c=>c.slug)).toEqual(['kurapika','kite','shizuku','knuckle','genthru']);
     characters.forEach(c=>{expect(c.description.it).toBeTruthy();expect(c.description.en).toBeTruthy();expect(c.permissionStatus==='authorized'||!c.portraitSrc).toBe(true);});
   });
 });

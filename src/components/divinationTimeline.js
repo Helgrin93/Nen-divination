@@ -20,7 +20,7 @@ export const wingDivination={
   transmutation:{it:'È diventata dolce. Eppure l’aspetto è lo stesso.',en:'It tastes sweet. Yet it looks the same.'},
   conjuration:{it:'Vedi quei piccoli residui? Si stanno formando dentro l’acqua.',en:'See those tiny specks? They are forming inside the water.'},
   manipulation:{it:'La foglia si muove e ruota: la tua aura ne guida il movimento.',en:'The leaf is moving and turning. Your aura is guiding it.'},
-  specialization:{it:'La foglia appassisce e si sfalda, come nella prova di Neferpitou. È una possibile manifestazione della Specializzazione.',en:'The leaf is withering and breaking apart, as in Neferpitou’s test. This is one possible manifestation of Specialization.'},
+  specialization:{it:'La foglia sta appassendo. Questa reazione indica la Specializzazione.',en:'The leaf is withering. This reaction indicates Specialization.'},
 };
 export const wingTransmutationIntro={
   it:'L’acqua sembra la stessa. Aspetta… osserviamo con calma.',

@@ -1,3 +1,4 @@
+import {finishDialogue,finishRevelation} from '../e2e/helpers/dialogue.js';
 import http from 'node:http';
 import { readFile,stat,readdir,mkdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -39,13 +40,13 @@ try{
   await page.locator('.answer').first().click();
   await page.getByRole('button',{name:'Continua',exact:true}).click();
   for(let n=0;n<9;n++){
-    if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
+    await finishDialogue(page);
     if(await page.locator('.hold-button').count())break;
     await page.locator('.answer').first().click();
     await page.getByRole('button',{name:'Continua',exact:true}).click();
   }
   await page.screenshot({path:`.verification/production/${device}-divination.png`});
-  await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();
+  await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
   await page.locator('.nen-title').waitFor();
   await page.screenshot({path:`.verification/production/${device}-result.png`});
   {

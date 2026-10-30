@@ -1,3 +1,4 @@
+import {finishDialogue,finishRevelation} from '../e2e/helpers/dialogue.js';
 import {chromium} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
@@ -11,12 +12,12 @@ try{for(const device of (args.devices||'desktop,mobile').split(','))for(const ty
  await page.goto('http://127.0.0.1:5173');await page.locator('.water-effects[data-ready=true]').waitFor();await page.locator('.hands-motion[data-ready=true]').waitFor();
  await page.getByRole('button',{name:'Inizia',exact:true}).click();
  for(let n=0;n<9;n++){
-  if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
+  await finishDialogue(page);
   if(await page.locator('.hold-button').count())break;
   const ids=await page.locator('.answer').evaluateAll(nodes=>nodes.map(n=>n.dataset.option)),q=questions.find(q=>q.options.some(o=>o.id===ids[0]));
   const best=[...q.options].sort((a,b)=>b.weights[type]-a.weights[type])[0];await page.locator(`[data-option="${best.id}"]`).click();await page.getByRole('button',{name:'Continua',exact:true}).click();
  }
- await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await page.locator('.nen-title').waitFor();
+ await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);await page.locator('.nen-title').waitFor();
  await page.locator('.wing-sprite[data-pose=smile][data-ready=true]').waitFor();await page.waitForTimeout(450);
  const upper=await page.locator('.scene').screenshot({path:`${root}/${device}-${type}-scene.png`});
  const pixels=await page.locator('.water-effects').evaluate(c=>c.toDataURL());

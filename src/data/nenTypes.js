@@ -17,7 +17,7 @@ export const nenTypes = {
     name: 'Transmutation', it: 'Trasmutazione', color: '#B19AD8',
     personality: { it: 'Trovi possibilità dove gli altri vedono regole. Creativo, giocoso e imprevedibile, ami cambiare prospettiva. Non mostri sempre tutte le tue carte, e per questo sei difficile da leggere.', en: 'You see possibilities where others see rules. Creative, playful and unpredictable, you enjoy changing perspective. You do not always show all your cards, which makes you hard to read.' },
     ability: { it: 'Modifica le proprietà dell’aura affinché imiti altre sostanze o effetti.', en: 'Gives aura properties resembling other substances or effects.' },
-    effect: { it: 'Wing: «Il sapore è cambiato. L’acqua è dolce, come nella prova di Killua.» L’aspetto rimane naturale.', en: 'Wing: “The taste has changed. The water is sweet, just as in Killua’s test.” Its appearance stays natural.' },
+    effect: { it: 'Il sapore è cambiato: l’acqua è diventata dolce, pur rimanendo limpida.', en: 'The taste has changed: the water is sweet, yet remains clear.' },
   },
   conjuration: {
     name: 'Conjuration', it: 'Materializzazione', color: '#6AD7C7',
@@ -35,6 +35,6 @@ export const nenTypes = {
     name: 'Specialization', it: 'Specializzazione', color: '#C397B5',
     personality: { it: 'Il tuo percorso difficilmente rientra in una definizione. Sei riservato, individualista e possiedi un carisma personale. Preferisci seguire una direzione che senti tua, anche quando gli altri non la comprendono.', en: 'Your path rarely fits a conventional definition. You are reserved, individualistic and possess a personal charisma. You prefer a direction that feels your own, even when others do not understand it.' },
     ability: { it: 'Comprende effetti che non rientrano nelle altre cinque categorie.', en: 'Covers abilities outside the other five categories.' },
-    effect: { it: 'La foglia appassisce e si sfalda, come nella prova di Neferpitou. È una manifestazione specifica, non comune a ogni Specialista.', en: 'The leaf withers and breaks apart, as in Neferpitou’s test. This particular manifestation is not shared by every Specialist.' },
+    effect: { it: 'La foglia appassisce, si scurisce e si sfalda nell’acqua.', en: 'The leaf withers, darkens and breaks apart in the water.' },
   },
 };

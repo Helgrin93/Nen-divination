@@ -10,6 +10,9 @@ const aliases = {
   shizuku: ['Shizuku', 'Murasaki, Shizuku'], illumi: ['Zoldyck, Illumi'],
   morel: ['Mackernasey, Morel', 'Morel'], shalnark: ['Shalnark', 'Ryuseih, Shalnark'],
   chrollo: ['Lucilfer, Chrollo', 'Chrollo Lucilfer'], neferpitou: ['Neferpitou'], pakunoda: ['Pakunoda'],
+  phinks: ['Magkav, Phinks'], palm: ['Siberia, Palm'], leorio: ['Paladiknight, Leorio'], knov: ['Knov'],
+  machi: ['Komachine, Machi'], feitan: ['Portor, Feitan'], knuckle: ['Bine, Knuckle'], genthru: ['Genthru'],
+  kalluto: ['Zoldyck, Kalluto'], shaiapouf: ['Shaiapouf'], neon: ['Nostrade, Neon'], meleoron: ['Meleoron'],
 };
 const normalize = value => value.toLowerCase().replace(/[^a-z0-9 ]/g, '').split(/\s+/).filter(Boolean).sort().join(' ');
 

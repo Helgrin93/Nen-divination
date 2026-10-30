@@ -1,3 +1,4 @@
+import {finishDialogue,finishRevelation} from './helpers/dialogue.js';
 import { test, expect } from '@playwright/test';
 
 test('V2 keeps the scene, selection and scroll stable with four accessible answers', async ({ page }, testInfo) => {

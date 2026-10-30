@@ -1,3 +1,4 @@
+import {finishDialogue,finishRevelation} from './helpers/dialogue.js';
 import { test,expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { questions,types } from '../src/data/questions.js';
@@ -5,7 +6,7 @@ import { questions,types } from '../src/data/questions.js';
 async function toConcentration(page){
   await page.getByRole('button',{name:'Inizia',exact:true}).click();
   for(let n=0;n<9;n++){
-    if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
+    await finishDialogue(page);
     if(await page.locator('.hold-button').count())break;
     await page.locator('.answer').first().click();
     await page.getByRole('button',{name:'Continua',exact:true}).click();
@@ -33,7 +34,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   await page.screenshot({path:`.verification/${testInfo.project.name}-quiz.png`,fullPage:true});
   await noOverflow(page);
   for(let n=0;n<9;n++){
-    if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
+    await finishDialogue(page);
     if(await page.locator('.hold-button').count())break;
     await page.locator('.answer').first().click();await page.getByRole('button',{name:'Continua',exact:true}).click();
   }
@@ -62,7 +63,7 @@ test('complete quiz, stable navigation/localization, concentration, PNG and repl
   await hold.focus();await page.keyboard.down('Space');await page.waitForTimeout(4700);await page.keyboard.up('Space');
   await expect(page.locator('body')).toHaveAttribute('data-phase','waterEffect');
   const effect=await page.locator('.scene').getAttribute('data-effect');expect(effect).not.toBe('none');
-  await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});
+  await finishRevelation(page);await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});
   await expect(page.locator('.scene')).toHaveAttribute('data-effect',effect);
   await expect(page.locator('.character-card')).toHaveCount(3);await noOverflow(page);
   await page.screenshot({path:`.verification/${testInfo.project.name}-result.png`,fullPage:true});
@@ -97,7 +98,7 @@ test('all six completed reactions persist and all results export offline',async(
     await page.getByRole('button',{name:'Inizia',exact:true}).click();
     const scene=await page.locator('.scene').elementHandle();
     for(let n=0;n<9;n++){
-      if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
+      await finishDialogue(page);
       if(await page.locator('.hold-button').count())break;
       const ids=await page.locator('.answer').evaluateAll(nodes=>nodes.map(n=>n.dataset.option));
       const q=questions.find(q=>q.options.some(o=>o.id===ids[0]));
@@ -105,7 +106,7 @@ test('all six completed reactions persist and all results export offline',async(
       await page.locator(`[data-option="${best.id}"]`).click();
       await page.getByRole('button',{name:'Continua',exact:true}).click();
     }
-    await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();
+    await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
     await expect(page.locator('.scene')).toHaveAttribute('data-effect',type);
     await expect(page.locator('.nen-title')).toHaveText(new RegExp(type,'i'));
     expect(await scene.evaluate(el=>el===document.querySelector('.scene'))).toBe(true);
@@ -167,7 +168,7 @@ test('pointer cancellation, right button, blur, and reduced-motion alternative',
   await expect(page.locator('.hold-progress')).toHaveAttribute('aria-valuenow','0');
   await hold.focus();await page.keyboard.down('Enter');await page.waitForTimeout(250);await page.evaluate(()=>window.dispatchEvent(new Event('blur')));await page.keyboard.up('Enter');
   await expect(page.locator('.hold-progress')).toHaveAttribute('aria-valuenow','0');
-  await page.emulateMedia({reducedMotion:'reduce'});await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();
+  await page.emulateMedia({reducedMotion:'reduce'});await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
   await expect(page.locator('.nen-title')).toBeVisible({timeout:10000});await noOverflow(page);
 });
 

@@ -1,3 +1,4 @@
+import {finishDialogue,finishRevelation} from './helpers/dialogue.js';
 import {test,expect} from '@playwright/test';
 import {readFile} from 'node:fs/promises';
 import {questions,types} from '../src/data/questions.js';
@@ -15,7 +16,7 @@ for(const type of types)test(`${type}: real quiz result, bilingual panels, portr
   await page.getByRole('button',{name:'Inizia',exact:true}).click();
   const used=[],answers={};
   for(let n=0;n<9;n++){
-    if(await page.locator('.interlude').count())await page.getByRole('button',{name:'Continua',exact:true}).click();
+    await finishDialogue(page);
     if(await page.locator('.hold-button').count())break;
     const ids=await page.locator('.answer').evaluateAll(nodes=>nodes.map(n=>n.dataset.option));
     const q=questions.find(q=>q.options.some(o=>o.id===ids[0])),best=[...q.options].sort((a,b)=>b.weights[type]-a.weights[type])[0];
@@ -23,7 +24,7 @@ for(const type of types)test(`${type}: real quiz result, bilingual panels, portr
     await page.locator(`[data-option="${best.id}"]`).click();await page.getByRole('button',{name:'Continua',exact:true}).click();
   }
   const expected=evaluate(used,answers);expect(expected.primary).toBe(type);
-  await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();
+  await page.getByRole('button',{name:'Rivela senza tenere premuto'}).click();await finishRevelation(page);
   const view=page.locator('.result-view');await expect(view).toHaveAttribute('data-result-type',type);
   await expect(page.locator('.water-effects')).toHaveAttribute('data-effect-progress','1');
   const sceneBefore=await page.locator('.scene').evaluate(el=>({html:el.innerHTML,water:el.querySelector('.water-effects').toDataURL(),hands:el.querySelector('.hands-motion').toDataURL(),box:el.getBoundingClientRect().toJSON()}));

@@ -21,6 +21,8 @@ try { storage=window.localStorage; } catch { /* The app works without storage. *
 let lang=preferredLanguage(storage,navigator.language);
 let state=createAttempt(), cleanupHold=null, effectTimer=null, exporting=false, holdActive=false;
 let reactions=createWingReactions();
+let dialogue=null, dialogueTimer=null, dialogueDeadline=0;
+const shownReactions=new Set();
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 document.querySelector('#app').innerHTML=`
   <header class="site-header"><div class="brand">Nen Divination</div>
@@ -41,10 +43,8 @@ scene.addEventListener('divinationstage',({detail})=>{
 scene.addEventListener('divinationcomplete',()=>{
   if(state.phase!=='waterEffect')return;
   clearTimeout(effectTimer);
-  effectTimer=setTimeout(()=>{
-    if(state.phase!=='waterEffect')return;
-    state.phase='result';render({focus:true});window.scrollTo({top:0,behavior:'instant'});
-  },180);
+  dialogue={kind:'revealed',expression:'smile'};
+  render({focus:true});
 });
 scene.addEventListener('divinationerror',()=>{
   if(state.phase==='waterEffect')scene.querySelector('.scene-effect-caption').textContent=lang==='it'?'Impossibile caricare gli sprite della divinazione. Ricarica la pagina.':'The divination sprites could not load. Please reload the page.';
@@ -76,6 +76,7 @@ function bringContentIntoView(){
   }
 }
 function render({focus=false}={}){
+  clearTimeout(dialogueTimer);
   cleanupHold?.();cleanupHold=null;holdActive=false;
   const tr=t(), phase=state.phase;
   handsMotion.setPhase(phase);
@@ -88,22 +89,23 @@ function render({focus=false}={}){
   if(content.parentElement!==contentParent)contentParent.append(content);
   document.documentElement.style.setProperty('--accent',phase==='result'?nenTypes[state.result.primary].color:'#c8b998');
   scene.querySelector('.scene-hold-slot').innerHTML='';
-  if(phase==='intro'){
+  if(dialogue && phase!=='result'){
+    const short=dialogue.kind==='short';
+    setExpression(dialogue.expression);
+    content.innerHTML=`<section class="interlude" data-dialogue="${short?'short':'important'}" data-kind="${short?dialogue.reaction.id:dialogue.kind}" ${short?`data-reaction="${dialogue.reaction.id}"`:''}><div class="speech-bubble" role="status"><span class="speaker">WING</span><h2>${tr[short?dialogue.reaction.id:dialogue.kind]}</h2></div>${short?'':`<button class="button primary" data-action="resume">${tr.next}${icon('arrow')}</button>`}</section>`;
+    if(short){
+      dialogueTimer=setTimeout(()=>{dialogue=null;state.pause=false;render({focus:true});},Math.max(0,dialogueDeadline-performance.now()));
+    }
+  }else if(phase==='intro'){
     setExpression('neutral');
     content.innerHTML=`<section class="intro-card"><div class="speech-bubble"><span class="speaker">WING</span><h1>${tr.intro}</h1></div><button class="button primary" data-action="begin">${tr.begin}${icon('arrow')}</button></section>`;
   }else if(phase==='quiz'||phase==='bonus'){
-    const reaction=reactions.forState(state);
-    if(state.pause){
-      setExpression(reaction.expression);
-      content.innerHTML=`<section class="interlude" data-reaction="${reaction.id}"><div class="speech-bubble"><span class="speaker">WING</span><h2>${tr[reaction.id]}</h2><p>${tr.interestingNote}</p></div><button class="button primary" data-action="resume">${tr.next}${icon('arrow')}</button></section>`;
-    }else{
-      setExpression(reaction?.expression || 'neutral');
+      setExpression('neutral');
       const q=state.questions[state.index],total=state.index<7?7:state.index+1;
       content.innerHTML=`<section class="quiz-card"><div class="speech-bubble"><div class="bubble-scroll"><div class="question-meta"><span class="speaker">WING</span><span>${tr.question} ${state.index+1} / ${total}</span></div>
-      ${reaction?`<p class="wing-reaction" data-reaction="${reaction.id}">${tr[reaction.id]}</p>`:''}${state.index>=7?`<p class="bonus-dialogue">${tr['bonus'+(state.index+1)]}</p>`:''}<h1 class="question-title">${q[lang]}</h1></div></div>
+      <h1 class="question-title">${q[lang]}</h1></div></div>
       <div class="answers">${q.options.map((o,i)=>`<button class="answer ${state.answers[q.id]===o.id?'is-selected':''}" data-option="${o.id}" aria-pressed="${state.answers[q.id]===o.id}"><span class="answer-letter" aria-hidden="true">${'ABCD'[i]}</span><span>${o[lang]}</span></button>`).join('')}</div>
       <div class="question-navigation"><button class="text-button" data-action="back" ${state.index===0?'disabled':''}>${icon('back')}${tr.back}</button><button class="button next-button" data-action="next" ${!state.answers[q.id]?'disabled':''}>${tr.next}${icon('arrow')}</button></div></section>`;
-    }
   }else if(phase==='concentration'){
     setExpression('neutral');
     content.innerHTML=`<section class="focus-card"><div class="speech-bubble"><span class="speaker">WING</span><h1 data-i18n="focusTitle"></h1><p data-i18n="focus"></p></div></section>`;
@@ -155,16 +157,29 @@ document.addEventListener('click',async e=>{
   const action=e.target.closest('[data-action]')?.dataset.action;
   if(!action)return;
   if(action==='begin'){state.phase='quiz';render({focus:true});bringContentIntoView();}
-  if(action==='resume'){state.pause=false;render({focus:true});bringContentIntoView();}
+  if(action==='resume'&&dialogue?.kind!=='short'){
+    const finished=dialogue?.kind==='revealed';dialogue=null;state.pause=false;
+    if(finished){state.phase='result';render({focus:true});window.scrollTo({top:0,behavior:'instant'});}
+    else{render({focus:true});bringContentIntoView();}
+  }
   if(action==='next'){
-    advance(state);render({focus:true});
+    const previous=state.index;advance(state);
+    if(state.phase==='concentration')dialogue={kind:'focus',expression:'neutral'};
+    else if(state.phase==='bonus'&&state.index>previous)dialogue={kind:'bonus'+(state.index+1),expression:'thinking'};
+    else if(state.index>previous){
+      const reaction=reactions.forState(state),key=`${state.index}-${state.questions[state.index].id}`;
+      if(reaction&&!shownReactions.has(key)){
+        shownReactions.add(key);dialogue={kind:'short',reaction,expression:reaction.expression};dialogueDeadline=performance.now()+3000;
+      }
+    }
+    render({focus:true});
     if(state.phase==='concentration')scene.scrollIntoView({block:'start',behavior:reducedMotion.matches?'instant':'smooth'});
     else bringContentIntoView();
   }
   if(action==='back'){goBack(state);render({focus:true});bringContentIntoView();}
   if(action==='reveal')completeHold();
   if(action==='replay'){
-    clearTimeout(effectTimer);state=createAttempt();reactions=createWingReactions();waterScene.reset();scene.dataset.effect='none';render({focus:true});window.scrollTo({top:0,behavior:reducedMotion.matches?'instant':'smooth'});
+    clearTimeout(effectTimer);clearTimeout(dialogueTimer);dialogue=null;shownReactions.clear();state=createAttempt();reactions=createWingReactions();waterScene.reset();scene.dataset.effect='none';render({focus:true});window.scrollTo({top:0,behavior:reducedMotion.matches?'instant':'smooth'});
   }
   if((action==='save'||action==='share')&&state.phase==='result'&&!exporting){
     exporting=true;
