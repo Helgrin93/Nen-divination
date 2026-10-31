@@ -58,7 +58,7 @@ function translate(){
   document.querySelector('.language-switch').setAttribute('aria-label',lang==='it'?'Lingua':'Language');
   document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t()[el.dataset.i18n]);
   document.querySelectorAll('[data-lang]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.lang===lang)));
-  if(state.result && ['waterEffect','result'].includes(state.phase)){
+  if(state.result && ['waterEffect','result'].includes(state.phase) && dialogue?.kind!=='revealed'){
     scene.querySelector('.scene-effect-caption').textContent=state.phase==='result'?nenTypes[state.result.primary].effect[lang]:t().revealing;
   }
   if(holdActive){const label=document.querySelector('.hold-button span');if(label)label.textContent=t().holding;}
@@ -92,6 +92,7 @@ function render({focus=false}={}){
   scene.querySelector('.scene-hold-slot').innerHTML='';
   if(dialogue && phase!=='result'){
     const short=dialogue.kind==='short';
+    if(dialogue.kind==='revealed')scene.querySelector('.scene-effect-caption').textContent='';
     setExpression(dialogue.expression);
     content.innerHTML=`<section class="interlude" data-dialogue="${short?'short':'important'}" data-kind="${short?dialogue.reaction.id:dialogue.kind}" ${short?`data-reaction="${dialogue.reaction.id}"`:''}><div class="speech-bubble" role="status"><span class="speaker">WING</span><h2>${tr[short?dialogue.reaction.id:dialogue.kind]}</h2></div>${short?'':`<button class="button primary" data-action="resume">${tr.next}${icon('arrow')}</button>`}</section>`;
     if(short){
@@ -101,7 +102,7 @@ function render({focus=false}={}){
     setExpression('neutral');
     content.innerHTML=`<section class="intro-card"><div class="speech-bubble"><span class="speaker">WING</span><h1>${tr.intro}</h1></div><button class="button primary" data-action="begin">${tr.begin}${icon('arrow')}</button></section>`;
   }else if(phase==='quiz'||phase==='bonus'){
-      setExpression('neutral');
+      setExpression(reactions.expressionForState(state));
       const q=state.questions[state.index],total=state.index<7?7:state.index+1;
       content.innerHTML=`<section class="quiz-card"><div class="speech-bubble"><div class="bubble-scroll" tabindex="0" role="region" aria-label="${tr.question} ${state.index+1}"><div class="question-meta"><span class="speaker">WING</span><span>${tr.question} ${state.index+1} / ${total}</span></div>
       <h1 class="question-title">${q[lang]}</h1></div></div>

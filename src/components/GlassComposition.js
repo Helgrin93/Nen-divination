@@ -22,7 +22,7 @@ export function composeGlassRepair(original,wingImage){
     const i=(y*r.width+x)*4,px=x+r.x,py=y+r.y;
     const red=source.data[i],green=source.data[i+1],blue=source.data[i+2];
     const inner=((px-500)/146)**2+((py-89)/39)**2;
-    const outer=((px-500)/158)**2+((py-92)/48)**2;
+    const outer=((px-500)/159)**2+((py-91)/52)**2;
     const offset=(px-500)/143;
     const surfaceBack=105-24*Math.sqrt(Math.max(0,1-offset*offset));
     const air=inner<1&&py<surfaceBack;
@@ -31,10 +31,15 @@ export function composeGlassRepair(original,wingImage){
     const orange=smooth((red-blue-28)/42)*smooth((red-green-7)/24)*smooth((red-105)/60);
     let coverage=0;
     if(air)coverage=clamp((1-inner)*18)*clamp((surfaceBack-py)*1.5);
-    if(rim)coverage=Math.max(coverage,side?1:clamp((1-outer)*18));
-    const alpha=geometry.isPointInPath(glass,px,py)?coverage*orange*behind[i+3]/255:0;
+    if(rim)coverage=1;
+    // The back lip sits ABOVE the bowl outline. The old bowl-only gate left
+    // its amber pixels untouched even though the repair already covered it.
+    const alpha=(rim||geometry.isPointInPath(glass,px,py))?coverage*orange*behind[i+3]/255:0;
     const glassMix=rim?.10:.035;
-    for(let k=0;k<3;k++)source.data[i+k]=behind[i+k]*(1-glassMix)+[192,208,216][k]*glassMix;
+    const luminance=red*.2126+green*.7152+blue*.0722;
+    for(let k=0;k<3;k++)source.data[i+k]=rim
+      ? luminance*[.96,1.015,1.06][k]
+      : behind[i+k]*(1-glassMix)+[192,208,216][k]*glassMix;
     source.data[i+3]=alpha*255;
   }
   ctx.putImageData(source,0,0);return patch;

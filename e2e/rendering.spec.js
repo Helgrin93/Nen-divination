@@ -12,7 +12,8 @@ test('a failed neutral sprite falls back to another decoded Wing',async({page})=
 
 test('Wing stays decoded, opaque and persistent over twelve question changes',async({page})=>{
   await page.addInitScript(()=>{
-    crypto.getRandomValues=b=>{b[0]=4294967295;return b;};
+    const choices=[.5,.99,.99];
+    crypto.getRandomValues=b=>{b[0]=Math.floor((choices.shift()??.99)*4294967296);return b;};
     window.wingFrames=[];
   });
   await page.goto('/');
@@ -40,7 +41,7 @@ test('Wing stays decoded, opaque and persistent over twelve question changes',as
   await expect(page.locator('.scene')).toHaveAttribute('data-pose','eyesClosed');
   await finishDialogue(page);
   for(let i=0;i<6;i++){
-    await expect(page.locator('.scene')).toHaveAttribute('data-pose','neutral');
+    await expect(page.locator('.scene')).toHaveAttribute('data-pose','eyesClosed');
     await page.locator('[data-action=back]').click();
     await expect(page.locator('.scene')).toHaveAttribute('data-pose','neutral');
     await page.locator('[data-action=next]').click();
@@ -59,7 +60,7 @@ test('a delayed expression never replaces Wing with an unloaded frame',async({pa
   let release;
   const gate=new Promise(resolve=>release=resolve);
   await page.route('**/wing-eyes-closed.png',async route=>{await gate;await route.continue();});
-  await page.addInitScript(()=>{crypto.getRandomValues=b=>{b[0]=4294967295;return b;};});
+  await page.addInitScript(()=>{const choices=[.5,.99,.99];crypto.getRandomValues=b=>{b[0]=Math.floor((choices.shift()??.99)*4294967296);return b;};});
   await page.goto('/',{waitUntil:'domcontentloaded'});
   await expect(page.locator('.wing-sprite[data-pose=neutral]')).toHaveAttribute('data-ready','true');
   await page.locator('[data-action=begin]').click();

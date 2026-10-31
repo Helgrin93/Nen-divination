@@ -14,6 +14,8 @@ function visualRandom(){
 export function createWingReactions(random=visualRandom){
   let remaining=[],last=null;
   const events=new Map();
+  let silentQuestions;
+  const expressions=new Map();
   function choose(key){
     if(events.has(key))return events.get(key);
     if(!remaining.length)remaining=[...wingReactions];
@@ -28,9 +30,20 @@ export function createWingReactions(random=visualRandom){
     forState(state){
       if(state.phase!=='quiz')return null;
       if(state.pause)return choose('after-fourth-answer');
-      // Only two optional reactions, once each; bonus dialogue is left alone.
-      if(state.index===2 || state.index===6)return choose(`question-${state.questions[state.index].id}`);
       return null;
+    },
+    expressionForState(state){
+      if(state.phase!=='quiz')return 'neutral';
+      // One early expression, and occasionally a later one. This presentation
+      // schedule never touches question order, answers or the scoring RNG.
+      if(!silentQuestions){
+        silentQuestions=new Set([1+Math.min(2,Math.floor(random()*3))]);
+        if(random()<.5)silentQuestions.add(5+Math.min(1,Math.floor(random()*2)));
+      }
+      const key=state.questions[state.index].id;
+      if(!expressions.has(key))expressions.set(key,silentQuestions.has(state.index)
+        ? ['smile','gesture','eyesClosed'][Math.min(2,Math.floor(random()*3))] : 'neutral');
+      return expressions.get(key);
     },
   };
 }

@@ -11,10 +11,11 @@
 .unified-stage .hands-motion{position:absolute;left:0;bottom:0;width:100%;height:50%;pointer-events:none;z-index:3}
 .unified-stage .hands-motion[hidden]{display:none}
 .scene>.content{inset-block-start:40%}
-.scene[data-phase=intro]>.content,.scene:has(.interlude)>.content{inset-block-start:42%}
+.scene[data-phase=intro]>.content,.scene:has(.interlude)>.content{inset:42% 0 0;padding-bottom:4px}
 .scene:is([data-phase=concentration],[data-phase=waterEffect])>.content{inset-block-start:39%}
 .scene[data-phase=intro] .intro-card{position:relative}
-.scene[data-phase=intro] .intro-card>.button{align-self:flex-end;margin-right:-100px}
+.scene :is(.intro-card,.interlude){height:100%}
+.scene :is(.intro-card,.interlude)>.button{align-self:center;margin: auto 0 0;flex-shrink:0}
 .scene.is-holding .water-stage{filter:none}
 .scene.is-holding .water-effects{filter:none}
 .scene[data-phase=result] .water-stage.unified-stage{height:auto;width:100%;top:auto;bottom:0;mask-image:linear-gradient(to bottom,transparent,#000 10%,#000 96%,transparent)}
@@ -31,9 +32,7 @@
 @media(max-width:700px){
   .water-stage.unified-stage{width:max(100cqw,84cqh);height:auto}
   .scene>.content{inset-block-start:57%}
-  .scene[data-phase=intro]>.content,.scene:has(.interlude)>.content{inset-block-start:60%}
   .scene:is([data-phase=concentration],[data-phase=waterEffect])>.content{inset-block-start:60%}
-  .scene[data-phase=intro] .intro-card>.button{align-self:center;margin-right:0}
   .scene[data-phase=result] .water-stage.unified-stage{width:140%;height:auto}
   .scene[data-phase=result]{aspect-ratio:1000/620}
 }
@@ -44,31 +43,50 @@
   .scene:is([data-phase=concentration],[data-phase=waterEffect]) .speech-bubble h1{font-size:18px;margin:3px 0}
   .scene:is([data-phase=concentration],[data-phase=waterEffect]) .speech-bubble p{font-size:12px;line-height:1.35;margin-top:3px}
 }
-/* V4: preserve the camera and answers; move only Wing's dialogue above the glass. */
+/* Dialogue follows landmarks in the unchanged camera: chin at .233 of its
+   width, back glass lip at .383. Keep the tail and card between those points. */
 @media(max-width:700px){
-  .scene{--mobile-scene-height:calc(100dvh - 54px - env(safe-area-inset-top));--mobile-camera-width:max(100vw,calc(var(--mobile-scene-height) * .84));--dialogue-top:calc(var(--mobile-camera-width) * .21)}
-  .scene:is([data-phase=quiz],[data-phase=bonus]):not(:has(.interlude))>.content{inset-block-start:57%}
-  .scene .quiz-card{position:relative}
-  .scene .quiz-card>.speech-bubble{position:absolute;top:calc(var(--dialogue-top) - var(--mobile-scene-height) * .57);width:100%;padding:10px 14px;max-height:none}
-  .scene .quiz-card .bubble-scroll{max-height:calc(var(--mobile-camera-width) * .158 - 22px);overflow:auto}
+  .scene,.scene:is([data-phase=intro],[data-phase=quiz],[data-phase=bonus]){min-height:360px}
+  .scene{--mobile-scene-height:max(360px,calc(100dvh - 54px - env(safe-area-inset-top)));--mobile-camera-width:max(100vw,calc(var(--mobile-scene-height) * .84));--dialogue-top:calc(var(--mobile-camera-width) * .254);--dialogue-height:calc(var(--mobile-camera-width) * .122);--answers-top:calc(var(--mobile-scene-height) * .57);--scene-safe-bottom:env(safe-area-inset-bottom,0px)}
+  .scene>.content{padding-bottom:calc(12px + var(--scene-safe-bottom))}
+  .scene:is([data-phase=quiz],[data-phase=bonus]):not(:has(.interlude))>.content{inset-block-start:var(--answers-top)}
+  .scene .quiz-card{position:relative;display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0;gap:8px}
+  .scene .quiz-card>.speech-bubble{position:absolute;top:calc(var(--dialogue-top) - var(--answers-top));width:100%;max-height:none}
+  .scene .speech-bubble{padding:8px 14px}
+  .scene .speech-bubble:before{height:calc(var(--mobile-camera-width) * .016);top:calc(var(--mobile-camera-width) * -.016 + 1px);width:26px;left:calc(50% - 13px)}
+  .scene .speaker{line-height:12px}
+  .scene .question-meta{line-height:12px;margin-bottom:4px}
+  .scene .bubble-scroll{max-height:calc(var(--dialogue-height) - 18px);overflow:auto;overscroll-behavior:contain}
   .scene .question-title{font-size:16px;line-height:1.4}
-  .scene:has(.interlude)>.content,.scene:is([data-phase=concentration],[data-phase=waterEffect])>.content{inset-block-start:var(--dialogue-top)}
-  .scene .interlude{position:relative}
-  .scene .interlude h2{font-size:19px;line-height:1.35;max-height:max(28px,calc(var(--mobile-camera-width) * .158 - 50px));overflow:auto;margin:6px 0}
-  .scene .interlude>.button{position:absolute;top:calc(var(--mobile-scene-height) * .82 - var(--dialogue-top));right:4px}
-  .scene .focus-card .speech-bubble,.scene .revelation-card .speech-bubble{padding:10px 14px}
-  .scene :is(.focus-card,.revelation-card) .bubble-scroll{max-height:calc(var(--mobile-camera-width) * .158 - 22px);overflow:auto;overscroll-behavior:contain}
+  .scene .answers{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:4px 3px 12px;scroll-padding-block:8px;-webkit-overflow-scrolling:touch}
+  .scene .answer{flex:0 0 auto;scroll-margin-block:4px}
+  .scene .question-navigation{min-height:45px;flex:none}
+  .scene[data-phase=intro]>.content,.scene:has(.interlude)>.content{inset:var(--dialogue-top) 0 0;padding-bottom:calc(12px + var(--scene-safe-bottom))}
+  .scene:is([data-phase=concentration],[data-phase=waterEffect]):not(:has(.interlude))>.content{inset-block-start:var(--dialogue-top)}
+  .scene :is(.intro-card,.interlude){position:relative;gap:14px}
+  .scene .interlude h2,.scene .intro-card h1{font-size:18px;line-height:1.35;max-height:calc(var(--dialogue-height) - 34px);overflow:auto;overscroll-behavior:contain;margin:4px 0 0}
+  .scene .interlude>.button{position:static;align-self:center;margin:auto 0 0}
+  /* Longer, button-led dialogue uses the free area below the artwork so it
+     can be read in full without covering Wing, the glass or the hands. */
+  .scene{--important-top:max(calc(var(--mobile-camera-width) * 2 / 3 + 8px),calc(var(--mobile-scene-height) * .59))}
+  .scene[data-phase=intro]>.content,.scene:has(.interlude[data-dialogue=important])>.content{inset-block-start:var(--important-top)}
+  .scene .intro-card,.scene .interlude[data-dialogue=important]{justify-content:flex-start;gap:10px}
+  .scene .intro-card>.button,.scene .interlude[data-dialogue=important]>.button{margin:0}
+  .scene .intro-card h1,.scene .interlude[data-dialogue=important] h2{max-height:max(22px,calc(var(--mobile-scene-height) - var(--important-top) - var(--scene-safe-bottom) - 102px))}
   .scene .focus-card h1,.scene .revelation-card h1{font-size:18px;margin:4px 0}
   .scene .focus-card p,.scene .revelation-card p{font-size:13px;line-height:1.4;margin:4px 0}
 }
 .scene .interlude .speech-bubble{animation:wing-dialogue-enter .18s ease-out}
 @keyframes wing-dialogue-enter{from{opacity:0}to{opacity:1}}
-@media(min-width:701px){.scene .interlude>.button{align-self:flex-end;margin-right:-100px}}
 @media(max-height:500px) and (orientation:landscape){
   .scene:not([data-phase=result]){height:600px;min-height:600px}
+  .scene{--mobile-scene-height:600px}
 }
 @media(max-width:700px) and (max-height:620px){
-  .scene:has(.interlude[data-dialogue=important])>.content{inset-block-start:60%}
-  .scene .interlude[data-dialogue=important] h2{max-height:76px}
-  .scene .interlude[data-dialogue=important]>.button{position:static;align-self:flex-end}
+  .scene .speech-bubble{padding:4px 12px}
+  .scene .bubble-scroll{max-height:calc(var(--dialogue-height) - 10px)}
+  .scene .quiz-card .bubble-scroll{max-height:min(calc(var(--dialogue-height) - 10px),35.6px)}
+  .scene .question-title{font-size:14px}
+  .scene .interlude h2,.scene .intro-card h1{font-size:16px}
+  .scene .interlude[data-dialogue=short] h2{max-height:calc(var(--dialogue-height) - 26px)}
 }

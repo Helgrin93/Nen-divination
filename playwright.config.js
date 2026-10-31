@@ -14,5 +14,7 @@ export default defineConfig({
     {name:'mobile',use:{...chromiumOptions,viewport:{width:390,height:844},isMobile:true,hasTouch:true}},
     {name:'small-mobile',use:{...chromiumOptions,viewport:{width:320,height:568},isMobile:true,hasTouch:true}},
     {name:'mobile-webkit',use:{browserName:'webkit',viewport:{width:390,height:844},isMobile:true,hasTouch:true}},
+    {name:'small-mobile-webkit',use:{browserName:'webkit',viewport:{width:320,height:568},isMobile:true,hasTouch:true}},
+    {name:'android',use:{...chromiumOptions,viewport:{width:412,height:915},isMobile:true,hasTouch:true}},
   ],
 });

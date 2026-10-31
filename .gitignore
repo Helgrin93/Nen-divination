@@ -6,3 +6,5 @@ playwright-report/
 *.local
 .env*
 !.env.example
+
+docs/v4-microfix/

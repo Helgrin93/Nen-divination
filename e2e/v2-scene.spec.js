@@ -5,8 +5,8 @@ test('V2 keeps the scene, selection and scroll stable with four accessible answe
   if(testInfo.project.name==='small-mobile')await page.setViewportSize({width:320,height:700});
   await page.addInitScript(() => {
     // Presentation randomness is independent of the seeded quiz. Exercise all
-    // three alternate poses through real UI events in a repeatable order.
-    const visualChoices=[.99,0,.5];
+    // Silent expressions are scheduled on Q3/Q7; the only comment follows Q4.
+    const visualChoices=[.5,.1,.99,.99,0,.5];
     crypto.getRandomValues=buffer=>{buffer[0]=Math.floor((visualChoices.shift() ?? 0)*4294967296);return buffer;};
     let seed=56;
     Math.random=()=>{seed|=0;seed=(seed+0x6D2B79F5)|0;let t=Math.imul(seed^(seed>>>15),1|seed);t=(t+Math.imul(t^(t>>>7),61|t))^t;return ((t^(t>>>14))>>>0)/4294967296;};
@@ -74,7 +74,7 @@ test('V2 keeps the scene, selection and scroll stable with four accessible answe
   await page.getByRole('button',{name:'Indietro',exact:true}).click();
   await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','neutral');
   await page.getByRole('button',{name:'Continua',exact:true}).click();
-  await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','neutral');
+  await expect(page.locator('.wing-sprite.is-active')).toHaveAttribute('data-pose','gesture');
   expect(await plate.boundingBox()).toEqual(imageBox);
 });
 
@@ -82,7 +82,8 @@ test('an unavailable expression keeps the neutral Wing visible',async({page},tes
   test.skip(testInfo.project.name!=='desktop','Asset fallback is shared across viewports');
   await page.route('**/wing-eyes-closed.png',route=>route.abort());
   await page.addInitScript(()=>{
-    crypto.getRandomValues=buffer=>{buffer[0]=4294967295;return buffer;};
+    const choices=[.5,.99,.99];
+    crypto.getRandomValues=buffer=>{buffer[0]=Math.floor((choices.shift()??.99)*4294967296);return buffer;};
   });
   await page.goto('/');
   await page.getByRole('button',{name:'Inizia',exact:true}).click();

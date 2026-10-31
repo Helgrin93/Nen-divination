@@ -10,7 +10,12 @@ export function quizScene() {
       <img class="rug-border-repair" src="${base}assets/divination/rug-border-repair.png" width="1536" height="1024" alt="">
       <canvas class="hands-motion" width="1536" height="512" hidden></canvas>
       <div class="scene-plate wing-plate">${Object.entries(wing.poses).map(([expression,src])=>`<img class="wing-sprite${expression==='neutral'?' is-active':''}" data-pose="${expression}" src="${base}${src}" alt="" ${expression==='neutral'?'fetchpriority="high"':''}>`).join('')}</div>
-      <svg class="wing-table-contact" viewBox="0 0 1536 1024" aria-hidden="true"><defs><clipPath id="elbow-contact"><path d="M331 607H515V650Q510 666 482 667H363Q337 666 331 646ZM981 607H1168V646Q1162 666 1137 667H1015Q987 666 981 650Z"/></clipPath></defs><g fill="#584128" opacity=".23"><ellipse cx="423" cy="663" rx="82" ry="7"/><ellipse cx="1075" cy="663" rx="82" ry="7"/></g><g clip-path="url(#elbow-contact)"><image class="wing-elbows" href="${base}${wing.poses.neutral}" x="276.48" y="-109" width="983.04" height="773.32" preserveAspectRatio="none"/></g></svg>
+      <svg class="wing-table-contact" viewBox="0 0 1536 1024" aria-hidden="true"><defs>
+        <clipPath id="elbow-contact"><path d="M331 607H515V640Q510 654 482 660Q420 665 363 659Q342 656 337 645ZM981 607H1168V645Q1162 656 1137 659Q1075 665 1015 660Q987 654 981 640Z"/></clipPath>
+        <radialGradient id="elbow-shadow"><stop stop-color="#584128" stop-opacity=".28"/><stop offset="1" stop-color="#584128" stop-opacity="0"/></radialGradient>
+        <linearGradient id="elbow-blend" x2="0" y1="607" y2="623" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white"/></linearGradient>
+        <mask id="elbow-seam"><path fill="url(#elbow-blend)" d="M320 600H1180V670H320Z"/></mask>
+      </defs><g fill="url(#elbow-shadow)"><ellipse cx="423" cy="662" rx="88" ry="9"/><ellipse cx="1075" cy="662" rx="88" ry="9"/></g><g clip-path="url(#elbow-contact)" mask="url(#elbow-seam)"><image class="wing-elbows" href="${base}${wing.poses.neutral}" x="276.48" y="-109" width="983.04" height="773.32" preserveAspectRatio="none"/></g></svg>
       <canvas class="water-effects" width="1536" height="1024"></canvas>
     </div>
   </div>`;
